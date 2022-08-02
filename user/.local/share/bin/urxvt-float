@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# GTK Look and feel
+#java -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -jar $(dirname $0)/./fidocadj.jar $@
+
+# Motif Look and feel
+urxvt -geometry 128x48 -name float "$@"

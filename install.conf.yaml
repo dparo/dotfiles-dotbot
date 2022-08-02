@@ -1,0 +1,175 @@
+# dotbot
+# https://github.com/anishathalye/dotbot
+
+- defaults:
+    link:
+      create: true
+      relink: true
+      glob: false
+      force: false
+    shell:
+      quiet: true
+      stdout: false
+      stderr: true
+    clean:
+      force: false
+
+- create:
+    - ~/Applications
+    - ~/Applications/User
+    - ~/Applications/AppImgs
+    - ~/.local/bin
+    - ~/.local/share
+    - ~/.local/share/sounds
+    - ~/.local/share/applications
+    - ~/.local/share/keyrings
+    - ~/.local/share/pki
+    - ~/.local/share/vscode
+    - ~/.local/share/fonts
+    - ~/.cache/bash
+    - ~/.cache/zsh
+    - ~/.cache/mpd/
+
+- shell:
+    - description: Update all submodules
+      command: git submodule sync --quiet --recursive && git submodule update --init --recursive
+
+# Clean commands specify directories that should be checked for dead symbolic links. These dead links are removed automatically
+- clean:
+    ~/:
+      force: true
+    ~/.local/share/applications:
+      force: true
+    ~/.config:
+      force: false
+
+- shell:
+    - description: Remove useless files from HOME dir
+      command: |
+        rm -rf "$HOME/.bash_history" "$HOME/.python_history" "$HOME/.lesshst"
+
+- link:
+    ~/.config/:
+      path: user/.config/*
+      glob: true
+      force: true
+    ~/.local/share/applications/:
+      path: user/.local/share/applications/*
+      glob: true
+      force: true
+    ~/.pki:
+      path: ~/.local/share/pki
+      force: true
+    ~/.gnupg:
+      path: user/.config/gnupg
+      force: true
+    ~/.local/share/backgrounds:
+      path: user/.local/share/backgrounds
+      force: true
+    ~/.bash_profile:
+      path: user/.config/bash/bash_profile
+      force: true
+
+    ~/.config/yt-dlp: user/.config/youtube-dl
+    ~/.local/share/dbus-1/services: user/.local/share/dbus-1/services
+    ~/.local/share/bin: user/.local/share/bin
+    ~/.local/share/icons: user/.local/share/icons
+    ~/.local/share/mpd: user/.local/share/mpd
+    ~/.local/share/sounds/battery-critical.wav: user/.local/share/sounds/battery-critical.wav
+    ~/.local/share/Templates: user/.local/share/Templates
+    ~/.zshenv: user/.config/zsh/.zshenv
+    ~/.vscode: ~/.local/share/vscode
+    ~/.local/share/anaconda3/etc/conda/activate.d/env_vars.sh: user/.local/share/anaconda3/etc/conda/activate.d/env_vars.sh
+
+- create:
+    - ~/.config/systemd/user/systemd/user/default.target.wants
+
+- shell:
+    - description: Setup alternatives (x-www-browser)
+      command: test -f ~/.local/bin/x-www-browser || ln -sf /usr/bin/firefox ~/.local/bin/x-www-browser
+
+    - description: Setup alternatives (www-browser)
+      command: test -f ~/.local/bin/www-browser || ln -sf /usr/bin/firefox ~/.local/bin/www-browser
+
+    - description: Setup alternatives (x-terminal-emulator)
+      command: test -f ~/.local/bin/x-terminal-emulator || ln -sf "$(which kitty)" ~/.local/bin/x-terminal-emulator
+
+    - description: Setup alternatives (x-window-manager)
+      command: test -f ~/.local/bin/x-window-manager || ln -sf /usr/bin/i3 ~/.local/bin/x-window-manager
+
+    - description: Gnome/Cinnamon gsettings setup preferred terminal
+      stdout: false
+      stderr: false
+      command: |
+        gsettings set org.gnome.desktop.default-applications.terminal exec kitty
+        gsettings set org.gnome.desktop.default-applications.terminal exec-arg '--'
+        gsettings set org.cinnamon.desktop.default-applications.terminal exec kitty
+        gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg '--'
+        true
+
+    - description: Dark mode for Gtk-4.0/Libadwaita apps
+      command: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+    - description: Give neovim a chance to download packer if not present
+      stderr: false
+      command: nvim --headless -c 'quitall!'
+
+    - description: Refresh packer
+      command: rm "$HOME/.config/nvim/plugin/packer_compiled.lua"; nvim --headless -c 'autocmd User PackerCompileDone quitall!' -c 'PackerCompile'
+
+    - description: Install Neovim plugins
+      stderr: false
+      command: nvim --headless -c 'autocmd User PackerComplete quitall!' -c 'PackerSync'
+
+    - description: Neovim Update remote plugins (technically deprecated)
+      stderr: false
+      command: nvim --headless -c 'UpdateRemotePlugins' -c qall
+
+    - description: Update desktop database
+      command: update-desktop-database ~/.local/share/applications
+
+    - description: Install Nerd Fonts
+      command: |
+        cd /tmp
+        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip'
+        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip'
+        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip'
+        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/IBMPlexMono.zip'
+        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/LiberationMono.zip'
+        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Ubuntu.zip'
+        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/UbuntuMono.zip'
+
+        7z x Hack.zip '~/.local/share/fonts/Hack Nerd Font'
+        7z x JetBrainsMono.zip '~/.local/share/fonts/Hack Nerd Font'
+
+    - description: Refresh font cache
+      command: fc-cache
+
+    - description: Refresh X11 font cache
+      command: |
+        if command -v xset; then
+          xset fp rehash
+        fi
+
+    - description: Refresh available user services
+      command: systemctl --user daemon-reload
+
+    - description: Enable user services
+      command: |
+        # systemctl --user enable .....
+
+    - description: Clean pip cache
+      command: command pip3 cache purge 2> /dev/null || true
+
+    - description: Install FZF if not already installed
+      command: which fzf || ./core/vendor/fzf/install --xdg --key-bindings --completion --no-update-rc
+
+    - description: Setup and sync between multiple programs config files GTK theming and Cursor theming
+      command: GTK_THEME=Adwaita-dark ICON_THEME=Adwaita CURSOR_THEME=Adwaita ./core/scripts/update.sh --themes
+      stdout: false
+      stderr: false
+
+    - description: Reload i3
+      command: |
+        if command -v i3-msg; then
+          i3-msg reload || true
+        fi

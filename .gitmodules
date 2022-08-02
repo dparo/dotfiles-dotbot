@@ -1,0 +1,24 @@
+[submodule "meta/dotbot"]
+	path = core/dotbot
+	url = https://github.com/anishathalye/dotbot
+[submodule "meta/vendor/fzf"]
+	path = core/vendor/fzf
+	url = https://github.com/junegunn/fzf
+[submodule "meta/vendor/powerlevel10k"]
+	path = core/vendor/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
+[submodule "meta/vendor/zsh-syntax-highlighting"]
+	path = core/vendor/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "meta/vendor/lua-language-server"]
+	path = core/vendor/lua-language-server
+	url = https://github.com/sumneko/lua-language-server
+[submodule "meta/vendor/zsh-autosuggestions"]
+	path = core/vendor/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "meta/vendor/mpd-notification"]
+	path = core/vendor/mpd-notification
+	url = https://github.com/eworm-de/mpd-notification
+[submodule "meta/vendor/xdg-ninja"]
+	path = core/vendor/xdg-ninja
+	url = https://github.com/b3nj5m1n/xdg-ninja

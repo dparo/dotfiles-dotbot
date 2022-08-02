@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<map>
+  <int name="autoHideScroller" value="1" />
+  <int name="bookmarkColor" value="-65536" />
+  <int name="doubleTapSticky" value="0" />
+  <int name="eraseOnImage" value="0" />
+  <int name="growDown" value="0" />
+  <int name="inputSimplify" value="3" />
+  <int name="inputSmoothing" value="3" />
+  <int name="insSpaceErase" value="0" />
+  <int name="lastUpdateCheck" value="1641917661" />
+  <int name="penType" value="11" />
+  <int name="reopenLastDoc" value="1" />
+  <int name="ruleColor" value="-572662273" />
+  <int name="showAdvPrefs" value="1" />
+  <int name="strokeCounter" value="216" />
+  <int name="thumbFirstPage" value="1" />
+  <int name="thumbnailSize" value="60" />
+  <int name="viewMode" value="2" />
+  <float name="marginLeft" value="120" />
+  <float name="pageHeight" value="1755" />
+  <float name="pageWidth" value="1240" />
+  <float name="xRuling" value="30" />
+  <float name="yRuling" value="30" />
+  <string name="clippingDoc" value="/home/dparo/.config/styluslabs/saved/clippings.html" />
+  <string name="currFolder" value="/home/dparo/Dropbox/Thesis Notes/" />
+  <string name="docFileExt" value="svgz" />
+  <string name="newDocTitleFmt" value="%b %e %Hh%M" />
+  <string name="recentDocs" value="/home/dparo/Dropbox/Thesis Notes/Cuts.svgz:::/home/dparo/Thesis Notes/Reasoning.svgz:::/home/dparo/Thesis Notes/Notes.svgz:::/home/dparo/Dropbox/HandWrittenNotes/WN - Notes for Preparing for the Exam.svgz:::/home/dparo/Dropbox/HandWrittenNotes/Wireless Networks.svgz:::/home/dparo/Dropbox/HandWrittenNotes/Wireless Networks - Exercises.svgz:::/home/dparo/Dropbox/HandWrittenNotes/Compilatori.svgz:::/home/dparo/Dropbox/HandWrittenNotes/Wireless Networks Backup.svgz:::/home/dparo/Dropbox/HandWrittenNotes/Wireless Networks v2.svgz:::/home/dparo/Dropbox/HandWrittenNotes/HDA Project Notes.svgz:::/home/dparo/Dropbox/HandWrittenNotes/Debugging.svgz" />
+  <string name="savedColors" value="#FF000000,#FF1E90FF,#FFFF007F,#FFFFA500,#FF32CD32,#FFFF0000,#FF87CEEB,#FFBA55D3" />
+  <string name="savedWidths" value="1.400,2.500,4.000" />
+  <string name="toolBars2" value="docTitle,stretch,actionSave,separator,tools,separator,undoRedoBtn,separator,seltools,separator,actionShow_Bookmarks,actionShow_Clippings,actionSplitView,separator,actionOverflow_Menu" />
+  <string name="toolModes" value="14 18 27 22" />
+  <string name="windowState" value="962 2 956 1058 0 0" />
+  <pen color="4278190080" width="1.6000000238418579" pressure="2" flags="0" />
+  <pen color="4294938654" width="1.6000000238418579" pressure="2" flags="0" />
+  <pen color="4286513407" width="1.6000000238418579" pressure="2" flags="0" />
+  <pen color="4278232575" width="1.6000000238418579" pressure="2" flags="0" />
+  <pen color="4281519410" width="1.6000000238418579" pressure="2" flags="0" />
+  <pen color="4278190335" width="2.5" pressure="2" flags="0" />
+  <pen color="2130771967" width="34" pressure="0" flags="1" />
+  <pen color="2130771839" width="34" pressure="0" flags="1" />
+</map>

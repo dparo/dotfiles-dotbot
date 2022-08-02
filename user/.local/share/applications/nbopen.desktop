@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=nbopen
+Comment=Opens jupyter notebooks from terminal/file maanger
+Exec=nbopen
+Icon=
+Terminal=false
+Categories=Languages;Python;

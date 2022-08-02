@@ -1,0 +1,19 @@
+colorscheme kaleidoscope-dark
+
+# Indentation
+set-option global indentwidth 4
+set-option global tabstop     8
+
+# Always keep X lines and Y columns displayed around cursor
+set-option global scrolloff 3,4
+
+# Display line numbers
+add-highlighter global/ number-lines -hlcursor
+
+# Highlight trailing whitespace
+add-highlighter global/ regex \h+$ 0:Error
+
+# Clipboard management mappings
+
+map -docstring "yank the selection into the clipboard" global user y "<a-|> xclip -sel clip<ret>"
+map -docstring "paste the clipboard" global user p "<a-!> xclip -sel clip -o<ret>"

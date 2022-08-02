@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Write
+Comment=A word processor for handwriting
+Exec=./Applications/User/Write/Write
+Icon=./Applications/User/Write/Write144x144.png
+MimeType=image/svg+xml;
+Terminal=false
+Categories=Education

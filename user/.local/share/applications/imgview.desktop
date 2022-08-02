@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=ImgView
+Comment=ImgView
+NoDisplay=true
+Terminal=false
+Exec=imgview %F
+Icon=imgview
+Terminal=false

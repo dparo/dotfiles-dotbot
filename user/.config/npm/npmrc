@@ -1,0 +1,18 @@
+# Show config
+#         [https://docs.npmjs.com/cli/v8/commands/npm-config]
+# - Show single key-value:                          npm config get [key ...]
+# - List config of the user:                        npm config list
+# - Show all key-value pairs with their default:    npm config ls -l
+
+
+audit=false
+fund=false
+update-notifier=false
+
+# Turn of logging
+logs-max=0
+
+prefix=${NPM_DIR}
+cache=${XDG_CACHE_HOME}/npm
+logs-dir=${XDG_CACHE_HOME}/npm/logs
+init-module=${XDG_CONFIG_HOME}/npm/config/npm-init.js

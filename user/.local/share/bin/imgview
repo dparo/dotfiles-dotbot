@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# In ubuntu system imv could come from the package renameutils
+#   in this case imv stands for interactive move files. We can disambiguate
+#   for searching the output of imv --version for renameutils
+
+imv --version | grep -E renameutils 1> /dev/null 2> /dev/null
+is_imgviewer=$?
+
+success=1
+
+if "$(which imv)" -a $is_imgviewer -ne 0; then
+    imv "$@"
+    success=$?
+fi
+
+
+if test $success -ne 0 -a "$(which imv-x11)" -a "$DISPLAY" != ""; then
+    imv-x11 "$@"
+    success=$?
+fi
+
+if test $success -ne 0 -a "$(which imv-wayland)" -a "$XDG_SESSION_TYPE" == "wayland"; then
+    imv-wayland "$@"
+    success=$?
+fi
+
+
+if test $success -ne 0 -a "$(which feh)"; then
+    feh --scale-down "$@"
+    success=$?
+fi
+
+if test $success -ne 0 -a "$(which sxiv)"; then
+    sxiv "$@"
+    success=$?
+fi
+
+
+# Eye of Gnome image viewer
+if test $success -ne 0 -a "$(which eog)"; then
+    eog "$@"
+    success=$?
+fi
+
+if test $success -ne 0 -a "$(which firefox)"; then
+    firefox "$@"
+    success=$?
+fi

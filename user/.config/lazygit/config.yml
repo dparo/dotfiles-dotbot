@@ -1,0 +1,42 @@
+reporting: "off"
+notARepository: "skip"
+quitOnTopLevelReturn: false
+disableStartupPopups: true
+promptToReturnFromSubprocess: false # display confirmation when subprocess terminates
+
+gui:
+  mouseEvents: true
+  expandFocusedSidePanel: true
+  showRandomTip: true
+  showCommandLog: true
+  commandLogSize: 8
+
+  skipStashWarning: false
+  skipUnstageLineWarning: false
+  showFileTree: true # for rendering changes files in a tree format
+  showIcons: true
+
+  theme:
+    lighttheme: false
+    selectedLineBgColor:
+      - reverse
+    selectedRangeBgColor:
+      - reverse
+    activebordercolor:
+      - cyan
+      - bold
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+
+keybinding:
+  universal:
+    pushFiles: "P"
+    pullFiles: "p"
+  files:
+    commitChanges: "c"
+    commitChangesWithEditor: "C"
+    commitChangesWithoutHook: "w"
+    amendLastCommit: "A"

@@ -1,0 +1,6 @@
+.uuid
+.cache
+.zcompdump
+.log/
+log.txt
+temp

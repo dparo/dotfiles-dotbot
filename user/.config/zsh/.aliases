@@ -1,0 +1,142 @@
+#!/bin/bash
+# vi: ft=sh
+
+alias :q=exit
+alias :q!=exit
+alias v=nvim
+alias vim=nvim
+alias vi=nvim
+
+function valid_shell_command {
+	builtin type "$1" 1>/dev/null 2>/dev/null
+}
+
+# Better time command
+alias time='/usr/bin/time -f "\n\nTiming info:\n------------\n\t%x\tExit status\n\t%E\tElapsed wall clock real time [[hh:]mm:ss.ss]\n\n\t%U\tUser CPU time [s]\n\t%S\tKernel CPU time [s]\n\t%M\tMaximum resident set size [Kbytes]\n\t%t\tAverage resident set size [Kbytes]\n\t%D\tAverage size of process unshared data [Kbytes]\n\t%K\tAverage total memory use (data+stack+text) [Kbytes]\n\t%F\tNumber of major page faults\n\t%R\tNumber of minor page faults\n\t%c\tNumber of context switches forced by kernel\n\t%w\tNumber of waits (voluntary context switches: eg waiting for IO)\n\t%I\tNumber of filesystem inputs\n\t%O\tNumber of filesystem outputs\n\t%k\tNumber of signals processes received\n"'
+
+if valid_shell_command fdfind; then
+	alias fd=fdfind
+fi
+
+if valid_shell_command exa; then
+	alias ls='exa'
+	alias la='exa -lah --icons'
+	alias ll='exa -laFh --icons'
+else
+	alias ls='ls --color=auto -h'
+	alias la='ls --color=auto -lah'
+	alias ll='ls --color=auto -laFh'
+fi
+
+if valid_shell_command bat; then
+	alias cat='bat'
+	alias less='bat'
+fi
+
+# Tokei is a better RUST replacement for cloc for counting line numbers in a code base
+if valid_shell_command tokei; then
+	alias cloc=tokei
+fi
+
+if valid_shell_command yt-dlp; then
+	alias youtube-dl=yt-dlp
+fi
+
+run() {
+	nohup "$@" >/dev/null 2>&1 &
+	disown
+}
+
+if valid_shell_command handlr; then
+	alias open='handlr'
+elif valid_shell_command mimeopen; then
+	alias open='mimeopen'
+else
+	alias open='run xdg-open'
+fi
+
+if valid_shell_command yay; then
+	alias update='yay -Syu'
+elif valid_shell_command pacman; then
+	alias update='sudo pacman -Syu'
+elif valid_shell_command apt; then
+	alias update="sudo bash -c 'apt update && apt upgrade && apt autoremove --yes'"
+elif valid_shell_command dnf; then
+	alias update='sudo dnf update'
+fi
+
+alias ..='cd ..'
+alias ..1='cd ..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias watchmake=watchman-make
+
+alias count='wc -l'
+alias copy='xclip -sel clip'
+alias ag='ag --hidden --follow --ignore .git'
+alias rg='rg --hidden --follow --glob=!.git/'
+alias ec="emacsclient --create-frame"
+alias cls='printf "\033c"'
+alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias svn="svn --config-dir \"\$XDG_CONFIG_HOME/subversion\""
+alias vim="nvim"
+alias vi="nvim"
+alias dragon="dragon -x -a"
+alias fm="run spacefm"
+alias gksu='pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY'
+alias cheat='cht.sh'
+alias feh='feh --scale-down -Z'
+alias cmake="env CMAKE_BUILD_PARALLEL_LEVEL=8 cmake"
+alias startx="startx \"\$XDG_CONFIG_HOME/X11/xinitrc\""
+
+alias nvidia-settings='nvidia-settings --verbose --config="$XDG_CONFIG_HOME"/nvidia/settings'
+alias edit-shell-hist='fc -W; "$EDITOR" "$HISTFILE"; fc -R;'
+
+# Maven: Specify localrepository to be in XDG_CACHE_HOME instead of being in $HOME dir
+alias mvn='mvn -s "$XDG_CONFIG_HOME/maven/settings.xml"'
+
+# Kitty cat image to stdout (yes, show the image on the terminal)
+alias icat="kitty +kitten icat"
+
+if valid_shell_command "qemu-system-x86_64"; then
+	alias kvm="qemu-system-x86_64 -enable-kvm -machine type=q35,accel=kvm -device intel-iommu -cpu host -vga vmware"
+fi
+
+nohup() {
+	command nohup "$@" 1>/dev/null 2>/dev/null &
+	disown
+}
+
+alias mkdir='mkdir -pv'
+mkfile() {
+	command mkdir -pv "$(dirname "$@")" && touch "$@"
+}
+
+alias run='nohup'
+
+alias mv='mv -i'
+alias cp='cp -i'
+alias rm='rm -i'
+alias ln='ln -i -s'
+alias gg='lazygit'
+alias gp='git push origin'
+alias gP='git pull origin'
+
+addlicense() {
+	command addlicense -l mit -c "$(git config --get user.name)" "$@"
+}
+
+__dparo_alias_nvr_or_nvim() {
+	nvr --nostart --remote-tab-wait-silent "$@" || nvim "$@"
+}
+
+if valid_shell_command nvr && [ "$NVIM_LISTEN_ADDRESS" != "" ]; then
+	alias nvr=__dparo_alias_nvr_or_nvim
+fi

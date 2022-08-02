@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+set -e
+
+DOTFILES_LOCATION="${USER_DOTFILES_LOCATION:-$HOME/src/git/dparo/dotfiles}"
+
+_bootstrap_dotfiles_repo() {
+	if ! type git 1>/dev/null 2>/dev/null; then
+		sudo dnf install -y git || sudo apt install -y git || sudo pacman -Syy git
+	fi
+
+	set -x
+	if [ ! -d "$DOTFILES_LOCATION" ]; then
+		mkdir -p "$(dirname "$DOTFILES_LOCATION")"
+		git clone --depth 1 "git@github.com:dparo/dotfiles.git" "$DOTFILES_LOCATION" ||
+			git clone --depth 1 "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
+		cd "$DOTFILES_LOCATION" || exit 1
+		exec ./install "$@"
+	else
+		cd "$DOTFILES_LOCATION" || exit 1
+		exec ./install "$@"
+	fi
+}
+
+_invoke_dotbot() {
+	DOTFILES_LOCATION="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	cd "$DOTFILES_LOCATION" || exit 1
+
+	DOTBOT_LOCATION="$DOTFILES_LOCATION/core/dotbot"
+	DOTBOT_BIN="$DOTBOT_LOCATION/bin/dotbot"
+	CONFIG="$DOTFILES_LOCATION/install.conf.yaml"
+
+	# Update dot-files repo while avoiding merge conflicts
+	update_dotbot_submodule() {
+		git pull --ff-only
+		git -C "$DOTBOT_LOCATION" submodule sync --quiet --recursive
+		git submodule update --init --recursive --remote "$DOTBOT_LOCATION"
+	}
+
+	update_dotbot_submodule || true
+
+	## Populate user HOME directory with these dotfiles using dotbot
+	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$CONFIG" "$@"
+	dotbot_result=$?
+
+	if [ "$dotbot_result" -ne 0 ]; then
+		echo "Dotbot failed with exit status $dotbot_result"
+	fi
+
+}
+
+main() {
+	if test "$1" = "--bootstrap-dotfiles-repo"; then
+		shift 1
+		_bootstrap_dotfiles_repo "$@"
+	else
+		_invoke_dotbot "$@"
+	fi
+}
+
+main "$@"

@@ -1,0 +1,74 @@
+[user]
+	name = Davide Paro
+	email = dparo@outlook.it
+	signingkey = 705FE306C8ABC4C9
+[credential]
+	# 2 hours of caching keys
+    helper = cache --timeout=7200
+[commit]
+	gpgsign = true
+[color]
+	ui = auto
+[push]
+    # simple is the default behaviour in modern git
+    default = simple
+[core]
+	editor = nvim
+	pager = delta
+[cola]
+	spellcheck = true
+	theme = flat-dark-blue
+	icontheme = dark
+	autoloadcommittemplate = false
+	fontdiff = JetBrains Mono,9,-1,5,50,0,0,0,0,0
+	blameviewer = git gui blame
+	expandtab = true
+	statusshowtotals = true
+	statusindent = true
+	boldheaders = true
+	safemode = false
+	savewindowsettings = true
+[gui]
+	historybrowser = git-dag
+	editor = nvim
+[diff]
+    tool = meld
+    colorMoved = default
+[difftool]
+	prompt = false
+[difftool "meld"]
+	cmd = meld "$LOCAL" "$REMOTE"
+[difftool "webdiff"]
+    cmd = webdiff "$LOCAL" "$REMOTE"
+[merge]
+    conflictstyle = diff3
+    summary = true
+	keepbackup = false
+    tool = meld
+[mergetool "meld"]
+    cmd = meld --output "$MERGED" "$LOCAL" "$BASE" "$REMOTE"
+[github]
+	user = dparo
+[pull]
+	rebase = false
+    default = current
+[init]
+	defaultBranch = master
+[global]
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+[delta]
+    navigate=true
+    features = line-numbers decorations
+    whitespace-error-style = 22 reverse
+[delta "interactive"]
+    keep-plus-minus-markers = true
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax
+	verbose = false

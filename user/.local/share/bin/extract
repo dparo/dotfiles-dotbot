@@ -1,0 +1,31 @@
+#!/bin/bash
+
+
+if [[ -z "$1" ]]
+then
+    read -e -p "Archive to extract: " INPUT
+else
+    INPUT=$1
+fi
+
+echo "FileSize of the INPUT: $(filesize ${INPUT})"
+echo ""
+
+if [[ -z "$2" ]]
+then
+    read -e -p "Output Directory (Leave empty to use same name): " OUTPUT
+    if [[ -z "${OUTPUT}" ]]
+    then
+        OUTPUT=$(echo "${INPUT%.*}")
+    fi
+else
+    OUTPUT=$2
+fi
+
+
+mkdir -p $OUTPUT
+
+7z x -spe '$INPUT' -o'$OUTPUT'
+
+echo "FileSize of the OUTPUT: $(filesize ${OUTPUT})"
+echo ""
