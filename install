@@ -10,6 +10,10 @@ _bootstrap_dotfiles_repo() {
 		sudo dnf install -y git || sudo apt install -y git || sudo pacman -Syy git
 	fi
 
+	if [ -x /usr/bin/dnf ]; then
+		sudo dnf install -y util-linux-user python3-pyyaml p7zip p7zip-plugins
+	fi
+
 	set -x
 	if [ ! -d "$DOTFILES_LOCATION" ]; then
 		mkdir -p "$(dirname "$DOTFILES_LOCATION")"

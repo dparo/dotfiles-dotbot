@@ -257,6 +257,9 @@ EOF
 		sudo dnf install xorg-x11-drv-nvidia-cuda # optional for cuda/nvdec/nvenc support
 	fi
 
+	# Uninstall libreoffice
+	sudo dnf group remove libreoffice
+
 	# Enable Flathub repo for installing flatpaks
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi

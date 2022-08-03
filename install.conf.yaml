@@ -127,20 +127,6 @@
     - description: Update desktop database
       command: update-desktop-database ~/.local/share/applications
 
-    - description: Install Nerd Fonts
-      command: |
-        cd /tmp
-        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip'
-        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip'
-        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip'
-        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/IBMPlexMono.zip'
-        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/LiberationMono.zip'
-        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Ubuntu.zip'
-        wget -c 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/UbuntuMono.zip'
-
-        7z x Hack.zip '~/.local/share/fonts/Hack Nerd Font'
-        7z x JetBrainsMono.zip '~/.local/share/fonts/Hack Nerd Font'
-
     - description: Refresh font cache
       command: fc-cache
 
