@@ -109,6 +109,13 @@
 
     - description: Dark mode for Gtk-4.0/Libadwaita apps
       command: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+    - description: Install NVIM Python3 provider for remove plugins (pynvim)
+      command: pip3 install pynvim
+
+    - description: Install NVIM NodeJS provider for remove plugins (neovim)
+      command: npm install -g neovim
+
     - description: Give neovim a chance to download packer if not present
       stderr: false
       command: nvim --headless -c 'quitall!'

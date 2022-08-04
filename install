@@ -5,28 +5,6 @@ set -e
 
 DOTFILES_LOCATION="${USER_DOTFILES_LOCATION:-$HOME/src/git/dparo/dotfiles}"
 
-_bootstrap_dotfiles_repo() {
-	if ! type git 1>/dev/null 2>/dev/null; then
-		sudo dnf install -y git || sudo apt install -y git || sudo pacman -Syy git
-	fi
-
-	if [ -x /usr/bin/dnf ]; then
-		sudo dnf install -y util-linux-user python3-pyyaml p7zip p7zip-plugins
-	fi
-
-	set -x
-	if [ ! -d "$DOTFILES_LOCATION" ]; then
-		mkdir -p "$(dirname "$DOTFILES_LOCATION")"
-		git clone --depth 1 "git@github.com:dparo/dotfiles.git" "$DOTFILES_LOCATION" ||
-			git clone --depth 1 "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
-		cd "$DOTFILES_LOCATION" || exit 1
-		exec ./install "$@"
-	else
-		cd "$DOTFILES_LOCATION" || exit 1
-		exec ./install "$@"
-	fi
-}
-
 _invoke_dotbot() {
 	DOTFILES_LOCATION="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	cd "$DOTFILES_LOCATION" || exit 1
@@ -52,6 +30,35 @@ _invoke_dotbot() {
 		echo "Dotbot failed with exit status $dotbot_result"
 	fi
 
+}
+
+_bootstrap_dotfiles_repo() {
+	if ! type git 1>/dev/null 2>/dev/null; then
+		sudo dnf install -y git || sudo apt install -y git || sudo pacman -Syy git
+	fi
+
+	if [ -x /usr/bin/dnf ]; then
+		sudo dnf install -y util-linux-user python3-pyyaml p7zip p7zip-plugins sqlite
+		sudo dnf install -y make cmake gcc g++ clang clang-tools-extra pip
+		sudo dnf install -y nodejs npm tree-sitter-cli
+		sudo dnf install -y xclip ripgrep fd-find exa bat kitty
+
+		sudo dnf remove 'libreoffice*'
+		sudo dnf group remove libreoffice
+	fi
+
+	set -x
+
+	if [ ! -d "$DOTFILES_LOCATION" ]; then
+		mkdir -p "$(dirname "$DOTFILES_LOCATION")"
+		git clone --depth 1 "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
+	fi
+
+	cd "$DOTFILES_LOCATION" || exit 1
+	if [ "$USER" = "dparo" ]; then
+		git remote set-url origin "git@github.com:dparo/dotfiles.git"
+	fi
+	exec ./install "$@"
 }
 
 main() {
