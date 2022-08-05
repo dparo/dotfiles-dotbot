@@ -266,6 +266,9 @@ local function setup_basic_functionalities()
 
     --- Repeat q recorded macro
     nmap(",", "@q")
+
+    --- Maximize current window
+    nmap("<C-m>", "<C-W>_<C-W>|")
 end
 
 local function setup_window_controls()
