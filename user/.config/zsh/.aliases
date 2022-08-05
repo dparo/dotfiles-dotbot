@@ -6,6 +6,7 @@ alias :q!=exit
 alias v=nvim
 alias vim=nvim
 alias vi=nvim
+alias ec="emacsclient --create-frame"
 
 function valid_shell_command {
 	builtin type "$1" 1>/dev/null 2>/dev/null
@@ -82,18 +83,14 @@ alias count='wc -l'
 alias copy='xclip -sel clip'
 alias ag='ag --hidden --follow --ignore .git'
 alias rg='rg --hidden --follow --glob=!.git/'
-alias ec="emacsclient --create-frame"
 alias cls='printf "\033c"'
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias svn="svn --config-dir \"\$XDG_CONFIG_HOME/subversion\""
-alias vim="nvim"
-alias vi="nvim"
 alias dragon="dragon -x -a"
 alias fm="run spacefm"
 alias gksu='pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY'
 alias cheat='cht.sh'
 alias feh='feh --scale-down -Z'
-alias cmake="env CMAKE_BUILD_PARALLEL_LEVEL=8 cmake"
 alias startx="startx \"\$XDG_CONFIG_HOME/X11/xinitrc\""
 alias lola="git log --graph --decorate --oneline --abbrev-commit --all"
 

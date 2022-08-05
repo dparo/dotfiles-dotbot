@@ -64,6 +64,8 @@ export MAVEN_ARGS="-s $XDG_CONFIG_HOME/maven/settings.xml"
 export MAVEN_CONFIG="-s $XDG_CONFIG_HOME/maven/settings.xml"
 
 
+# Default CMAKE_GENERATOR
+export CMKAE_GENERATOR=Ninja
 ##
 ## This is the typical DBUS session address that is used when DBUS
 ## is started from systemd.
