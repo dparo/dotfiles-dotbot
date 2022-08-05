@@ -95,6 +95,7 @@ alias cheat='cht.sh'
 alias feh='feh --scale-down -Z'
 alias cmake="env CMAKE_BUILD_PARALLEL_LEVEL=8 cmake"
 alias startx="startx \"\$XDG_CONFIG_HOME/X11/xinitrc\""
+alias lola="git log --graph --decorate --oneline --abbrev-commit --all"
 
 alias nvidia-settings='nvidia-settings --verbose --config="$XDG_CONFIG_HOME"/nvidia/settings'
 alias edit-shell-hist='fc -W; "$EDITOR" "$HISTFILE"; fc -R;'
