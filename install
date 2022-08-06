@@ -114,7 +114,7 @@ _bootstrap_prep_necessary_pkgs() {
 		sudo dnf install -y xclip ripgrep fd-find exa bat neovim tmux
 
 		# Desktop stuff
-		sudo dnf install -y i3 i3lock kitty feh nitrogen sxiv rofi dunst mpd mpc copyq
+		sudo dnf install -y i3 i3lock kitty feh nitrogen sxiv rofi dunst mpd mpc copyq picom
 		sudo dnf install -y bspwm sxhkd polybar xsetroot xinput xss-lock xsecurelock
 
 		sudo dnf remove -y 'libreoffice*'
