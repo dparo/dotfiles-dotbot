@@ -111,7 +111,7 @@ _bootstrap_prep_necessary_pkgs() {
 		sudo dnf install -y nodejs npm tree-sitter-cli
 
 		# Core command line tools
-		sudo dnf install -y xclip xsel ripgrep the_silver_searcher fd-find exa bat neovim tmux
+		sudo dnf install -y xclip xsel ripgrep the_silver_searcher fd-find exa bat neovim tmux NetworkManager-tui
 
 		# Desktop stuff
 		sudo dnf install -y i3 i3lock kitty feh nitrogen sxiv rofi dunst mpd mpc copyq picom brightnessctl
