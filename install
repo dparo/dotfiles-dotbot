@@ -14,10 +14,13 @@ _invoke_dotbot() {
 
 	# Update dot-files repo while avoiding merge conflicts
 	update_dotbot_submodule() {
-		git pull --ff-only
 		git -C "$DOTBOT_LOCATION" submodule sync --quiet --recursive
 		git submodule update --init --recursive --remote "$DOTBOT_LOCATION"
 	}
+
+	git pull --ff-only
+	source "$HOME/.config/bash/bash_profile"
+	source "$HOME/.config/bash/bashrc"
 
 	update_dotbot_submodule || true
 
