@@ -9,9 +9,8 @@ _invoke_dotbot() {
 	DOTFILES_LOCATION="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	cd "$DOTFILES_LOCATION" || exit 1
 
-	DOTBOT_LOCATION="$DOTFILES_LOCATION/core/dotbot"
+	DOTBOT_LOCATION="$DOTFILES_LOCATION/meta/dotbot"
 	DOTBOT_BIN="$DOTBOT_LOCATION/bin/dotbot"
-	CONFIG="$DOTFILES_LOCATION/install.conf.yaml"
 
 	# Update dot-files repo while avoiding merge conflicts
 	update_dotbot_submodule() {
@@ -23,11 +22,80 @@ _invoke_dotbot() {
 	update_dotbot_submodule || true
 
 	## Populate user HOME directory with these dotfiles using dotbot
-	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$CONFIG" "$@"
+	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$DOTFILES_LOCATION/meta/configs/link.yaml" "$@"
 	dotbot_result=$?
-
 	if [ "$dotbot_result" -ne 0 ]; then
 		echo "Dotbot failed with exit status $dotbot_result"
+		return "$dotbot_result"
+	fi
+
+	source "$HOME/.config/bash/bash_profile"
+	source "$HOME/.config/bash/bashrc"
+
+	## Populate user HOME directory with these dotfiles using dotbot
+	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$DOTFILES_LOCATION/meta/configs/post_link.yaml" "$@"
+	dotbot_result=$?
+	if [ "$dotbot_result" -ne 0 ]; then
+		echo "Dotbot failed with exit status $dotbot_result"
+		return "$dotbot_result"
+	fi
+}
+
+_bootstrap_fedora_setup_dnf_conf() {
+	# Setup DNF configuration
+	cat <<'EOF' | sudo tee /etc/dnf/dnf.conf
+# see `man dnf.conf` for defaults and possible options
+
+[main]
+gpgcheck=True
+installonly_limit=3
+clean_requirements_on_remove=True
+best=False
+skip_if_unavailable=True
+deltarpm=True
+fastestmirror=True
+max_parallel_downloads=10
+defaultyes=True
+EOF
+}
+
+_bootstrap_fedora_install_rpmfusion_repos() {
+	sudo dnf install -y \
+		https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm \
+		https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
+	sudo dnf update -y
+
+}
+
+_bootstrap_fedora_install_proprietary_codecs_rpmfusion() {
+	sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+	sudo dnf groupupdate -y sound-and-video
+}
+
+_bootstrap_fedora_maybe_install_nvidia_drivers() {
+	# Install NVIDIA drivers if possible and desired by the user
+
+	if lspci -k | grep -A 2 -E "(VGA|3D)" | grep -Ei "NVIDIA.*(GeForce|Quadro|Tesla|GTX|RTX)"; then
+		if ! dnf list installed akmod-nvidia 1>/dev/null 2>/dev/null; then
+			read -r -p "NVIDIA Card detected. Do you want to install NVIDIA proprietary drivers from RPMfusion (akmod-nvidia package)? [yN] " yn
+			case $yn in
+			yes | y)
+				sudo dnf install -y akmod-nvidia
+				;;
+			no | n) ;;
+			*) ;;
+			esac
+		fi
+		if ! dnf list installed xorg-x11-drv-nvidia-cuda 1>/dev/null 2>/dev/null; then
+			read -r -p "NVIDIA Card detected. Do you want to install (optional) CUDA drivers from RPMfusion (xorg-x11-drv-nvidia-cuda package)? [yN] " yn
+			case $yn in
+			yes | y)
+				sudo dnf install -y xorg-x11-drv-nvidia-cuda # optional for cuda/nvdec/nvenc support
+				;;
+			no | n) ;;
+			*) ;;
+			esac
+		fi
 	fi
 
 }
@@ -45,8 +113,23 @@ _bootstrap_prep_necessary_pkgs() {
 		# Desktop stuff
 		sudo dnf install -y i3 i3lock kitty feh nitrogen sxiv rofi dunst mpd mpc copyq
 
-		sudo dnf remove 'libreoffice*'
-		sudo dnf group remove libreoffice
+		sudo dnf remove -y 'libreoffice*'
+		sudo dnf group remove -y libreoffice
+
+		# Setup DNF configuration
+		_bootstrap_fedora_setup_dnf_conf
+
+		# Enable RPM fusion free and non-free repositories
+		_bootstrap_fedora_install_rpmfusion_repos
+
+		# Install Additional proprietary codecs
+		_bootstrap_fedora_install_proprietary_codecs_rpmfusion
+
+		# Install NVIDIA drivers if possible and desired by the user
+		_bootstrap_fedora_query_for_installing_nvidia_drivers
+
+		# Enable Flathub repo for installing flatpaks
+		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	fi
 }
 
@@ -76,8 +159,6 @@ _bootstrap_dotfiles_repo() {
 	set +x
 
 	if ./install "$@"; then
-		source "$HOME/.config/bash/bash_profile"
-		source "$HOME/.config/bash/bashrc"
 		_bootstrap_post_dotfiles_linked
 	fi
 }

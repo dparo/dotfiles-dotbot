@@ -1,0 +1,85 @@
+# dotbot
+# https://github.com/anishathalye/dotbot
+
+- defaults:
+    link:
+      create: true
+      relink: true
+      glob: false
+      force: false
+    shell:
+      quiet: true
+      stdout: false
+      stderr: true
+    clean:
+      force: false
+
+- create:
+    - ~/Applications
+    - ~/Applications/User
+    - ~/Applications/AppImgs
+    - ~/.local/bin
+    - ~/.local/share
+    - ~/.local/share/sounds
+    - ~/.local/share/applications
+    - ~/.local/share/keyrings
+    - ~/.local/share/pki
+    - ~/.local/share/vscode
+    - ~/.local/share/fonts
+    - ~/.cache/bash
+    - ~/.cache/zsh
+    - ~/.cache/mpd/
+
+- shell:
+    - description: Update all submodules
+      command: git submodule sync --quiet --recursive && git submodule update --init --recursive
+
+# Clean commands specify directories that should be checked for dead symbolic links. These dead links are removed automatically
+- clean:
+    ~/:
+      force: true
+    ~/.local/share/applications:
+      force: true
+    ~/.config:
+      force: false
+
+- shell:
+    - description: Remove useless files from HOME dir
+      command: |
+        rm -rf "$HOME/.bash_history" "$HOME/.python_history" "$HOME/.lesshst"
+
+- link:
+    ~/.config/:
+      path: user/.config/*
+      glob: true
+      force: true
+    ~/.local/share/applications/:
+      path: user/.local/share/applications/*
+      glob: true
+      force: true
+    ~/.pki:
+      path: ~/.local/share/pki
+      force: true
+    ~/.gnupg:
+      path: user/.config/gnupg
+      force: true
+    ~/.local/share/backgrounds:
+      path: user/.local/share/backgrounds
+      force: true
+    ~/.bash_profile:
+      path: user/.config/bash/bash_profile
+      force: true
+
+    ~/.config/yt-dlp: user/.config/youtube-dl
+    ~/.local/share/dbus-1/services: user/.local/share/dbus-1/services
+    ~/.local/share/bin: user/.local/share/bin
+    ~/.local/share/icons: user/.local/share/icons
+    ~/.local/share/mpd: user/.local/share/mpd
+    ~/.local/share/sounds/battery-critical.wav: user/.local/share/sounds/battery-critical.wav
+    ~/.local/share/Templates: user/.local/share/Templates
+    ~/.zshenv: user/.config/zsh/.zshenv
+    ~/.vscode: ~/.local/share/vscode
+    ~/.local/share/anaconda3/etc/conda/activate.d/env_vars.sh: user/.local/share/anaconda3/etc/conda/activate.d/env_vars.sh
+
+- create:
+    - ~/.config/systemd/user/systemd/user/default.target.wants

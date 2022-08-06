@@ -1,5 +1,5 @@
 [submodule "meta/dotbot"]
-	path = core/dotbot
+	path = meta/dotbot
 	url = https://github.com/anishathalye/dotbot
 [submodule "meta/vendor/fzf"]
 	path = core/vendor/fzf
