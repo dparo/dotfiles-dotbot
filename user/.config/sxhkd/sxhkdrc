@@ -175,7 +175,8 @@ super + r : {Left,Down,Up,Right}
 
 
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
-    light {-A 5,-U 5}
+    brightnessctl s {'+5%','5%-'}
+
 
 {XF86AudioLowerVolume,XF86AudioRaiseVolume,XF86AudioMute}
     wm-volumectl {down 5,up 5,mute}
