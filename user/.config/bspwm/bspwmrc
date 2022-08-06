@@ -45,9 +45,9 @@ bspc rule -a Emacs state=tiled
 #bspc config focused_border_color \#ff0000
 #bspc config normal_border_color \#980c0c
 
-bspc config active_border_color "#ff00ff"
-bspc config focused_border_color "#ff00ff"
-bspc config normal_border_color "#8b008b"
+bspc config active_border_color "#33467C"
+bspc config focused_border_color "#33467C"
+bspc config normal_border_color "#1a1b26"
 
 xrdb -load "$HOME/.config/X11/.Xresources"
 pgrep -U "$(whoami)" sxhkd || sxhkd 1>"$HOME/.config/sxhkd/stdoutlog.txt" 2>"$HOME/.config/sxhkd/stderrlog.txt" &
