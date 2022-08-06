@@ -71,7 +71,6 @@
       force: true
 
     ~/.config/yt-dlp: user/.config/youtube-dl
-    ~/.local/share/dbus-1/services: user/.local/share/dbus-1/services
     ~/.local/share/bin: user/.local/share/bin
     ~/.local/share/icons: user/.local/share/icons
     ~/.local/share/mpd: user/.local/share/mpd
