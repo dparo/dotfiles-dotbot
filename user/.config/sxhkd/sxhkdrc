@@ -98,8 +98,8 @@ super + {comma, period}
 	bspc node -f {next,prev}.local
 
 # focus the next/previous node in the current desktop
-super + {_,shift + }c
-	bspc node -f {next,prev}.local
+super + {_,shift + }n
+    bspc node -f {next,prev}.local
 
 #
 # focus/swap
@@ -167,7 +167,7 @@ super + {_,shift + }{Left,Down,Up,Right}
 
 
 # I3 like resize, enters resize mode, autodetects wheter to shrink or expand
-super + r : {Left,Down,Up,Right}:
+super + r : {Left,Down,Up,Right}
     bspc node -z {left -20 0 || bspc node -z right -20 0, \
                     bottom 0 20 || bspc node -z top 0 20,\
                     top 0 -20 || bspc node -z bottom 0 -20,\
@@ -182,4 +182,10 @@ super + r : {Left,Down,Up,Right}:
 
 
 super + shift + Pause
-    ~/.config/i3/lock.sh lock
+    xset s activate
+
+super + c
+    kitty -- zsh -c 'node'
+
+super + shift + c
+    kitty -- zsh -c 'cd "$USER_DOTFILES_LOCATION" && tmux new-session -A -s dotfiles'

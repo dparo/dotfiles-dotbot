@@ -59,14 +59,20 @@ systemctl --user restart mpd-notification
 
 "$HOME/.config/X11/setup_background.sh" &
 
+kill_and_wait() {
+	killall -q "$1"
+	while pgrep -u "$USER" -x "$1" >/dev/null; do sleep 1; done
+}
+
 ##
 ## Polybar
 ##
 # Terminate already running bar instances
-killall -q polybar
-# Wait until the processes have been shut down
-while pgrep -u "$USER" -x polybar >/dev/null; do sleep 1; done
+kill_and_wait polybar
 polybar --reload main &
+
+kill_and_wait picom
+picom &
 
 ##
 ## Startup the programs (wait one second so that polybar and the notification daemon has enough time to startup)

@@ -62,7 +62,10 @@ if command -v numlockx >/dev/null 2>&1; then
 	numlocx on
 fi
 
-# xss-lock -n 'notify-send "Locking screen within 30 seconds"' -- bash -c '~/.config/i3/lock.sh lock' &
+# Automatic locking: https://github.com/google/xsecurelock
+xset s 300 5
+env XSECURELOCK_AUTH_TIMEOUT=20 XSECURELOCK_BLANK_TIMEOUT=2 XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_SHOW_HOSTNAME=1 XSECURELOCK_SHOW_USERNAME=1 \
+	xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
 
 # This two ENV vars are required if running `gnome-session` from this .xinitrc script
 export XDG_SESSION_TYPE=x11
@@ -121,18 +124,37 @@ if [ "$DBUS_SESSION_BUS_ADDRESS" = "" ]; then
 	export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 fi
 
-# NOTE(dparo): 27 Jan 2022
-#     dbus-launch is now deprecated, since it is now part of systemd
-#     and it is started automatically.
-#     Using dbus-launch would export DBUS_SESSION_BUS_ADDRESS to an invalid
-#     path, thus breaking normal keychain operations
-#
-#     ArchLinux: Do not use dbus-launch nor dbus-run-session !!!!!!!!!!!!
-#
-# NOTE(dparo): 29 April 2022
-#     From Ubuntu 22.04, running `dbus-launch --sh-syntax --exit-with-session "$WM"` is not anymore
-#     necessary. Running dbus-launch in this way would brake snap packages since they wouldn'y
-#     be able to connect to the dbus socket
-#     Up to to Ubuntu 21.10 and before, `dbus-launch --sh-syntax --exit-with-session "$WM"`
-#     was necessary but nowadays it is not anymore
-exec i3
+exec_wm() {
+	WM="$1"
+
+	case "$WM" in
+	bspwm | dwm | xmonad)
+		export _JAVA_AWT_WM_NONREPARENTING=1
+		export AWT_TOOLKIT=MToolkit
+		;;
+	*) ;;
+	esac
+
+	# NOTE(dparo): 27 Jan 2022
+	#     dbus-launch is now deprecated, since it is now part of systemd
+	#     and it is started automatically.
+	#     Using dbus-launch would export DBUS_SESSION_BUS_ADDRESS to an invalid
+	#     path, thus breaking normal keychain operations
+	#
+	#     ArchLinux: Do not use dbus-launch nor dbus-run-session !!!!!!!!!!!!
+	#
+	# NOTE(dparo): 29 April 2022
+	#     From Ubuntu 22.04, running `dbus-launch --sh-syntax --exit-with-session "$WM"` is not anymore
+	#     necessary. Running dbus-launch in this way would brake snap packages since they wouldn'y
+	#     be able to connect to the dbus socket
+	#     Up to to Ubuntu 21.10 and before, `dbus-launch --sh-syntax --exit-with-session "$WM"`
+	#     was necessary but nowadays it is not anymore
+	exec "$WM"
+}
+
+## Try out different WMs using precedence and resolve the first installed
+for WM in bspwm i3 dwm; do
+	if type "$WM" 1>/dev/null 2>/dev/null; then
+		exec_wm "$WM"
+	fi
+done

@@ -29,7 +29,7 @@ fi
 declare -A commands
 
 commands['EXIT']=''
-commands['Lock screen']="$HOME/.config/i3/lock.sh lock"
+commands['Lock screen']="xset s activate"
 commands['Audio']='pavucontrol'
 commands['Display']='arandr'
 commands['Manage SSH & GPG']=seahorse
@@ -43,10 +43,10 @@ commands['Bluetooth Assistant']='blueman-assistant'
 commands['Bluetooth Applet']='blueman-applet'
 commands['Bluetooth Tray']='blueman-tray'
 commands['Session control']="i3-nagbar -t warning -m 'Session Control' \
-                            -B 'Logout' '~/.config/i3/lock.sh logout' \
-                            -B 'Reboot' '~/.config/i3/lock.sh reboot' \
-                            -B 'Shutdown' '~/.config/i3/lock.sh shutdown' \
-                            -B 'Suspend (RAM)' '~/.config/i3/lock.sh suspend' \
-                            -B 'Hibernate - Deep Sleep (HDD)' '~/.config/i3/lock.sh hibernate'"
+                            -B 'Logout' 'i3-msg exit' \
+                            -B 'Reboot' 'systemctl reboot' \
+                            -B 'Shutdown' 'systemctl poweroff' \
+                            -B 'Suspend (RAM)' 'systemctl suspend' \
+                            -B 'Hibernate - Deep Sleep (HDD)' 'systemctl hibernate'"
 
 exec bash -c "${commands[$ask]}"
