@@ -233,7 +233,7 @@ if [ -x /usr/bin/dnf ]; then
 	sudo cp /etc/dnf/dnf.conf /etc/dnf/dnf.conf.default
 	cat <<'EOF' | sudo tee /etc/dnf/dnf.user.conf
 deltarpm=True
-fastestmirror=False
+fastestmirror=True
 max_parallel_downloads=10
 defaultyes=True
 EOF
