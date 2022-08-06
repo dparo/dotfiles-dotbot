@@ -38,10 +38,16 @@ _bootstrap_dotfiles_repo() {
 	fi
 
 	if [ -x /usr/bin/dnf ]; then
+
+		# Necessary packages
 		sudo dnf install -y util-linux-user python3-pyyaml p7zip p7zip-plugins sqlite
 		sudo dnf install -y make cmake gcc g++ clang clang-tools-extra pip
 		sudo dnf install -y nodejs npm tree-sitter-cli
-		sudo dnf install -y xclip ripgrep fd-find exa bat kitty
+
+		# Command line tools
+		sudo dnf install -y xclip ripgrep fd-find exa bat neovim
+		# Desktop stuff
+		sudo dnf install -y i3 i3lock kitty feh nitrogen sxiv rofi dunst mpd mpc copyq
 
 		sudo dnf remove 'libreoffice*'
 		sudo dnf group remove libreoffice
