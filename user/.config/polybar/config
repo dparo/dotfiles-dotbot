@@ -154,7 +154,7 @@ time = %H:%M
 format-prefix = ""
 format-underline =
 
-label = %date% %time%
+label = %date%  %time%
 
 [module/pulseaudio-master]
 type = internal/pulseaudio
