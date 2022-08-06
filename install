@@ -32,26 +32,34 @@ _invoke_dotbot() {
 
 }
 
-_bootstrap_dotfiles_repo() {
-	if ! type git 1>/dev/null 2>/dev/null; then
-		sudo dnf install -y git || sudo apt install -y git || sudo pacman -Syy git
-	fi
-
+_bootstrap_prep_necessary_pkgs() {
 	if [ -x /usr/bin/dnf ]; then
-
-		# Necessary packages
+		# Core/Fundamental packages
 		sudo dnf install -y util-linux-user python3-pyyaml p7zip p7zip-plugins sqlite
 		sudo dnf install -y make cmake gcc g++ clang clang-tools-extra pip
 		sudo dnf install -y nodejs npm tree-sitter-cli
 
-		# Command line tools
+		# Core command line tools
 		sudo dnf install -y xclip ripgrep fd-find exa bat neovim
+
 		# Desktop stuff
 		sudo dnf install -y i3 i3lock kitty feh nitrogen sxiv rofi dunst mpd mpc copyq
 
 		sudo dnf remove 'libreoffice*'
 		sudo dnf group remove libreoffice
 	fi
+}
+
+_bootstrap_post_dotfiles_linked() {
+	true
+}
+
+_bootstrap_dotfiles_repo() {
+	if ! type git 1>/dev/null 2>/dev/null; then
+		sudo dnf install -y git || sudo apt install -y git || sudo pacman -Syy git
+	fi
+
+	_bootstrap_prep_necessary_pkgs
 
 	set -x
 
@@ -64,7 +72,14 @@ _bootstrap_dotfiles_repo() {
 	if [ "$USER" = "dparo" ]; then
 		git remote set-url origin "git@github.com:dparo/dotfiles.git"
 	fi
-	exec ./install "$@"
+
+	set +x
+
+	./install "$@"
+
+	source "$HOME/.config/bash/bash_profile"
+	source "$HOME/.config/bash/bashrc"
+	_bootstrap_post_dotfiles_linked
 }
 
 main() {
