@@ -127,7 +127,7 @@ bindsym XF86HomePage   exec --no-startup-id jumpapp -R -C -m firefox
 bindsym XF86Calculator exec --no-startup-id jumpapp -R -C -m urxvt         #calc "urxvt -e calc"
 
 bindsym XF86MonBrightnessUp    exec --no-startup-id brightnessctl s +5% || light -A 5
-bindsym XF86MonBrightnessDown  exec --no-startup-id brightnessctl s -5% || light -U 5
+bindsym XF86MonBrightnessDown  exec --no-startup-id brightnessctl s 5%- || light -U 5
 
 
 # Run fish using bash so that we can share environment variables between shells
