@@ -97,6 +97,11 @@
     - description: Setup alternatives (x-window-manager)
       command: test -f ~/.local/bin/x-window-manager || ln -sf /usr/bin/i3 ~/.local/bin/x-window-manager
 
+    - description: GNOME keyboard repeat rate / delay
+      command: |
+        gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30
+        gsettings set org.gnome.desktop.peripherals.keyboard delay 300
+
     - description: Gnome/Cinnamon gsettings setup preferred terminal
       stdout: false
       stderr: false
