@@ -81,5 +81,5 @@ sleep 1
 
 copyq &
 flameshot &
-~/Software/Telegram/Telegram -startintray &
+~/Applications/User/Telegram/Telegram -startintray &
 ~/.dropbox-dist/dropboxd &
