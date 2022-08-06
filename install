@@ -75,19 +75,21 @@ _bootstrap_dotfiles_repo() {
 
 	set +x
 
-	./install "$@"
-
-	source "$HOME/.config/bash/bash_profile"
-	source "$HOME/.config/bash/bashrc"
-	_bootstrap_post_dotfiles_linked
+	if ./install "$@"; then
+		source "$HOME/.config/bash/bash_profile"
+		source "$HOME/.config/bash/bashrc"
+		_bootstrap_post_dotfiles_linked
+	fi
 }
 
 main() {
 	if test "$1" = "--bootstrap-dotfiles-repo"; then
 		shift 1
 		_bootstrap_dotfiles_repo "$@"
+		return "$?"
 	else
 		_invoke_dotbot "$@"
+		return "$?"
 	fi
 }
 
