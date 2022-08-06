@@ -65,7 +65,7 @@ fi
 # Automatic locking: https://github.com/google/xsecurelock
 xset s 300 5
 env XSECURELOCK_AUTH_TIMEOUT=20 XSECURELOCK_BLANK_TIMEOUT=2 XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_SHOW_HOSTNAME=1 XSECURELOCK_SHOW_USERNAME=1 \
-	xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
+	xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
 
 # This two ENV vars are required if running `gnome-session` from this .xinitrc script
 export XDG_SESSION_TYPE=x11
