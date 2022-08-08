@@ -164,18 +164,18 @@ bindsym XF86AudioStop        exec --no-startup-id mpc stop
 bindsym $mod+Ctrl+Delete     exec --no-startup-id mpc stop
 
 bindsym XF86AudioNext        exec --no-startup-id mpc next
-bindsym $mod+Ctrl+Next       exec --no-startup-id mpc next
+bindsym $mod+Ctrl+n         exec --no-startup-id mpc next
 
 bindsym XF86AudioPrev        exec --no-startup-id mpc prev
-bindsym $mod+Ctrl+Prior      exec --no-startup-id mpc prev
+bindsym $mod+Ctrl+p          exec --no-startup-id mpc prev
 
 
 
 bindsym $mod+m          exec --no-startup-id      kitty -- ncmpcpp
 bindsym $mod+Shift+m    exec --no-startup-id      kitty -- zsh -c '/home/dparo/bin/fzf-mpc'
 
-bindsym $mod+Ctrl+Up exec --no-startup-id mpc volume +5
-bindsym $mod+Ctrl+Down exec --no-startup-id mpc volume -5
+bindsym $mod+Ctrl+Prior exec --no-startup-id mpc volume +5
+bindsym $mod+Ctrl+Next exec --no-startup-id mpc volume -5
 
 
 bindsym Print exec --no-startup-id flameshot gui

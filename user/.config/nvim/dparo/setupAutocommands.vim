@@ -137,6 +137,7 @@ augroup DPARO
     autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
     autocmd BufNewFile,BufRead *./config/i3/config  set filetype=i3config
     autocmd BufWritePost *.config/i3/config silent !i3-msg restart
+    autocmd BufWritePost *.config/sxhkd/sxhkdrc silent !pkill -USR1 -x sxhkd
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid, when inside an event handler
