@@ -190,3 +190,6 @@ super + c
 
 super + shift + c
     kitty -- zsh -c 'cd "$USER_DOTFILES_LOCATION" && tmux new-session -A -s dotfiles'
+
+super + n
+    kitty -- nvim
