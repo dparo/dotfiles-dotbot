@@ -13,6 +13,7 @@ export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export USER_DOTFILES_LOCATION="$HOME/src/git/dparo/dotfiles"
 export EDITOR=nvim
 export VISUAL=nvim
+export MANROFFOPT="-c"
 export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
 
 export GPG_TTY="$(tty)"
