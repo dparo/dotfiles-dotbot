@@ -140,6 +140,13 @@ __dparo_alias_nvr_or_nvim() {
 	nvr --nostart --remote-tab-wait-silent "$@" || nvim "$@"
 }
 
+
+mvn_run() {
+    classpath="$1"
+    shift
+    mvn compile exec:java -Dexec.mainClass="$classpath" "$@"
+}
+
 if valid_shell_command nvr && [ "$NVIM_LISTEN_ADDRESS" != "" ]; then
 	alias nvr=__dparo_alias_nvr_or_nvim
 fi
