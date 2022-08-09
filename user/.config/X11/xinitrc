@@ -145,7 +145,7 @@ exec_wm() {
 	#
 	# NOTE(dparo): 29 April 2022
 	#     From Ubuntu 22.04, running `dbus-launch --sh-syntax --exit-with-session "$WM"` is not anymore
-	#     necessary. Running dbus-launch in this way would brake snap packages since they wouldn'y
+	#     necessary. Running dbus-launch in this way would brake snap packages since they wouldn't
 	#     be able to connect to the dbus socket
 	#     Up to to Ubuntu 21.10 and before, `dbus-launch --sh-syntax --exit-with-session "$WM"`
 	#     was necessary but nowadays it is not anymore
