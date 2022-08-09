@@ -264,16 +264,6 @@ EOF
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
-################################################################################################################
-################################################################################################################
-################################################################################################################
-################################################################################################################
-
-cat <<'EOF' | sudo tee -a /etc/profile.d/jre.sh
-export _JAVA_AWT_WM_NONREPARENTING=1
-export JDK_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
-EOF
-
 source ~/.bash_profile
 source ~/.bashrc
 

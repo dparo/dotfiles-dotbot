@@ -110,8 +110,9 @@ export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
 ##
 ## Better font rendering for Java applications, useful if not running xsettings daemon
+##   NOTE(dparo): IntelliJ complains if this variable is set. It may cause performance degradations.
 ##
-export JDK_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+# export JDK_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 # See: https://wiki.archlinux.org/title/java#Gray_window,_applications_not_resizing_with_WM,_menus_immediately_closing
 # Virtually all modern window managers are re-parenting, although earlier window managers, such as the uwm window manager, were not.
