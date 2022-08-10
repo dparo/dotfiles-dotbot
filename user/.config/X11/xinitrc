@@ -153,7 +153,7 @@ exec_wm() {
 }
 
 ## Try out different WMs using precedence and resolve the first installed
-for WM in bspwm i3 dwm; do
+for WM in i3 bspwm dwm; do
 	if type "$WM" 1>/dev/null 2>/dev/null; then
 		exec_wm "$WM"
 	fi
