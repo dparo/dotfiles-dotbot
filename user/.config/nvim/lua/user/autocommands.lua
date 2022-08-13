@@ -23,34 +23,34 @@ local function augroup(group_name, map)
 end
 
 -- Skeletons for new files
-local skeleton_aucmds = vim.api.nvim_create_augroup("DPARO_SKELETONS", { clear = true })
+local skeleton_aucmds = vim.api.nvim_create_augroup("USER_SKELETONS", { clear = true })
 vim.api.nvim_create_autocmd(
     { "BufNewFile" },
-    { group = skeleton_aucmds, pattern = "*.{h}", command = [[0r ~/.config/nvim/dparo/skeletons/c.h]] }
+    { group = skeleton_aucmds, pattern = "*.{h}", command = [[0r ~/.config/nvim/skeletons/c.h]] }
 )
 vim.api.nvim_create_autocmd(
     { "BufNewFile" },
-    { group = skeleton_aucmds, pattern = "*.{hpp}", command = [[0r ~/.config/nvim/dparo/skeletons/c.hpp]] }
+    { group = skeleton_aucmds, pattern = "*.{hpp}", command = [[0r ~/.config/nvim/skeletons/c.hpp]] }
 )
 vim.api.nvim_create_autocmd(
     { "BufNewFile" },
-    { group = skeleton_aucmds, pattern = "*.{js}", command = [[0r ~/.config/nvim/dparo/skeletons/js.js]] }
+    { group = skeleton_aucmds, pattern = "*.{js}", command = [[0r ~/.config/nvim/skeletons/js.js]] }
 )
 vim.api.nvim_create_autocmd(
     { "BufNewFile" },
-    { group = skeleton_aucmds, pattern = "*.{sh,bash}", command = [[0r ~/.config/nvim/dparo/skeletons/sh.sh]] }
+    { group = skeleton_aucmds, pattern = "*.{sh,bash}", command = [[0r ~/.config/nvim/skeletons/sh.sh]] }
 )
 vim.api.nvim_create_autocmd({ "BufNewFile" }, {
     group = skeleton_aucmds,
     pattern = ".envrc,.direnvrc,direnvrc",
-    command = [[0r ~/.config/nvim/dparo/skeletons/.envrc]],
+    command = [[0r ~/.config/nvim/skeletons/.envrc]],
 })
 vim.api.nvim_create_autocmd(
     { "BufNewFile" },
-    { group = skeleton_aucmds, pattern = "Makefile", command = [[0r ~/.config/nvim/dparo/skeletons/Makefile]] }
+    { group = skeleton_aucmds, pattern = "Makefile", command = [[0r ~/.config/nvim/skeletons/Makefile]] }
 )
 
-local filetypes_aucmds = vim.api.nvim_create_augroup("DPARO_FILETYPES", { clear = true })
+local filetypes_aucmds = vim.api.nvim_create_augroup("USER_FILETYPES", { clear = true })
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = filetypes_aucmds,
     pattern = "gitcommit,gitrebase,gitconfig",
@@ -88,50 +88,50 @@ vim.api.nvim_create_autocmd(
     { group = filetypes_aucmds, pattern = "*.config/sxhkd/sxhkdrc", command = [[silent !pkill -USR1 -x sxhkd]] }
 )
 
-local dparo_augroup = vim.api.nvim_create_augroup("DPARO_LUA", { clear = true })
+local USER_augroup = vim.api.nvim_create_augroup("USER_LUA", { clear = true })
 -- Reload the buffer if it was changed externally
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "*",
     command = [[if mode() != 'c' | checktime | endif]],
 })
 
 -- Notification after file change
 vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "*",
     command = [[echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None]],
 })
 
 -- Reset cursor when vim exits
 vim.api.nvim_create_autocmd({ "VimLeave" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "*",
     command = [[silent !echo -ne "\033]112\007"]],
 })
 
 -- Readjusts window dimension when vim changes size
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "*",
     command = [[tabdo wincmd =]],
 })
 
 vim.api.nvim_create_autocmd({ "WinEnter" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "*",
     command = [[set cursorline]],
 })
 
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "*",
     command = [[set nocursorline]],
 })
 
 -- Create parent directory of file when saving if it does not exist
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "*",
     command = [[call mkdir(expand("<afile>:p:h"), "p")]],
 })
@@ -145,20 +145,20 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 --     and thus I cannot spawn neovim from the command line at a specific line location
 --     (eg useful when using gdb, or external shell scripts)
 vim.api.nvim_create_autocmd({ "BufReadPre" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "make",
     command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]],
 })
 
 -- Post build
 vim.api.nvim_create_autocmd({ "QuickfixCmdPost" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "make",
-    callback = dparo.post_build,
+    callback = user.post_build,
 })
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-    group = dparo_augroup,
+    group = USER_augroup,
     pattern = "*",
     command = [[silent! lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})]],
 })

@@ -53,7 +53,7 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap("n", "<M-CR>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
-    buf_set_keymap("n", "<leader>e", "<cmd>lua dparo.lsp.show_line_diagnostics()<CR>", opts)
+    buf_set_keymap("n", "<leader>e", "<cmd>lua user.lsp.show_line_diagnostics()<CR>", opts)
     buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
@@ -70,14 +70,9 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
-    vim.cmd [[
-        augroup dparo_lsp_show_line_diagnostics
-            autocmd! * <buffer>
-            autocmd CursorHold <buffer> lua dparo.lsp.show_line_diagnostics()
-        augroup END
-    ]]
 
-    -- My binds
+    local augroup = vim.api.nvim_create_augroup("USER_LSP", { clear = true })
+    vim.api.nvim_create_autocmd({"CursorHold"}, { group = augroup, buffer = bufnr, callback = function() user.lsp.show_line_diagnostics() end })
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
@@ -90,32 +85,17 @@ local lsp_on_attach = function(client, bufnr)
 
     -- Setup highlight references of word under cursor using lsp
     if client.resolved_capabilities.document_highlight then
-        vim.cmd [[
-        augroup dparo_lsp_document_highlight
-            autocmd! * <buffer>
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-        ]]
+        vim.api.nvim_create_autocmd({"CursorHold"}, { group = augroup, buffer = bufnr, callback = function() vim.lsp.buf.document_highlight() end })
+        vim.api.nvim_create_autocmd({"CursorMoved"}, { group = augroup, buffer = bufnr, callback = function() vim.lsp.buf.clear_references() end })
     end
 
     if false then
-        vim.cmd [[
-            augroup dparo_lsp_buf_hover
-                autocmd! * <buffer>
-                autocmd CursorHold <buffer> lua vim.lsp.buf.hover()
-            augroup END
-        ]]
+        vim.api.nvim_create_autocmd({"CursorHold"}, { group = augroup, buffer = bufnr, callback = function() vim.lsp.buf.hover() end })
     end
 
     -- Enable formatting on save
     if client.resolved_capabilities.document_formatting then
-        vim.cmd [[
-            augroup dparo_lsp_formatting
-                autocmd! * <buffer>
-                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()
-            augroup END
-        ]]
+        vim.api.nvim_create_autocmd({"BufWritePre"}, { group = augroup, buffer = bufnr, callback = function() vim.lsp.buf.formatting_seq_sync() end })
     end
 end
 

@@ -503,7 +503,7 @@ local function my_plugins(use)
             "jose-elias-alvarez/null-ls.nvim",
         },
         config = function()
-            require "dparo.config.cmp"
+            require "user.config.cmp"
         end,
     }
 
@@ -511,7 +511,7 @@ local function my_plugins(use)
         "neovim/nvim-lspconfig",
         requires = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "nvim-lua/lsp_extensions.nvim" },
         config = function()
-            require "dparo.config.lsp"
+            require "user.config.lsp"
         end,
     }
 
@@ -639,9 +639,9 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 do
-    _G.dparo.plugins = _G.dparo.plugins or {}
+    _G.user.plugins = _G.user.plugins or {}
 
-    function _G.dparo.plugins.reload(params)
+    function _G.user.plugins.reload(params)
         params = params or {}
         local packer = require "packer"
         if params.sync then
@@ -658,8 +658,8 @@ do
     vim.cmd([[
         augroup reload_packer_user_config
             autocmd!
-            autocmd BufWritePost ]] .. this_file .. [[ source ]] .. this_file .. [[ | lua dparo.plugins.reload({sync=false})
-            autocmd BufWritePost ]] .. config_files .. [[ source ]] .. this_file .. [[ | lua dparo.plugins.reload({sync=false})
+            autocmd BufWritePost ]] .. this_file .. [[ source ]] .. this_file .. [[ | lua user.plugins.reload({sync=false})
+            autocmd BufWritePost ]] .. config_files .. [[ source ]] .. this_file .. [[ | lua user.plugins.reload({sync=false})
         augroup END
     ]])
 end

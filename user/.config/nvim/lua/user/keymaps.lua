@@ -5,8 +5,8 @@
 --      - vim.keymap.del()
 --  See: https://github.com/nanotee/nvim-lua-guide#vimkeymap
 
-_G.dparo = _G.dparo or {}
-_G.dparo.binds = _G.dparo.binds or {}
+_G.user = _G.user or {}
+_G.user.binds = _G.user.binds or {}
 
 local default_opts = { noremap = true, silent = true }
 local remappable_opts = vim.tbl_deep_extend("force", default_opts, { noremap = false })
@@ -87,7 +87,7 @@ local function exec_cmd(cmd)
 end
 
 local function exec_key(key, allow_modify_jumplist)
-    local escaped_key = dparo.utils.escape(key, [['\]])
+    local escaped_key = user.utils.escape(key, [['\]])
     local preamble = ""
     if not allow_modify_jumplist then
         preamble = "exec 'keepjumps normal! "
@@ -100,7 +100,7 @@ end
 --
 -- Global lua bindings function
 --
-function dparo.binds.beginning_of_line()
+function user.binds.beginning_of_line()
     local line = vim.fn.getline "."
     local col = vim.fn.col "."
     local allblanks = true
@@ -153,7 +153,7 @@ local function setup_cursor_movements()
     --        the provided keybind in the rhs (eg use the default keybind representation)
     cmap("<C-a>", "<Home>", { noremap = false, silent = false })
     -- Begininning and of line
-    nvimap("<C-a>", exec_lua "dparo.binds.beginning_of_line()")
+    nvimap("<C-a>", exec_lua "user.binds.beginning_of_line()")
     nvimap("<C-e>", exec_key "$l")
     nvmap("$", exec_key "$l")
 
@@ -335,9 +335,9 @@ local function setup_commands()
     ----
     nmap("<leader>rr", exec_lua "source ~/.config/nvim/init.lua")
     nimap(fn_key(1), exec_cmd "noh")
-    nmap({ "<leader>cc", fn_key(7) }, exec_lua "dparo.build()")
-    nmap({ "<leader>c<F2>", "<leader>ce", "<leader>cr", unpack(shift_fn_key(7)) }, exec_lua "dparo.set_makeprg()")
-    nmap("<leader>/", exec_lua "dparo.project_wide_search()")
+    nmap({ "<leader>cc", fn_key(7) }, exec_lua "user.build()")
+    nmap({ "<leader>c<F2>", "<leader>ce", "<leader>cr", unpack(shift_fn_key(7)) }, exec_lua "user.set_makeprg()")
+    nmap("<leader>/", exec_lua "user.project_wide_search()")
 
     -- Jump to errors
     nimap(fn_key(6), exec_cmd "cfirst")

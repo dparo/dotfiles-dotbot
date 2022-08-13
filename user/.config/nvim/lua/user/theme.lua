@@ -9,25 +9,25 @@ elseif vim.regex[[^\(tmux\|screen\|iterm\|xterm\|vte\|gnome\|xterm-kitty\|kitty\
     vim.g.ayucolor = "dark"
     vim.g.tokyonight_style = "night"
 
-    -- dparo.load_color_scheme 'base16-irblack'
-    -- dparo.load_color_scheme 'base16-atelier-dune'
-    -- dparo.load_color_scheme 'base16-gruvbox-dark-hard'
-    -- dparo.load_color_scheme 'material'
-    -- dparo.load_color_scheme 'nord'
-    -- dparo.load_color_scheme 'onedark'
-    -- dparo.load_color_scheme 'onedarkpro'
+    -- user.load_color_scheme 'base16-irblack'
+    -- user.load_color_scheme 'base16-atelier-dune'
+    -- user.load_color_scheme 'base16-gruvbox-dark-hard'
+    -- user.load_color_scheme 'material'
+    -- user.load_color_scheme 'nord'
+    -- user.load_color_scheme 'onedark'
+    -- user.load_color_scheme 'onedarkpro'
     -- require('colorbuddy').colorscheme('gruvbuddy')
     -- require('colorbuddy').colorscheme('spacebuddy')
-    -- dparo.load_color_scheme 'jellybeans-nvim'
-    -- dparo.load_color_scheme 'tender'
-    -- dparo.load_color_scheme 'gruvbox'
-    -- dparo.load_color_scheme 'dracula'
-    -- dparo.load_color_scheme 'tokyonight'
-    -- dparo.load_color_scheme 'everforest'
-    -- dparo.load_color_scheme 'sonokai'
-    -- dparo.load_color_scheme 'gruvbox-material'
+    -- user.load_color_scheme 'jellybeans-nvim'
+    -- user.load_color_scheme 'tender'
+    -- user.load_color_scheme 'gruvbox'
+    -- user.load_color_scheme 'dracula'
+    -- user.load_color_scheme 'tokyonight'
+    -- user.load_color_scheme 'everforest'
+    -- user.load_color_scheme 'sonokai'
+    -- user.load_color_scheme 'gruvbox-material'
 
-    dparo.load_color_scheme 'nightfox'
+    user.load_color_scheme 'nightfox'
 end
 
 local function theme_overrides()
@@ -65,6 +65,6 @@ end
 
 
 --- Autocommand for theme overrides
-dparo.augroup("DPARO_THEME_OVERRIDES", {
+user.augroup("USER_THEME_OVERRIDES", {
     {{ "ColorScheme" }, { group = theme_overrides_aucmd, pattern = "*", callback = theme_overrides} },
 })
