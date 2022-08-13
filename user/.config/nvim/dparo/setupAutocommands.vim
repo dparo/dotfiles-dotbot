@@ -1,62 +1,3 @@
-function! s:CHeaderTemplate()
-    execute "normal! i#pragma once"
-    execute "normal! o"
-    execute "normal! o"
-
-
-    execute "normal! i#if __cplusplus\n"
-    execute "normal! iextern \"C\" {\n"
-    execute "normal! i#endif\n\n\n\n\n\n"
-    execute "normal! i#if __cplusplus\n"
-    execute "normal! i}\n"
-    execute "normal! i#endif"
-
-    execute "normal! kkkkkk"
-endfunction
-
-function! s:EnvrcTemplate()
-    execute "normal! i#!/usr/bin/env sh\n"
-    execute "normal! i# -*- coding: utf-8 -*-\n"
-    execute "normal! i\n\n"
-endfunction
-
-
-function! s:MakefileTemplate()
-    execute "normal! i.DEFAULT_GOAL := all\n"
-    execute "normal! i.PHONY: all release clean\n"
-    execute "normal! i\n\all:\necho Hello world\n"
-    execute "normal! i\n\n"
-endfunction
-
-
-function! s:BashTemplate()
-    execute "normal! i#!/usr/bin/env bash\n"
-    execute "normal! i# -*- coding: utf-8 -*-\n"
-    execute "normal! i\n"
-    execute "normal! icd \"$(dirname \"$0\")\" || exit 1\n"
-    execute "normal! i\n\n"
-endfunction
-
-
-function! s:PythonTemplate()
-    execute "normal! i#!/usr/bin/env python3\n"
-    execute "normal! i# -*- coding: utf-8 -*-\n"
-    execute "normal! i\n\n\n\n"
-    execute "normal! idef main():\npass\n"
-    execute "normal! i\n\n"
-    execute "normal! iif __name__ == '__main__':\nmain()\n"
-endfunction
-
-function! s:JsTemplate()
-    execute "normal! i#!/usr/bin/env node"
-    execute "normal! o"
-    execute "normal! i\"use strict\";"
-    execute "normal! o"
-    execute "normal! o"
-endfunction
-
-
-
 function s:AddTerminalNavigation()
     if &filetype ==# 'toggleterm'
         "" Allow <Esc> to reach normal mode within terminal buffers
@@ -117,15 +58,15 @@ augroup DPARO
 
 
     " Insert pragma once for h, and hpp files
-    autocmd BufNewFile *.{h,hpp} call <SID>CHeaderTemplate()
-    autocmd BufNewFile *.{js} call <SID>JsTemplate()
-    autocmd BufNewFile *.{py} call<SID>PythonTemplate()
-    autocmd BufNewFile *.{sh,bash} call<SID>BashTemplate()
+    autocmd BufNewFile *.{h} 0r ~/.config/nvim/dparo/skeletons/c.h
+    autocmd BufNewFile *.{hpp} 0r ~/.config/nvim/dparo/skeletons/c.hpp
+    autocmd BufNewFile *.{js} 0r ~/.config/nvim/dparo/skeletons/js.js
+    autocmd BufNewFile *.{py} 0r ~/.config/nvim/dparo/skeletons/python.py
+    autocmd BufNewFile *.{sh,bash} 0r ~/.config/nvim/dparo/skeletons/sh.sh
+    autocmd BufNewfile .envrc,.direnvrc,direnvrc 0r ~/.config/nvim/dparo/skeletons/.envrc
+    autocmd BufNewfile Makefile 0r ~/.config/nvim/dparo/skeletons/Makefile
 
-    autocmd BufNewfile .envrc,.direnvrc,direnvrc call <SID>EnvrcTemplate(); set filetype=sh
-    autocmd BufNewfile Makefile call <SID>MakefileTemplate()
-    autocmd BufNewfile,BufRead .envrc,.direnvrc,direnvrc set filetype=sh
-
+    autocmd BufNewfile,BufRead  .envrc,.direnvrc,direnvrc set filetype=sh
 
     "" Stop comment continuation when entering a new line inside a comment
     autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
