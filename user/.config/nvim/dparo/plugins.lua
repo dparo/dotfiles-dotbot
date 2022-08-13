@@ -5,6 +5,22 @@ local function my_plugins(use)
 
     use { "nathom/filetype.nvim" }
 
+    --- Trim trailing whitespaces
+    use {
+        "cappyzawa/trim.nvim",
+        config = function()
+            require("trim").setup {
+                disable = {},
+                patterns = {
+                    [[%s/\s\+$//e]], -- remove unwanted spaces
+                    [[%s/\($\n\s*\)\+\%$//]], -- trim last line
+                    [[%s/\%^\n\+//]], -- trim first line
+                    [[%s/\(\n\n\n\)\n\+/\1/]], -- replace more than 3 blank lines with 3 blank lines
+                },
+            }
+        end,
+    }
+
     use { "mbbill/undotree" }
     use {
         "junegunn/fzf.vim",
@@ -45,7 +61,6 @@ local function my_plugins(use)
                     let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
                     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
                 endfunction
-
 
                 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
                 command! -nargs=* -bang Ag call AgFzf(<q-args>, <bang>0)

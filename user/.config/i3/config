@@ -28,9 +28,6 @@ for_window [all] border pixel 2
 for_window [all] title_window_icon padding 4px
 
 
-
-
-
 # Note look at the output of xprop:
 #    WC_CLASS(STRING) = { <INSTANCE>, <CLASS> }
 for_window [instance="float" class="URxvt" ] floating enable
@@ -58,7 +55,6 @@ for_window [instance="ghostscript" class="Ghostscript"] floating enable
 # for_window [instance="file-roller" class="File-roller"] floating enable
 
 
-
 for_window [instance="pomotroid" class="pomotroid" window_role="browser-window"] floating enable
 assign [instance="pomotroid" class="pomotroid" window_role="browser-window"] workspace 10
 
@@ -73,8 +69,6 @@ for_window [instance="spotify" class="Spotify" ] floating enable, scratchpad
 for_window [instance="obsidian" class="obsidian" window_role="browser-window"] floating disable
 
 
-
-
 ### NOTE TO SELF FOR SUBLIME TEXT:
 ### Unfortonuately Sublime text dialog does not set the WM_TITLE
 ### But even more unfortunate is that if in i3 we match for either title="^$" or for title="" or for tile="^\s*$"
@@ -83,9 +77,6 @@ for_window [instance="obsidian" class="obsidian" window_role="browser-window"] f
 ### Possibly it could lead to other sublime dialog dialogs that shouldn't be closed. Let's hope for the best
 for_window [instance="sublime_text" class="Sublime_text" window_type="dialog" window_role="(?!'GtkFileChooserDialog')" title="\\s+"] kill
 for_window [instance="subl" class="Subl" window_type="dialog" window_role="(?!'GtkFileChooserDialog')" title="\\s+"] kill
-
-
-
 
 
 # bindsym $mod+m exec --no-startup-id       jumpapp -m -R -c urxvt-music     urxvt-float -name urxvt-music -e tmuxinator start music
@@ -101,7 +92,6 @@ bindsym $mod+c exec kitty -- zsh -c 'node'
 bindsym $mod+shift+c exec kitty -- zsh -c 'cd "$USER_DOTFILES_LOCATION" && tmux new-session -A -s dotfiles'
 
 
-
 bindsym --release button2             kill
 bindsym --release button3             floating toggle
 bindsym --whole-window $mod+button2   kill
@@ -112,7 +102,6 @@ bindsym button4 nop
 bindsym button5 nop
 bindsym button6 nop
 bindsym button7 nop
-
 
 
 font pango:Monospace 8
@@ -153,8 +142,6 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id  wm-volumectl up 5
 bindsym XF86AudioMute        exec --no-startup-id  wm-volumectl mute
 
 
-
-
 bindsym XF86AudioPause       exec --no-startup-id mpc pause
 
 bindsym XF86AudioPlay        exec --no-startup-id mpc toggle
@@ -168,7 +155,6 @@ bindsym $mod+Ctrl+n         exec --no-startup-id mpc next
 
 bindsym XF86AudioPrev        exec --no-startup-id mpc prev
 bindsym $mod+Ctrl+p          exec --no-startup-id mpc prev
-
 
 
 bindsym $mod+m          exec --no-startup-id      kitty -- ncmpcpp
@@ -282,7 +268,6 @@ bindsym --release  XF86PowerOff              exec --no-startup-id ~/.config/i3/m
 bindsym            Shift+$mod+Pause          exec --no-startup-id xset s activate
 
 
-
 #assign [class="Firefox"] 1
 #assign [class="Emacs"] 2
 
@@ -338,7 +323,6 @@ mode "jump" {
 }
 
 
-
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -369,7 +353,6 @@ mode "resize" {
         bindsym Shift+Down resize grow height 8 px or 8 ppt
         bindsym Shift+Up resize shrink height 8 px or 8 ppt
         bindsym Shift+Right resize grow width 8 px or 8 ppt
-
 
 
         # back to normal: Enter or Escape
@@ -418,9 +401,6 @@ client.unfocused         $background                  $background              $
 client.urgent            $color3                      $color3                  $background             $background             $color3
 client.placeholder       $background                  $background              $foreground             $background             $background
 client.background        $background                  $background              $background             $background             $background
-
-
-
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
