@@ -21,6 +21,19 @@ local function my_plugins(use)
         end,
     }
 
+    -- Many people really want to do tnoremap <Esc> <C-\><C-n>. However, there is a few command line utilties
+    -- they rely on also use <Esc>.
+    -- This is a plugin that let you map <Esc> to <C-\><C-n> except when these command line utilties are running in the termial
+    use {
+        "sychen52/smart-term-esc.nvim",
+        config = function()
+            require("smart-term-esc").setup {
+                key = "<Esc>",
+                except = { "nvim", "fzf", "lazygit" },
+            }
+        end,
+    }
+
     use { "mbbill/undotree" }
     use {
         "junegunn/fzf.vim",

@@ -333,7 +333,7 @@ local function setup_commands()
     ----
     ---- Commands
     ----
-    nmap("<leader>rr", exec_lua "reload_nvim_config()")
+    nmap("<leader>rr", exec_lua "source ~/.config/nvim/init.lua")
     nimap(fn_key(1), exec_cmd "noh")
     nmap({ "<leader>cc", fn_key(7) }, exec_lua "dparo.build()")
     nmap({ "<leader>c<F2>", "<leader>ce", "<leader>cr", unpack(shift_fn_key(7)) }, exec_lua "dparo.set_makeprg()")

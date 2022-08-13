@@ -128,3 +128,37 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
     pattern = "*",
     command = [[set nocursorline]],
 })
+
+-- Create parent directory of file when saving if it does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    group = dparo_augroup,
+    pattern = "*",
+    command = [[call mkdir(expand("<afile>:p:h"), "p")]],
+})
+
+-- When editing a file, always jump to the last known cursor position.
+-- Don't do it when the position is invalid, when inside an event handler
+-- (happens when dropping a file on gvim) and for a commit message (it's
+--  likely a different one than last time).
+-- NOTE(dparo): 5 Jan 2022:
+--     Disabled, since it conflicts with cmdline syntax `$> nvim +{line} <file>`
+--     and thus I cannot spawn neovim from the command line at a specific line location
+--     (eg useful when using gdb, or external shell scripts)
+vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+    group = dparo_augroup,
+    pattern = "make",
+    command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]],
+})
+
+-- Post build
+vim.api.nvim_create_autocmd({ "QuickfixCmdPost" }, {
+    group = dparo_augroup,
+    pattern = "make",
+    callback = dparo.post_build,
+})
+
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+    group = dparo_augroup,
+    pattern = "*",
+    command = [[silent! lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})]],
+})
