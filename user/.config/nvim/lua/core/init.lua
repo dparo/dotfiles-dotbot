@@ -1,9 +1,6 @@
 local M = {}
-
+_G.core = M
 
 require("core.options")
 
-
 M.utils = require("core.utils")
-
-_G.core = M

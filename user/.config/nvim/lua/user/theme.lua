@@ -9,25 +9,25 @@ elseif vim.regex[[^\(tmux\|screen\|iterm\|xterm\|vte\|gnome\|xterm-kitty\|kitty\
     vim.g.ayucolor = "dark"
     vim.g.tokyonight_style = "night"
 
-    -- user.load_color_scheme 'base16-irblack'
-    -- user.load_color_scheme 'base16-atelier-dune'
-    -- user.load_color_scheme 'base16-gruvbox-dark-hard'
-    -- user.load_color_scheme 'material'
-    -- user.load_color_scheme 'nord'
-    -- user.load_color_scheme 'onedark'
-    -- user.load_color_scheme 'onedarkpro'
+    -- user,utils.load_color_scheme 'base16-irblack'
+    -- user,utils.load_color_scheme 'base16-atelier-dune'
+    -- user,utils.load_color_scheme 'base16-gruvbox-dark-hard'
+    -- user,utils.load_color_scheme 'material'
+    -- user,utils.load_color_scheme 'nord'
+    -- user,utils.load_color_scheme 'onedark'
+    -- user,utils.load_color_scheme 'onedarkpro'
     -- require('colorbuddy').colorscheme('gruvbuddy')
     -- require('colorbuddy').colorscheme('spacebuddy')
-    -- user.load_color_scheme 'jellybeans-nvim'
-    -- user.load_color_scheme 'tender'
-    -- user.load_color_scheme 'gruvbox'
-    -- user.load_color_scheme 'dracula'
-    -- user.load_color_scheme 'tokyonight'
-    -- user.load_color_scheme 'everforest'
-    -- user.load_color_scheme 'sonokai'
-    -- user.load_color_scheme 'gruvbox-material'
+    -- user,utils.load_color_scheme 'jellybeans-nvim'
+    -- user,utils.load_color_scheme 'tender'
+    -- user,utils.load_color_scheme 'gruvbox'
+    -- user,utils.load_color_scheme 'dracula'
+    -- user,utils.load_color_scheme 'tokyonight'
+    -- user,utils.load_color_scheme 'everforest'
+    -- user,utils.load_color_scheme 'sonokai'
+    -- user,utils.load_color_scheme 'gruvbox-material'
 
-    user.load_color_scheme 'nightfox'
+    user.utils.load_color_scheme 'nightfox'
 end
 
 local function theme_overrides()
@@ -65,6 +65,6 @@ end
 
 
 --- Autocommand for theme overrides
-user.augroup("USER_THEME_OVERRIDES", {
+core.utils.augroup("USER_THEME_OVERRIDES", {
     {{ "ColorScheme" }, { group = theme_overrides_aucmd, pattern = "*", callback = theme_overrides} },
 })

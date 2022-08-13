@@ -335,9 +335,9 @@ local function setup_commands()
     ----
     nmap("<leader>rr", exec_lua "source ~/.config/nvim/init.lua")
     nimap(fn_key(1), exec_cmd "noh")
-    nmap({ "<leader>cc", fn_key(7) }, exec_lua "user.build()")
-    nmap({ "<leader>c<F2>", "<leader>ce", "<leader>cr", unpack(shift_fn_key(7)) }, exec_lua "user.set_makeprg()")
-    nmap("<leader>/", exec_lua "user.project_wide_search()")
+    nmap({ "<leader>cc", fn_key(7) }, exec_lua "user.utils.build()")
+    nmap({ "<leader>c<F2>", "<leader>ce", "<leader>cr", unpack(shift_fn_key(7)) }, exec_lua "user.utils.set_makeprg()")
+    nmap("<leader>/", exec_lua "user.utils.project_wide_search()")
 
     -- Jump to errors
     nimap(fn_key(6), exec_cmd "cfirst")

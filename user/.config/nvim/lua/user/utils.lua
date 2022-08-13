@@ -22,9 +22,7 @@ command! SyntaxQuery call s:SynStack()
 
 
 local M = {}
-M.string = M.string or {}
 M.lsp = M.lsp or {}
-M.utils = M.utils or {}
 
 M.update_tbl = function(tbl, other)
     for k, v in pairs(other) do
@@ -32,25 +30,22 @@ M.update_tbl = function(tbl, other)
     end
 end
 
-M.string.starts = vim.startswith
-M.string.trim = vim.trim
 
-
-function M.utils.filename_escape(p)
+function M.filename_escape(p)
     return vim.api.nvim_call_function("fnameescape", { p })
 end
 
-function M.utils.escape(p, chars)
+function M.escape(p, chars)
     return vim.api.nvim_call_function("escape", { p, chars })
 end
 
-function M.utils.escape_termcodes(str)
+function M.escape_termcodes(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 local function getftype(p)
     return vim.api.nvim_call_function("getftype", {
-        M.utils.filename_escape(p),
+        M.filename_escape(p),
     })
 end
 
@@ -77,7 +72,7 @@ end
 
 M.file_readable = function(p)
     return vim.api.nvim_call_function("filereadable", {
-        M.utils.filename_escape(p),
+        M.filename_escape(p),
     })
 end
 

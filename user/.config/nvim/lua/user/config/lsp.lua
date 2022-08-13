@@ -53,7 +53,7 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap("n", "<M-CR>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
-    buf_set_keymap("n", "<leader>e", "<cmd>lua user.lsp.show_line_diagnostics()<CR>", opts)
+    buf_set_keymap("n", "<leader>e", "<cmd>lua user.utils.lsp.show_line_diagnostics()<CR>", opts)
     buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
@@ -72,7 +72,7 @@ local lsp_on_attach = function(client, bufnr)
 
 
     local augroup = vim.api.nvim_create_augroup("USER_LSP", { clear = true })
-    vim.api.nvim_create_autocmd({"CursorHold"}, { group = augroup, buffer = bufnr, callback = function() user.lsp.show_line_diagnostics() end })
+    vim.api.nvim_create_autocmd({"CursorHold"}, { group = augroup, buffer = bufnr, callback = function() user.utils.lsp.show_line_diagnostics() end })
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
