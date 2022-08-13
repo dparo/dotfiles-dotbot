@@ -39,7 +39,41 @@ local select_opts = { behaviour = select_behaviour }
 local confirm_behaviour = cmp.ConfirmBehavior.Insert
 -- local confirm_behaviour = cmp.ConfirmBehavior.Replace
 
+local function border(hl_name)
+	return {
+	  { "╭", hl_name },
+	  { "─", hl_name },
+	  { "╮", hl_name },
+	  { "│", hl_name },
+	  { "╯", hl_name },
+	  { "─", hl_name },
+	  { "╰", hl_name },
+	  { "│", hl_name },
+	}
+end
+
+
 cmp.setup({
+	window = {
+		completion = {
+		  	border = border "CmpBorder",
+		  	winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+		},
+		documentation = {
+		  	border = border "CmpDocBorder",
+		},
+	},
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, vim_item)
+			local icons = require("core.icons.lsp")
+			local kind = vim_item.kind
+
+			vim_item.kind = string.format("%s", icons[kind])
+			vim_item.menu = string.format("%s [%s]", kind, entry.source.name)
+		  return vim_item
+		end,
+	},
 	snippet = {
 		expand = function(args)
 			require("luasnip").lsp_expand(args.body)

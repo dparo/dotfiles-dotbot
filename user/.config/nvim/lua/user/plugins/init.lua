@@ -1,12 +1,17 @@
-local function my_plugins(use)
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+    return
+end
+
+local plugins = {
     ----
     ---- Must have utility plugins that integrates/improve the core experience
     ----
 
-    use { "nathom/filetype.nvim" }
+    { "nathom/filetype.nvim" },
 
     --- Trim trailing whitespaces
-    use {
+    {
         "cappyzawa/trim.nvim",
         config = function()
             require("trim").setup {
@@ -19,12 +24,12 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
     -- Many people really want to do tnoremap <Esc> <C-\><C-n>. However, there is a few command line utilties
     -- they rely on also use <Esc>.
     -- This is a plugin that let you map <Esc> to <C-\><C-n> except when these command line utilties are running in the termial
-    use {
+    {
         "sychen52/smart-term-esc.nvim",
         config = function()
             require("smart-term-esc").setup {
@@ -32,10 +37,10 @@ local function my_plugins(use)
                 except = { "nvim", "fzf", "lazygit" },
             }
         end,
-    }
+    },
 
-    use { "mbbill/undotree" }
-    use {
+    { "mbbill/undotree" },
+    {
         "junegunn/fzf.vim",
         requires = {
             {
@@ -79,17 +84,18 @@ local function my_plugins(use)
                 command! -nargs=* -bang Ag call AgFzf(<q-args>, <bang>0)
             ]]
         end,
-    }
+    },
 
-    use {
+    {
         "stsewd/fzf-checkout.vim",
         requires = { "junegunn/fzf.vim" },
-    }
+    },
+
     -- Utils functions for common Unix like utilities such as mkdir, touch, mv inside of vim
-    use { "tpope/vim-eunuch" }
-    use { "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } }
-    use { "nvim-lua/plenary.nvim" }
-    use {
+    { "tpope/vim-eunuch" },
+    { "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } },
+    { "nvim-lua/plenary.nvim" },
+    {
         "rcarriga/nvim-notify",
         config = function()
             require("notify").setup {
@@ -97,9 +103,9 @@ local function my_plugins(use)
                 background_colour = "#000000",
             }
         end,
-    }
-    use { "nvim-lua/popup.nvim", requires = { "nvim-lua/plenary.nvim" } }
-    use {
+    },
+    { "nvim-lua/popup.nvim", requires = { "nvim-lua/plenary.nvim" } },
+    {
         "nvim-telescope/telescope.nvim",
         requires = { "nvim-lua/plenary.nvim" },
         config = function()
@@ -119,41 +125,41 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
     --  With the release of Neovim 0.6 we were given the start of extensible core UI hooks
     -- (vim.ui.select and vim.ui.input). They exist to allow plugin authors
     -- to override them with improvements upon the default behavior,
     -- so that's exactly what this plugin does.
-    use {
+    {
         "https://github.com/stevearc/dressing.nvim",
         requires = { "nvim-telescope/telescope.nvim" },
         config = function()
             require("dressing").setup {}
         end,
-    }
+    },
 
-    use {
+    {
         "folke/trouble.nvim",
         config = function()
             require("trouble").setup {}
         end,
-    }
+    },
     -- Web dev icons, requires font support. Use NerdFonts in your terminal
-    use {
+    {
         "kyazdani42/nvim-web-devicons",
         config = function()
             require("nvim-web-devicons").setup {}
         end,
-    }
-    use {
+    },
+    {
         "folke/which-key.nvim",
         config = function()
             require("which-key").setup {}
         end,
-    }
+    },
     -- Better status line
-    use {
+    {
         "hoob3rt/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons" },
         config = function()
@@ -171,26 +177,26 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
     ----
     ---- Plugins for cursor motion or for text editing
     ----
-    use { "junegunn/vim-easy-align" }
-    use { "andymass/vim-matchup", event = "VimEnter" }
+    { "junegunn/vim-easy-align" },
+    { "andymass/vim-matchup", event = "VimEnter" },
 
     -- "Jetpack" like movement within the buffer. Quickly jump where you want to go
-    use {
+    {
         "ggandor/lightspeed.nvim",
         config = function()
             require("lightspeed").setup {
                 ignore_case = false,
             }
         end,
-    }
+    },
 
     -- Clipboard manager neovim plugin with telescope integration
-    use {
+    {
         "AckslD/nvim-neoclip.lua",
         requires = {
             "nvim-telesope/telescope.nvim",
@@ -218,17 +224,17 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
     -- Easily move selected lines (visual mode) up, down, left and right
-    use {
+    {
         "matze/vim-move",
         config = function()
             vim.g.move_map_keys = 0
         end,
-    }
+    },
 
-    use {
+    {
         "numToStr/Comment.nvim",
         config = function()
             require("Comment").setup {
@@ -243,9 +249,9 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
     -- Multiple cursors support
-    use {
+    {
         "mg979/vim-visual-multi",
         branch = "master",
         config = function()
@@ -258,9 +264,9 @@ local function my_plugins(use)
                 Undo = "<C-u>",
             }
         end,
-    }
+    },
 
-    use {
+    {
         "windwp/nvim-autopairs",
         config = function()
             require("nvim-autopairs").setup {
@@ -278,10 +284,10 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
     -- Highlight todo in comments
-    use {
+    {
         "folke/todo-comments.nvim",
         requires = { "nvim-lua/plenary.nvim", "folke/trouble.nvim", "nvim-telescope/telescope.nvim" },
         config = function()
@@ -297,24 +303,24 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
     -- Automatically close braces but only when pressing enter (more conservative approach)
     --      NOTE: It does not work since it collides with our custom <CR> key, and there's
     --            no way to tell the plugin, to not catch the <CR> key by default and let us
     --            handle it
-    -- use { 'rstacruz/vim-closer' }
+    -- { 'rstacruz/vim-closer' }
 
     ----
     ---- Plugins to manage windows
     ----
-    use {
+    {
         "christoomey/vim-tmux-navigator",
         config = function()
             vim.g.tmux_navigator_no_mappings = 1
         end,
-    }
-    use {
+    },
+    {
         "akinsho/toggleterm.nvim",
         config = function()
             require("toggleterm").setup {
@@ -343,8 +349,8 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
-    use {
+    },
+    {
         "kyazdani42/nvim-tree.lua",
         requires = { "kyazdani42/nvim-web-devicons" },
         config = function()
@@ -358,12 +364,12 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
     ----
     ---- Language specific plugins, for syntax highlighting or working with the language
     ----
-    use {
+    {
         "nvim-treesitter/nvim-treesitter",
         branch = "master",
         run = ":TSUpdateSync all",
@@ -395,27 +401,27 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
-    use { "dag/vim-fish" }
-    use { "mboughaba/i3config.vim" }
-    use {
+    },
+    { "dag/vim-fish" },
+    { "mboughaba/i3config.vim" },
+    {
         "plasticboy/vim-markdown",
         config = function()
             vim.g.vim_markdown_folding_disabled = 1
         end,
-    }
-    use { "vim-crystal/vim-crystal" }
-    use { "ziglang/zig.vim" }
-    use {
+    },
+    { "vim-crystal/vim-crystal" },
+    { "ziglang/zig.vim" },
+    {
         "rust-lang/rust.vim",
         config = function()
             vim.g.cargo_makeprg_params = "build"
         end,
-    }
-    use { "simrat39/rust-tools.nvim" }
-    use { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" }
+    },
+    { "simrat39/rust-tools.nvim" },
+    { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" },
     -- Plugin that provides nice wrapper commands to build with cmake
-    use {
+    {
         "cdelledonne/vim-cmake",
         config = function()
             vim.g.cmake_command = "cmake"
@@ -434,12 +440,12 @@ local function my_plugins(use)
                 augroup END
             ]]
         end,
-    }
+    },
 
     ----
     ---- Git integration
     ----
-    use {
+    {
         "TimUntersberger/neogit",
         requires = "nvim-lua/plenary.nvim",
         config = function()
@@ -447,48 +453,48 @@ local function my_plugins(use)
 
             neogit.setup {}
         end,
-    }
+    },
 
-    use { "tpope/vim-fugitive" }
-    use {
+    { "tpope/vim-fugitive" },
+    {
         "kdheepak/lazygit.nvim",
         cmd = { "LazyGit" },
         requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
         config = function()
             require("telescope").load_extension "lazygit"
         end,
-    }
+    },
 
-    use {
+    {
         "sindrets/diffview.nvim",
         requires = { "nvim-lua/plenary.nvim" },
         config = function()
             require("diffview").setup {}
         end,
-    }
-    use {
+    },
+    {
         "lewis6991/gitsigns.nvim",
         config = function()
             require("gitsigns").setup {
                 current_line_blame = false,
             }
         end,
-    }
+    },
 
     -- Install LuaSnip and load friendly-snippets (a set of already pre-packaged set of snippets)
-    use {
+    {
         "L3MON4D3/LuaSnip",
         requires = { "rafamadriz/friendly-snippets" },
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
         end,
-    }
+    },
 
     ----
     ---- Packages that take neovim to a whole new level like a full IDE or VSCode experience
     ----
     -- Snippets
-    use {
+    {
         "hrsh7th/nvim-cmp",
         requires = {
             "windwp/nvim-autopairs",
@@ -503,17 +509,17 @@ local function my_plugins(use)
             "jose-elias-alvarez/null-ls.nvim",
         },
         config = function()
-            require "user.config.cmp"
+            require "user.plugins.configs.cmp"
         end,
-    }
+    },
 
-    use {
+    {
         "neovim/nvim-lspconfig",
         requires = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "nvim-lua/lsp_extensions.nvim" },
         config = function()
-            require "user.config.lsp"
+            require "user.plugins.configs.lsp"
         end,
-    }
+    },
 
     -- This plugin is very uesfull to fill the gap between LSP servers
     -- (which some low-end implementation may not provide all the whistles)
@@ -524,23 +530,23 @@ local function my_plugins(use)
     --       Null-ls then delegates LSP request to basically external processes, and interprets
     --       their outputs and provides diagnostics/formatting and even completion candidates
     --       (if any are enabled)
-    use {
+    {
         "jose-elias-alvarez/null-ls.nvim",
         requires = { "nvim-lua/plenary.nvim" },
-    }
+    },
 
     ----
     ---- Color schemes
     ----
     -- Theme configurations/generators
-    use { "rktjmp/lush.nvim" }
-    use { "tjdevries/colorbuddy.nvim" }
+    { "rktjmp/lush.nvim" },
+    { "tjdevries/colorbuddy.nvim" },
     -- Themes
-    use { "dracula/vim", as = "dracula" }
-    use { "metalelf0/jellybeans-nvim", requires = { "rktjmp/lush.nvim" } }
-    use { "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } }
-    use { "Th3Whit3Wolf/spacebuddy", requires = { "tjdevries/colorbuddy.nvim" } }
-    use {
+    { "dracula/vim", as = "dracula" },
+    { "metalelf0/jellybeans-nvim", requires = { "rktjmp/lush.nvim" } },
+    { "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } },
+    { "Th3Whit3Wolf/spacebuddy", requires = { "tjdevries/colorbuddy.nvim" } },
+    {
         "marko-cerovac/material.nvim",
         config = function()
             vim.g.material_style = "darker"
@@ -554,9 +560,9 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
-    use { "joshdick/onedark.vim" }
-    use {
+    },
+    { "joshdick/onedark.vim" },
+    {
         "olimorris/onedarkpro.nvim",
         config = function()
             require("onedarkpro").setup {
@@ -572,24 +578,24 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
-    use { "arcticicestudio/nord-vim" }
-    use {
+    { "arcticicestudio/nord-vim" },
+    {
         "sainnhe/everforest",
         config = function()
             vim.g.everforest_background = "hard"
         end,
-    }
+    },
 
-    use { "sainnhe/sonokai" }
-    use {
+    { "sainnhe/sonokai" },
+    {
         "sainnhe/gruvbox-material",
         config = function()
             vim.g.gruvbox_material_background = "hard"
         end,
-    }
-    use {
+    },
+    {
         "EdenEast/nightfox.nvim",
         config = function()
             require("nightfox").setup {
@@ -598,106 +604,39 @@ local function my_plugins(use)
                 },
             }
         end,
-    }
+    },
 
-    use { "tomasiser/vim-code-dark" }
+    { "tomasiser/vim-code-dark" },
 
-    use { "tomasr/molokai" }
-    use {
+    { "tomasr/molokai" },
+    {
         "ellisonleao/gruvbox.nvim",
         config = function()
             vim.g.gruvbox_inverse = 0
             vim.g.gruvbox_contrast_dark = "hard"
             vim.g.gruvbox_contrast_light = "hard"
         end,
-    }
-    use { "ayu-theme/ayu-vim" }
-    use { "mhartington/oceanic-next" }
-    use { "folke/tokyonight.nvim" }
-end
-
-------------------------------------------------------------------------------
-------------------------------------------------------------------------------
-------------------------------------------------------------------------------
-----   Setup and install packer, no need to fiddle with this
-------------------------------------------------------------------------------
-------------------------------------------------------------------------------
-------------------------------------------------------------------------------
-
-local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-local packer_bootstrap = nil
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    packer_bootstrap = vim.fn.system {
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "https://github.com/wbthomason/packer.nvim",
-        install_path,
-    }
-end
-
-do
-    _G.user.plugins = _G.user.plugins or {}
-
-    function _G.user.plugins.reload(params)
-        params = params or {}
-        local packer = require "packer"
-        if params.sync then
-            pcall(packer.sync)
-        else
-            pcall(packer.compile)
+    },
+    { "ayu-theme/ayu-vim",
+        config = function()
+            vim.g.ayucolor = "dark"
         end
-    end
-
-    -- Autocommand that reloads neovim whenever you save the plugins.lua file
-
-    local this_file = vim.fn.fnameescape(vim.fn.expand "<sfile>:p:h" .. "/plugins.lua")
-    local config_files = vim.fn.fnameescape(vim.fn.expand "<sfile>:p:h") .. "/config/*"
-    vim.cmd([[
-        augroup reload_packer_user_config
-            autocmd!
-            autocmd BufWritePost ]] .. this_file .. [[ source ]] .. this_file .. [[ | lua user.plugins.reload({sync=false})
-            autocmd BufWritePost ]] .. config_files .. [[ source ]] .. this_file .. [[ | lua user.plugins.reload({sync=false})
-        augroup END
-    ]])
-end
-
--- Use a protected call so we don't error out on first use of this plugin (if it is not yet installed)
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-    return
-end
-
-local util = require "packer.util"
-
--- Have packer use a popup window
-packer.init {
-    auto_clean = true,
-    compile_on_sync = true,
-
-    -- NOTE(dparo): 5 Jan 2022
-    --     Disabled since it conflicts with `nvim --headless PackerSync` install:
-    --     See issue #751 (https://github.com/wbthomason/packer.nvim/issues/751),
-    --     it this problem will ever be fixed, you can re-enable this line
-    -- max_jobs = 4,
-    display = {
-        prompt_border = "single",
-        open_fn = function()
-            return util.float { border = "rounded" }
-        end,
     },
-    luarocks = {
-        python_cmd = "python3",
-    },
+    { "mhartington/oceanic-next" },
+    { "folke/tokyonight.nvim",
+    config = function()
+        vim.g.tokyonight_style = "storm"
+    end},
 }
 
 return packer.startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
-    -- Your plugins here
-    my_plugins(use)
+
+
+    for _, plugin in ipairs(plugins) do
+        use(plugin)
+    end
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

@@ -6,27 +6,8 @@ if vim.regex[[^\(linux\|rxvt\|interix\|putty\)\(-.*\)\?$]]:match_str(vim.env.TER
     vim.o.termguicolors = true
 elseif vim.regex[[^\(tmux\|screen\|iterm\|xterm\|vte\|gnome\|xterm-kitty\|kitty\|alacritty\)\(-.*\)\?$]]:match_str(vim.env.TERM) then
     vim.o.termguicolors = true
-    vim.g.ayucolor = "dark"
-    vim.g.tokyonight_style = "night"
 
-    -- user,utils.load_color_scheme 'base16-irblack'
-    -- user,utils.load_color_scheme 'base16-atelier-dune'
-    -- user,utils.load_color_scheme 'base16-gruvbox-dark-hard'
-    -- user,utils.load_color_scheme 'material'
-    -- user,utils.load_color_scheme 'nord'
-    -- user,utils.load_color_scheme 'onedark'
-    -- user,utils.load_color_scheme 'onedarkpro'
     -- require('colorbuddy').colorscheme('gruvbuddy')
-    -- require('colorbuddy').colorscheme('spacebuddy')
-    -- user,utils.load_color_scheme 'jellybeans-nvim'
-    -- user,utils.load_color_scheme 'tender'
-    -- user,utils.load_color_scheme 'gruvbox'
-    -- user,utils.load_color_scheme 'dracula'
-    -- user,utils.load_color_scheme 'tokyonight'
-    -- user,utils.load_color_scheme 'everforest'
-    -- user,utils.load_color_scheme 'sonokai'
-    -- user,utils.load_color_scheme 'gruvbox-material'
-
     user.utils.load_color_scheme 'nightfox'
 end
 

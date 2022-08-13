@@ -222,8 +222,11 @@ local function setup_basic_functionalities()
     -- Cut, delete word and stuff
     local delete_backward_word_keys = { "<C-w>", "<C-BS>", "<C-h>" }
     imap(delete_backward_word_keys, exec_key '"_db')
+    nmap(delete_backward_word_keys, '"_dbi')
+
     cmap({ "<C-BS>", "<C-h>" }, "<C-w>")
-    vmap({ "x", "d", "<C-w>", "<C-BS>", "<BS>", "<Del>" }, exec_key '"_d')
+
+    vmap({ "x", "d", "<C-w>", "<C-BS>", "<BS>", "<Del>" }, exec_key 'd')
     nimap("<C-x>", exec_key "dd")
     vmap("<C-x>", exec_key "d")
 
@@ -238,7 +241,6 @@ local function setup_basic_functionalities()
     -- Pressing backspace and delete in normal mode deletes and switches to insert mode
     nmap("<BS>", '"_Xi')
     nmap("<Del>", '"_xi')
-    nmap(delete_backward_word_keys, '"_dbi')
 
     nmap("<Space>", "i")
     vmap("<Space>", "c")
@@ -309,8 +311,7 @@ local function setup_saner_defaults()
     -- Allow gf to open non existing files
     nmap("gf", exec_cmd "edit <cfile>")
 
-    -- When deleting/changing regions, do not pollute the clipboard
-    vmap("d", exec_key '"_d')
+    -- When changing regions, do not pollute the clipboard
     vmap("c", exec_key '"_c')
 
     nmap("[[", "[[zz")
@@ -322,8 +323,8 @@ local function setup_saner_defaults()
         imap(v, v .. "<C-g>u")
     end
 
-    -- Avoid polluting the clipboard when deleting and changing text
-    for _, v in ipairs { "d", "c", "C", "D" } do
+    -- Avoid polluting the clipboard when changing text
+    for _, v in ipairs { "c", "C"} do
         vmap(v, '"_' .. v, nil)
         nmap(v, '"_' .. v, nil)
     end
