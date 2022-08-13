@@ -358,7 +358,7 @@ local function setup_plugins()
     nmap("<C-t>", exec_cmd "Telescope lsp_workspace_symbols")
     nmap("<leader>lr", exec_cmd "Telescope lsp_references")
     nmap("<leader>ld", exec_cmd "Telescope lsp_definitions")
-    nmap({ "<leader>lf", "<leader>la" }, exec_cmd "Telescope lsp_code_actions theme=cursor")
+    nmap({ "<leader>la" }, exec_cmd "Telescope lsp_code_actions theme=cursor")
     nmap(fn_key(3), exec_cmd "NvimTreeToggle")
     nmap("<M-q>", exec_cmd "TroubleToggle document_diagnostics")
 

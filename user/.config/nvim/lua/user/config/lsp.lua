@@ -76,11 +76,11 @@ local lsp_on_attach = function(client, bufnr)
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<leader>l f", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
+        buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
     end
 
     if client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("v", "<leader>l f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        buf_set_keymap("v", "<leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
 
     -- Setup highlight references of word under cursor using lsp
