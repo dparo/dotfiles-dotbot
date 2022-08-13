@@ -2,9 +2,6 @@
 local configPath = vim.api.nvim_call_function("stdpath", { "config" })
 local dataPath = vim.api.nvim_call_function("stdpath", { "data" })
 
--- Set MY_CONFIG_PATH environment variable to point to my config directory
-vim.env.MY_CONFIG_PATH = configPath .. "/dparo"
-
 vim.o.shell = "zsh"
 
 -- The shada file remembers the last state of vim: command line history, search history, file marks
@@ -23,9 +20,6 @@ require "funcs"
 require "dparo.options"
 require "dparo.keymaps"
 require "dparo.plugins"
-
-vim.cmd [[ exe "source" $MY_CONFIG_PATH . "/setupColorscheme.vim" ]]
-
+require "dparo.theme"
 require "dparo.autocommands"
-
-vim.cmd [[ "source" $MY_CONFIG_PATH . "/abbr.vim" ]]
+require "dparo.abbreviations"

@@ -1,3 +1,26 @@
+vim.cmd [[
+com! GetHighlightUnderCursor echo {l,c,n ->
+\   'hi<'    . synIDattr(synID(l, c, 1), n)             . '> '
+\  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
+\  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '
+\ }(line("."), col("."), "name")
+
+
+
+" Show highlight of group under cursor
+function s:SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+
+command! SyntaxQuery call s:SynStack()
+]]
+
+
+
+
 local M = {}
 M.string = M.string or {}
 M.lsp = M.lsp or {}
@@ -288,6 +311,18 @@ function M.eval_lua()
 
     -- print(str)
     vim.api.nvim_eval(str)
+end
+
+
+function M.augroup(group_name, map)
+    local group = vim.api.nvim_create_augroup(group_name, { clear = true })
+
+    for _, tbl in ipairs(map) do
+        local event = tbl[1]
+        local opts = tbl[2]
+        opts.group = group
+        vim.api.nvim_create_autocmd(event, opts)
+    end
 end
 
 _G.dparo = M
