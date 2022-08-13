@@ -1,2 +1,2 @@
-require "core.init"
-require "user.init"
+require "core"
+require "user"
