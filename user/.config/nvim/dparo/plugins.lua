@@ -2,6 +2,9 @@ local function my_plugins(use)
     ----
     ---- Must have utility plugins that integrates/improve the core experience
     ----
+
+    use { "nathom/filetype.nvim" }
+
     use { "mbbill/undotree" }
     use {
         "junegunn/fzf.vim",
