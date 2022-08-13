@@ -25,8 +25,8 @@ core.utils.augroup("USER_SKELETONS", {
 -- Filetypes autocommand
 core.utils.augroup("USER_FILETYPES", {
     { { "FileType" }, { pattern = "gitcommit,gitrebase,gitconfig", callback = function() vim.bo.bufhidden = "delete" end } },
-    { { "FileType" }, { pattern = "gitcommit", callback = function() vim.bo.wrap = true end } },
-    { { "FileType" }, { pattern = "gitcommit,markdown", callback = function() vim.bo.spell = true end } },
+    { { "FileType" }, { pattern = "gitcommit", callback = function() vim.w.wrap = true end } },
+    { { "FileType" }, { pattern = "gitcommit,markdown", callback = function() vim.w.spell = true end } },
     -- Stop comment continuation when entering a new line inside a comment
     { { "BufWritePost" }, { pattern = "*", command = [[ setlocal formatoptions-=cro ]] } },
 
