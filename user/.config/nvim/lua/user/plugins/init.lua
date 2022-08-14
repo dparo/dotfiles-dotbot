@@ -507,6 +507,7 @@ local plugins = {
             "hrsh7th/cmp-cmdline",
             "kyazdani42/nvim-web-devicons",
             "jose-elias-alvarez/null-ls.nvim",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
         },
         config = function()
             require "user.plugins.configs.cmp"
@@ -617,22 +618,24 @@ local plugins = {
             vim.g.gruvbox_contrast_light = "hard"
         end,
     },
-    { "ayu-theme/ayu-vim",
+    {
+        "ayu-theme/ayu-vim",
         config = function()
             vim.g.ayucolor = "dark"
-        end
+        end,
     },
     { "mhartington/oceanic-next" },
-    { "folke/tokyonight.nvim",
-    config = function()
-        vim.g.tokyonight_style = "storm"
-    end},
+    {
+        "folke/tokyonight.nvim",
+        config = function()
+            vim.g.tokyonight_style = "storm"
+        end,
+    },
 }
 
 return packer.startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
-
 
     for _, plugin in ipairs(plugins) do
         use(plugin)

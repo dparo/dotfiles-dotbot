@@ -20,14 +20,11 @@ if not status_ok then
 end
 
 
-
-
-
 local function reload(params)
     params = params or {}
     local packer = require "packer"
 
-    vim.cmd("source " .. vim.fn.fnameescape("~/.config/nvim/user/plugins/init.lua"))
+    vim.cmd("source " .. vim.fn.fnameescape("~/.config/nvim/lua/user/plugins/init.lua"))
     if params.sync then
         pcall(packer.sync)
     else
@@ -37,12 +34,12 @@ end
 
 
 core.utils.augroup("reload_packer_user_config", {
-    { {"BufWritePost" }, { pattern = "~/.config/nvim/user/plugins/init.lua",
+    { {"BufWritePost" }, { pattern = "~/.config/nvim/lua/user/plugins/init.lua",
         callback = function()
             reload({sync=false})
         end
     } },
-    { {"BufWritePost" }, { pattern =  "~/.config/nvim/user/plugins/configs/*",
+    { {"BufWritePost" }, { pattern =  "~/.config/nvim/lua/user/plugins/configs/*",
         callback = function()
             reload({sync=false})
         end
