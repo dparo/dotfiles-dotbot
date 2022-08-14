@@ -1,27 +1,10 @@
 #!/bin/sh
-Location=$HOME/Pictures/Screenshot`date +%Y-%m-%d_%H:%M:%S`.png
 
-case "$1" in
-    full)
-        scrot $Location
-        ;;
-    current)
-        scrot -u $Location
-        ;;
-    partial)
-        scrot -s $Location
-        ;;
-    *)
-        echo "Usage: $0 {full|current|partial} {clipboard}"
-        exit 2
-esac
+set -e
 
-play /usr/share/sounds/freedesktop/stereo/screen-capture.oga
-
-case "$2" in
-    clipboard)
-        xclip -selection clipboard -t "image/png" < $Location
-        ;;
-esac
-
-exit 0
+location=$HOME/Pictures/Screenshot$(date +%Y-%m-%d_%H:%M:%S).png
+maim -s "$location"
+mpv --keep-open=no /usr/share/sounds/freedesktop/stereo/screen-capture.oga 1> /dev/null 2> /dev/null &
+xclip -selection clipboard -t "image/png" < "$location"
+dunstify -i camera-photo-symbolic "Screenshot taken" "Screenshot saved into clipboard!"
+rm -rf "$location"

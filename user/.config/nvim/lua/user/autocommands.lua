@@ -19,49 +19,77 @@ core.utils.augroup("USER_SKELETONS", {
     { "BufNewFile", { pattern = "*.{sh,bash}", command = [[0r ~/.config/nvim/skeletons/sh.sh]] } },
     { "BufNewFile", { pattern = ".envrc,.direnvrc,direnvrc", command = [[0r ~/.config/nvim/skeletons/.envrc]] } },
     { "BufNewFile", { pattern = "Makefile", command = [[0r ~/.config/nvim/skeletons/Makefile]] } },
-
 })
 
 -- Filetypes autocommand
 core.utils.augroup("USER_FILETYPES", {
-    { { "FileType" }, { pattern = "gitcommit,gitrebase,gitconfig", callback = function() vim.bo.bufhidden = "delete" end } },
-    { { "FileType" }, { pattern = "gitcommit", callback = function() vim.w.wrap = true end } },
-    { { "FileType" }, { pattern = "gitcommit,markdown", callback = function() vim.w.spell = true end } },
+    {
+        { "FileType" },
+        {
+            pattern = { "gitcommit", "gitrebase", "gitconfig" },
+            callback = function()
+                vim.bo.bufhidden = "delete"
+            end,
+        },
+    },
+    { { "FileType" }, {
+        pattern = "gitcommit",
+        callback = function()
+            vim.w.wrap = true
+        end,
+    } },
+    { { "FileType" }, {
+        pattern = "gitcommit,markdown",
+        callback = function()
+            vim.w.spell = true
+        end,
+    } },
     -- Stop comment continuation when entering a new line inside a comment
     { { "BufWritePost" }, { pattern = "*", command = [[ setlocal formatoptions-=cro ]] } },
 
     -- Resource specific configuration files for external programs
-    { { "BufWritePost" }, { pattern = "*.config/i3/config", command = [[ silent !i3-msg restart ]] } },
+    { { "BufWritePost" }, { pattern = { "*.config/i3/config", "*.config/i3/config.d/*" }, command = [[ silent !i3-msg restart ]] } },
     { { "BufWritePost" }, { pattern = "*.config/sxhkd/sxhkdrc", command = [[ silent !pkill -USR1 -x sxhkd ]] } },
 })
-
 
 core.utils.augroup("USER_GENERIC", {
     -- Reload the buffer if it was changed externally
     { { "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, { pattern = "*", command = [[if mode() != 'c' | checktime | endif]] } },
 
     -- Notification after file change
-    { { "FileChangedShellPost" }, { pattern = "*", command = [[ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None ]] }},
+    {
+        { "FileChangedShellPost" },
+        { pattern = "*", command = [[ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None ]] },
+    },
 
     -- Reset cursor when vim exits
     { { "VimLeave" }, { pattern = "*", command = [[ silent !echo -ne "\033]112\007" ]] } },
 
     -- Readjusts window dimension when vim changes size
-    { { "VimResized" }, { pattern = "*", command = [[tabdo wincmd =]] }},
+    { { "VimResized" }, { pattern = "*", command = [[tabdo wincmd =]] } },
 
     -- Cursorline enable/disable
-    { { "WinEnter" }, { pattern = "*", callback = function() vim.wo.cursorline = true; end } },
-    { { "WinLeave" }, { pattern = "*", callback = function() vim.wo.cursorline = false; end } },
+    { { "WinEnter" }, {
+        pattern = "*",
+        callback = function()
+            vim.wo.cursorline = true
+        end,
+    } },
+    { { "WinLeave" }, {
+        pattern = "*",
+        callback = function()
+            vim.wo.cursorline = false
+        end,
+    } },
 
     -- Create parent directory of file when saving if it does not exist
-    {{ "BufWritePre" }, { pattern = "*", command = [[call mkdir(expand("<afile>:p:h"), "p")]] } },
+    { { "BufWritePre" }, { pattern = "*", command = [[call mkdir(expand("<afile>:p:h"), "p")]] } },
 
     -- Flash yanked region
-    { {"TextYankPost"}, { pattern = "*", command = [[silent! lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})]] } },
+    { { "TextYankPost" }, { pattern = "*", command = [[silent! lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})]] } },
 
     -- Post build
-    { {"QuickfixCmdPost"}, { pattern = "make", callback = user.utils.post_build }},
-
+    { { "QuickfixCmdPost" }, { pattern = "make", callback = user.utils.post_build } },
 
     -- When editing a file, always jump to the last known cursor position.
     -- Don't do it when the position is invalid, when inside an event handler
@@ -71,7 +99,8 @@ core.utils.augroup("USER_GENERIC", {
     --     Disabled, since it conflicts with cmdline syntax `$> nvim +{line} <file>`
     --     and thus I cannot spawn neovim from the command line at a specific line location
     --     (eg useful when using gdb, or external shell scripts)
-    {{ "BufReadPre" }, { pattern = "*", command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]] } },
+    {
+        { "BufReadPre" },
+        { pattern = "*", command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]] },
+    },
 })
-
-
