@@ -68,6 +68,11 @@ packer.init {
     --     it this problem will ever be fixed, you can re-enable this line
     -- max_jobs = 4,
     display = {
+        working_sym = "ﲊ",
+        error_sym = "✗ ",
+        done_sym = " ",
+        removed_sym = " ",
+        moved_sym = "",
         prompt_border = "single",
         open_fn = function()
             return  require("packer.util").float { border = "rounded" }
