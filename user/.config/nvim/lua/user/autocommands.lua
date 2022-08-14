@@ -1,15 +1,23 @@
+--
 -- Associate to specific path patterns a filetype
-require("filetype").setup {
-    overrides = {
-        complex = {
-            ["*.mutt-.*"] = "mail",
-            [".*/.config/i3/config"] = "i3config",
-            [".envrc"] = "sh",
-            [".direnvrc"] = "sh",
-            ["direnvrc"] = "sh",
-        },
-    },
-}
+--
+
+do
+    local status_ok, _ = pcall(require, "filetype")
+    if status_ok then
+        require("filetype").setup {
+            overrides = {
+                complex = {
+                    ["*.mutt-.*"] = "mail",
+                    [".*/.config/i3/config"] = "i3config",
+                    [".envrc"] = "sh",
+                    [".direnvrc"] = "sh",
+                    ["direnvrc"] = "sh",
+                },
+            },
+        }
+    end
+end
 
 -- Skeletons for new files
 core.utils.augroup("USER_SKELETONS", {
