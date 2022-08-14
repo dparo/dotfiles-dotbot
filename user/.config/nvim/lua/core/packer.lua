@@ -2,6 +2,9 @@ local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nv
 local packer_bootstrap = nil
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e222a" })
+    -- print "Cloning packer .."
+
     packer_bootstrap = vim.fn.system {
         "git",
         "clone",

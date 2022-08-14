@@ -36,8 +36,8 @@ end
 
 local select_behaviour = cmp.SelectBehavior.Select
 local select_opts = { behaviour = select_behaviour }
-local confirm_behaviour = cmp.ConfirmBehavior.Insert
--- local confirm_behaviour = cmp.ConfirmBehavior.Replace
+-- local confirm_behaviour = cmp.ConfirmBehavior.Insert
+local confirm_behaviour = cmp.ConfirmBehavior.Replace
 
 local function border(hl_name)
     return {
@@ -90,14 +90,25 @@ cmp.setup {
     end,
     mapping = {
         -- Specify `cmp.config.disable` if you want to remove a default mapping.
-        ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-        ["<C-Space>"] = cmp.mapping.disable,
+        ["<C-Space>"] = cmp.mapping.complete(),
         -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+
+        ["<Esc>"] = cmp.mapping(function(fallback)
+            local entry = cmp.get_selected_entry()
+            if not entry then
+                fallback()
+            else
+                cmp.abort()
+            end
+        end, { "i", "s" }),
         ["<C-y>"] = cmp.config.disable,
         ["<C-a>"] = cmp.mapping {
             i = abort_and_fallback(),
-            c = close_and_fallback(),
+            c = abort_and_fallback(),
         },
         ["<C-e>"] = cmp.mapping {
             i = confirm_and_fallback { behaviour = confirm_behaviour, select = false },

@@ -3,6 +3,15 @@ local generic = {
     ---- Must have utility plugins that integrates/improve the core experience
     ----
 
+
+    -- A high-performance #RRGGBB format color highlighter for Neovim which has no external dependencies! Written in performant Luajit
+    {
+        "NvChad/nvim-colorizer.lua",
+        config = function()
+            require'colorizer'.setup()
+        end,
+    },
+
     { "nathom/filetype.nvim" },
 
     --- Trim trailing whitespaces
@@ -105,8 +114,44 @@ local generic = {
         requires = { "nvim-lua/plenary.nvim" },
         config = function()
             local actions = require "telescope.actions"
+
             require("telescope").setup {
                 defaults = {
+                    color_devicons = true,
+                    winblend = 0,
+                    border = {},
+                    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+                    prompt_prefix = "   ",
+                    selection_caret = "  ",
+                    entry_prefix = "  ",
+                    initial_mode = "insert",
+                    selection_strategy = "reset",
+                    sorting_strategy = "ascending",
+                    layout_strategy = "horizontal",
+                    layout_config = {
+                        horizontal = {
+                          prompt_position = "top",
+                          preview_width = 0.55,
+                          results_width = 0.8,
+                        },
+                        vertical = {
+                          mirror = false,
+                        },
+                        width = 0.87,
+                        height = 0.80,
+                        preview_cutoff = 120,
+                    },
+
+
+                    vimgrep_arguments = {
+                        "rg",
+                        "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                        "--smart-case",
+                    },
                     mappings = {
                         n = {
                             ["q"] = actions.close,
@@ -116,7 +161,7 @@ local generic = {
                             ["<C-c>"] = actions.close,
                             ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
                         },
-                    },
+                    }
                 },
             }
         end,
@@ -150,7 +195,27 @@ local generic = {
     {
         "folke/which-key.nvim",
         config = function()
-            require("which-key").setup {}
+            require("which-key").setup {
+                icons = {
+                    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+                    separator = "  ", -- symbol used between a key and it's label
+                    group = "+", -- symbol prepended to a group
+                },
+                popup_mappings = {
+                    scroll_down = "<c-d>", -- binding to scroll down inside the popup
+                    scroll_up = "<c-u>", -- binding to scroll up inside the popup
+                },
+
+                window = {
+                    border = "none", -- none/single/double/shadow
+                },
+
+                layout = {
+                    spacing = 6, -- spacing between columns
+                },
+
+                hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
+            }
         end,
     },
     -- Better status line
@@ -629,6 +694,63 @@ local themes = {
                 vim.g.tokyonight_style = "storm"
             end,
         },
+}
+
+
+local unused = {
+    { "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("indent_blankline").setup {
+                -- for example, context is off by default, use this to turn it on
+                show_current_context = true,
+                show_current_context_start = true,
+            }
+        end
+    },
+
+    { "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup {
+                ensure_installed = { "lua-language-server" }, -- not an option from mason.nvim
+
+                ui = {
+                    icons = {
+                        package_pending = " ",
+                        package_installed = " ",
+                        package_uninstalled = " ﮊ",
+                    },
+
+                    keymaps = {
+                        toggle_server_expand = "<CR>",
+                        install_server = "i",
+                        update_server = "u",
+                        check_server_version = "c",
+                        update_all_servers = "U",
+                        check_outdated_servers = "C",
+                        uninstall_server = "X",
+                        cancel_installation = "<C-c>",
+                    },
+                },
+
+                max_concurrent_installers = 10,
+            }
+        end
+    },
+
+
+    -- Dashboard startup page
+    {
+        "goolord/alpha-nvim",
+        config = function()
+            require'alpha'.setup(require'alpha.themes.dashboard'.config)
+        end
+    },
+
+    -- Speed up loading Lua modules in Neovim to improve startup time
+    {
+        "lewis6991/impatient.nvim"
+    },
+
 }
 
 

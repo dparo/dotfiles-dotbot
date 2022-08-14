@@ -247,12 +247,15 @@ local function setup_basic_functionalities()
     -- Pressing leader 2 times enters insert mode
     nmap("<leader><leader>", "i")
 
-    -- Enter visual mode when pressing C-space
-    -- NOTE:
-    --    You can use the CTRL-O command in insert mode to execute a single ex
-    --    command and return back to insert mode without moving the cursor column
-    imap("<C-Space>", "<C-O>v")
-    nmap("<C-Space>", "v")
+    if false then
+        -- Enter visual mode when pressing C-space
+        -- NOTE:
+        --    You can use the CTRL-O command in insert mode to execute a single ex
+        --    command and return back to insert mode without moving the cursor column
+
+        imap("<C-Space>", "<C-O>v")
+        nmap("<C-Space>", "v")
+    end
 
     -- Join lines
     vmap("<C-j>", "gq")
@@ -427,3 +430,25 @@ end
 local feedkey = function(key, mode)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
+
+
+
+local M = {}
+M.plugins = {}
+
+M.plugins['telescope'] = function()
+    local actions = require "telescope.actions"
+
+    return {
+        n = {
+            ["q"] = actions.close,
+        },
+        i = {
+            ["<Esc>"] = actions.close,
+            ["<C-c>"] = actions.close,
+            ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+        },
+    }
+end
+
+return M
