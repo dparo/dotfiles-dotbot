@@ -1,9 +1,4 @@
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-    return
-end
-
-local plugins = {
+local generic = {
     ----
     ---- Must have utility plugins that integrates/improve the core experience
     ----
@@ -538,114 +533,106 @@ local plugins = {
         requires = { "nvim-lua/plenary.nvim" },
     },
 
-    ----
-    ---- Color schemes
-    ----
-    -- Theme configurations/generators
-    { "rktjmp/lush.nvim" },
-    { "tjdevries/colorbuddy.nvim" },
-    -- Themes
-    { "dracula/vim", as = "dracula" },
-    { "metalelf0/jellybeans-nvim", requires = { "rktjmp/lush.nvim" } },
-    { "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } },
-    { "Th3Whit3Wolf/spacebuddy", requires = { "tjdevries/colorbuddy.nvim" } },
-    {
-        "marko-cerovac/material.nvim",
-        config = function()
-            vim.g.material_style = "darker"
-            require("material").setup {
-                custom_highlights = {
-                    Special = "#FFFFFF",
-                    SpecialChar = "#FFFFFF",
-                    cSpecialCharacter = "#FFFFFF",
-                    TSStringEscape = "#FFFFFF",
-                    TSStringSpecial = "#FFFFFF",
-                },
-            }
-        end,
-    },
-    { "joshdick/onedark.vim" },
-    {
-        "olimorris/onedarkpro.nvim",
-        config = function()
-            require("onedarkpro").setup {
-                styles = {
-                    comments = "italic",
-                    functions = "NONE",
-                    keywords = "bold",
-                    strings = "NONE",
-                    variables = "NONE",
-                },
-                options = {
-                    italic = false,
-                },
-            }
-        end,
-    },
-
-    { "arcticicestudio/nord-vim" },
-    {
-        "sainnhe/everforest",
-        config = function()
-            vim.g.everforest_background = "hard"
-        end,
-    },
-
-    { "sainnhe/sonokai" },
-    {
-        "sainnhe/gruvbox-material",
-        config = function()
-            vim.g.gruvbox_material_background = "hard"
-        end,
-    },
-    {
-        "EdenEast/nightfox.nvim",
-        config = function()
-            require("nightfox").setup {
-                options = {
-                    dim_inactive = true,
-                },
-            }
-        end,
-    },
-
-    { "tomasiser/vim-code-dark" },
-
-    { "tomasr/molokai" },
-    {
-        "ellisonleao/gruvbox.nvim",
-        config = function()
-            vim.g.gruvbox_inverse = 0
-            vim.g.gruvbox_contrast_dark = "hard"
-            vim.g.gruvbox_contrast_light = "hard"
-        end,
-    },
-    {
-        "ayu-theme/ayu-vim",
-        config = function()
-            vim.g.ayucolor = "dark"
-        end,
-    },
-    { "mhartington/oceanic-next" },
-    {
-        "folke/tokyonight.nvim",
-        config = function()
-            vim.g.tokyonight_style = "storm"
-        end,
-    },
 }
 
-return packer.startup(function(use)
-    -- Packer can manage itself
-    use "wbthomason/packer.nvim"
+local themes = {
+        -- Theme configurations/generators
+        { "rktjmp/lush.nvim" },
+        { "tjdevries/colorbuddy.nvim" },
 
-    for _, plugin in ipairs(plugins) do
-        use(plugin)
-    end
 
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if packer_bootstrap then
-        require("packer").sync()
-    end
-end)
+        { "dracula/vim", as = "dracula" },
+        { "metalelf0/jellybeans-nvim", requires = { "rktjmp/lush.nvim" } },
+        { "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } },
+        { "Th3Whit3Wolf/spacebuddy", requires = { "tjdevries/colorbuddy.nvim" } },
+        {
+            "marko-cerovac/material.nvim",
+            config = function()
+                vim.g.material_style = "darker"
+                require("material").setup {
+                    custom_highlights = {
+                        Special = "#FFFFFF",
+                        SpecialChar = "#FFFFFF",
+                        cSpecialCharacter = "#FFFFFF",
+                        TSStringEscape = "#FFFFFF",
+                        TSStringSpecial = "#FFFFFF",
+                    },
+                }
+            end,
+        },
+        { "joshdick/onedark.vim" },
+        {
+            "olimorris/onedarkpro.nvim",
+            config = function()
+                require("onedarkpro").setup {
+                    styles = {
+                        comments = "italic",
+                        functions = "NONE",
+                        keywords = "bold",
+                        strings = "NONE",
+                        variables = "NONE",
+                    },
+                    options = {
+                        italic = false,
+                    },
+                }
+            end,
+        },
+
+        { "arcticicestudio/nord-vim" },
+        {
+            "sainnhe/everforest",
+            config = function()
+                vim.g.everforest_background = "hard"
+            end,
+        },
+
+        { "sainnhe/sonokai" },
+        {
+            "sainnhe/gruvbox-material",
+            config = function()
+                vim.g.gruvbox_material_background = "hard"
+            end,
+        },
+        {
+            "EdenEast/nightfox.nvim",
+            config = function()
+                require("nightfox").setup {
+                    options = {
+                        dim_inactive = true,
+                    },
+                }
+            end,
+        },
+
+        { "tomasiser/vim-code-dark" },
+
+        { "tomasr/molokai" },
+        {
+            "ellisonleao/gruvbox.nvim",
+            config = function()
+                vim.g.gruvbox_inverse = 0
+                vim.g.gruvbox_contrast_dark = "hard"
+                vim.g.gruvbox_contrast_light = "hard"
+            end,
+        },
+        {
+            "ayu-theme/ayu-vim",
+            config = function()
+                vim.g.ayucolor = "dark"
+            end,
+        },
+        { "mhartington/oceanic-next" },
+        {
+            "folke/tokyonight.nvim",
+            config = function()
+                vim.g.tokyonight_style = "storm"
+            end,
+        },
+}
+
+
+local M = {}
+table.insert(M, generic)
+table.insert(M, themes)
+return M

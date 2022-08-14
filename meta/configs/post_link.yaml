@@ -67,7 +67,7 @@
       command: nvim --headless -c 'quitall!'
 
     - description: Refresh packer
-      command: rm "$HOME/.config/nvim/plugin/packer_compiled.lua"; nvim --headless -c 'autocmd User PackerCompileDone quitall!' -c 'PackerCompile'
+      command: rm "$HOME/.config/nvim/plugin/packer_compiled.lua"; nvim --headless -c 'autocmd User PackerCompileDone quitall!' -c 'PackerCompile' 1> /dev/null 2> /dev/null
 
     - description: Install Neovim plugins
       stderr: false

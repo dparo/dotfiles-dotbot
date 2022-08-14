@@ -10,6 +10,15 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         "https://github.com/wbthomason/packer.nvim",
         install_path,
     }
+
+    vim.fn.system {
+        "rm",
+        "-rf",
+        vim.env.HOME .. "/.config/nvim/plugin/packer_compiled.lua"
+    }
+
+    vim.cmd[[packadd packer.nvim]]
+    packer_bootstrap = true
 end
 
 
@@ -50,6 +59,7 @@ core.utils.augroup("reload_packer_user_config", {
 -- Have packer use a popup window
 packer.init {
     auto_clean = true,
+    autoremove = true,
     compile_on_sync = true,
 
     -- NOTE(dparo): 5 Jan 2022
@@ -67,3 +77,20 @@ packer.init {
         python_cmd = "python3",
     },
 }
+
+
+return packer.startup(function(use)
+    -- Packer can manage itself
+    use "wbthomason/packer.nvim"
+
+    local plugins = require("user.plugins")
+    for _, plugin in ipairs(plugins) do
+        use(plugin)
+    end
+
+    -- Automatically set up your configuration after cloning packer.nvim
+    -- Put this at the end after all plugins
+    if packer_bootstrap then
+        require("packer").sync()
+    end
+end)
