@@ -2,6 +2,7 @@ vim.o.background = "dark"
 vim.o.guifont="JetBrainsMono Nerd Font:h10.0"
 
 
+
 if vim.regex[[^\(linux\|rxvt\|interix\|putty\)\(-.*\)\?$]]:match_str(vim.env.TERM) then
     vim.o.termguicolors = true
 elseif vim.regex[[^\(tmux\|screen\|iterm\|xterm\|vte\|gnome\|xterm-kitty\|kitty\|alacritty\)\(-.*\)\?$]]:match_str(vim.env.TERM) then
@@ -10,6 +11,9 @@ elseif vim.regex[[^\(tmux\|screen\|iterm\|xterm\|vte\|gnome\|xterm-kitty\|kitty\
     -- require('colorbuddy').colorscheme('gruvbuddy')
     user.utils.load_color_scheme 'nightfox'
 end
+
+
+
 
 local function theme_overrides()
     vim.o.guicursor=[[n:block-Cursor,v:hor10-vCursor,i:ver100-iCursor,n-c-ci-cr-sm-v:blinkon0,i:blinkon10,i:blinkwait10,c-ci-cr:block-cCursor,c:block-cCursor]]
@@ -36,6 +40,22 @@ local function theme_overrides()
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineInformation", {cterm = { undercurl = true }, ctermbg = "none", ctermfg = "none", undercurl = true, sp = "#FFFF00", fg = "fg",  bg = "bg"})
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", {cterm = { undercurl = true}, ctermbg = "none", ctermfg = "none", undercurl = true, sp = "#AAFFAA", fg = "fg",  bg = "bg"})
 
+
+    -- Vscode colors for Cmp Completion window, Some themes do not set good defaults for this
+    if true then
+        vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { default, strikethrough = true, bg = "bg", fg = "#808080" })
+        vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { default, bg = "bg", fg = "#569CD6" })
+        vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { default, bg = "bg", fg = "#569CD6" })
+        vim.api.nvim_set_hl(0, "CmpItemKindVariable", { default, bg = "bg", fg = "#9CDCFE" })
+        vim.api.nvim_set_hl(0, "CmpItemKindInterface", { default, bg = "bg", fg = "#9CDCFE" })
+        vim.api.nvim_set_hl(0, "CmpItemKindText", { default, bg = "bg", fg = "#9CDCFE" })
+        vim.api.nvim_set_hl(0, "CmpItemKindFunction", { default, bg = "bg", fg = "#C586C0" })
+        vim.api.nvim_set_hl(0, "CmpItemKindMethod", { default, bg = "bg", fg = "#C586C0" })
+        vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { default, bg = "bg", fg = "#D4D4D4" })
+        vim.api.nvim_set_hl(0, "CmpItemKindProperty", { default, bg = "bg", fg = "#D4D4D4" })
+        vim.api.nvim_set_hl(0, "CmpItemKindUnit", { default, bg = "bg", fg = "#D4D4D4" })
+    end
+
     -- Nvim Web DevIcons might need to be re-called in a `Colorscheme`
     -- to re-apply cleared highlights if the color scheme changes
     local status_ok, nvim_web_devicons = pcall(require, 'nvim-web-devicons')
@@ -44,6 +64,7 @@ local function theme_overrides()
     end
 end
 
+theme_overrides()
 
 --- Autocommand for theme overrides
 core.utils.augroup("USER_THEME_OVERRIDES", {

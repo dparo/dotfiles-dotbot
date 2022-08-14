@@ -65,11 +65,11 @@ cmp.setup {
     formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
-            local icons = require "core.icons.lsp"
+            local icons = require("core.icons.lsp").default
             local kind = vim_item.kind
 
-            vim_item.kind = string.format("%s", icons[kind])
-            vim_item.menu = string.format("%s [%s]", kind, entry.source.name)
+            vim_item.kind = string.format("%s %s", icons[kind] or "", kind)
+            vim_item.menu = string.format("[%s]", entry.source.name)
             return vim_item
         end,
     },
@@ -78,6 +78,16 @@ cmp.setup {
             require("luasnip").lsp_expand(args.body)
         end,
     },
+    enabled = function()
+        -- Disable completion in comments
+        local context = require 'cmp.config.context'
+        -- keep command mode completion enabled when cursor is in a comment
+        if vim.api.nvim_get_mode().mode == 'c' then
+            return true
+        else
+            return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+        end
+    end,
     mapping = {
         -- Specify `cmp.config.disable` if you want to remove a default mapping.
         ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
@@ -161,9 +171,24 @@ cmp.setup {
     }),
 }
 
+
+-- Set configuration for specific filetype.
+if vim.env.GITHUB_API_TOKEN ~= nil then
+    cmp.setup.filetype('gitcommit', {
+        sources = cmp.config.sources({
+            { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+        }, {
+            { name = 'buffer' },
+        })
+    })
+end
+
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 if false then
     cmp.setup.cmdline("/", {
+        view = {
+            entries = {name = 'wildmenu', separator = '|' }
+        },
         sources = {
             { name = "buffer" },
         },

@@ -31,44 +31,42 @@ capabilities.textDocument.completion.completionItem.resolveSupport.properties = 
 )
 
 local lsp_on_attach = function(client, bufnr)
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
+    local buf_set_keymap = vim.api.nvim_buf_set_keymap
+    local buf_set_option = vim.api.nvim_buf_set_option
 
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+    buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+	buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
     -- Mappings.
     local opts = { noremap = true, silent = true }
-    buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    buf_set_keymap("n", "gd", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap("n", "gt", "<Cmd>Telescope lsp_type_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap("n", "gi", "<cmd>Telescope lsp_implementations theme=dropdown<CR>", opts)
-    buf_set_keymap("n", "gr", "<cmd>Telescope lsp_references theme=dropdown<CR>", opts)
-    buf_set_keymap("n", "<C-LeftMouse>", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap("n", "<leader>D", "<cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap("n", "<S-LeftMouse>", "<Cmd>Telescope lsp_references theme=dropdown<CR>", opts)
-    buf_set_keymap("n", "<M-CR>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-    buf_set_keymap("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gd", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gt", "<Cmd>Telescope lsp_type_definitions theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gi", "<cmd>Telescope lsp_implementations theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<C-LeftMouse>", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>D", "<cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<S-LeftMouse>", "<Cmd>Telescope lsp_references theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<M-CR>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
-    buf_set_keymap("n", "<leader>e", "<cmd>lua user.utils.lsp.show_line_diagnostics()<CR>", opts)
-    buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>e", "<cmd>lua user.utils.lsp.show_line_diagnostics()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
-    buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "<leader>hh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "<leader>hs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    buf_set_keymap("n", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    buf_set_keymap("i", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    buf_set_keymap("n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-    buf_set_keymap("n", "<leader>lwr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    buf_set_keymap("n", "<leader>lwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-    buf_set_keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>hh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>hs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap(bufnr, "i", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lwr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
-    buf_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
 
     local augroup = vim.api.nvim_create_augroup("USER_LSP", { clear = true })
@@ -76,11 +74,11 @@ local lsp_on_attach = function(client, bufnr)
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
+        buf_set_keymap(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
     end
 
     if client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("v", "<leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        buf_set_keymap(bufnr, "v", "<leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
 
     -- Setup highlight references of word under cursor using lsp
@@ -266,13 +264,26 @@ for _, server in ipairs(lsp_servers) do
     config.capabilities = capabilities
     config.on_attach = lsp_on_attach
     config.flags = vim.tbl_deep_extend("force", config.flags or {}, { debounce_text_changes = 500 })
-    lspconfig[name].setup(config)
 
     if name == "rust_analyzer" then
-        -- NOTE: Rust tools seems to fuck around too much with our configuration just to get some inline type hints
+        -- `rust-tools` plugin plugin automatically sets up nvim-lspconfig for rust_analyzer for you,
+        --  so don't do that manually, as it causes conflicts.
+        -- NOTE(dparo): Rust tools seems to fuck around too much with our configuration just to get some inline type hints
         -- require('rust-tools').setup({ tools = {hover_with_actions = false}, server = config })
+
+        -- @param server:  all the opts to send to nvim-lspconfig
+        -- these override the defaults set by rust-tools.nvim
+        require("rust-tools").setup({
+            server = config
+        })
+    else
+
+        lspconfig[name].setup(config)
     end
 end
+
+
+
 
 null_ls.setup {
     on_attach = lsp_on_attach,

@@ -497,6 +497,7 @@ local plugins = {
     {
         "hrsh7th/nvim-cmp",
         requires = {
+            'nvim-lua/plenary.nvim',
             "windwp/nvim-autopairs",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
@@ -508,6 +509,7 @@ local plugins = {
             "kyazdani42/nvim-web-devicons",
             "jose-elias-alvarez/null-ls.nvim",
             "hrsh7th/cmp-nvim-lsp-signature-help",
+            'petertriho/cmp-git',
         },
         config = function()
             require "user.plugins.configs.cmp"
