@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-
-filename=$(basename -- "$1")
-extension="${filename##*.}"
-
-exec xclip -selection clipboard -t "image/${extension}" -i "$filename"
