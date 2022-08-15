@@ -630,6 +630,8 @@ local themes = {
             end,
         },
 
+        { "Everblush/everblush.nvim" },
+
 }
 
 
