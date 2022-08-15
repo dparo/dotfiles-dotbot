@@ -1,3 +1,37 @@
+
+-- Portable package manager for Neovim that runs everywhere Neovim runs.
+-- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+-- :help mason.nvim
+require("mason").setup {
+    ui = {
+        icons = {
+            package_pending = " ",
+            package_installed = " ",
+            package_uninstalled = " ﮊ",
+        },
+
+        keymaps = {
+            toggle_server_expand = "<CR>",
+            install_server = "i",
+            update_server = "u",
+            check_server_version = "c",
+            update_all_servers = "U",
+            check_outdated_servers = "C",
+            uninstall_server = "X",
+            cancel_installation = "<C-c>",
+        },
+    },
+
+    max_concurrent_installers = 10,
+}
+
+-- Plugin to automatically install language servers registered to nvim-lspconfig
+require("mason-lspconfig").setup({
+    ensure_installed = { "sumneko_lua", "rust_analyzer" },
+    automatic_installation = true,
+})
+
+
 local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },
@@ -17,6 +51,15 @@ vim.diagnostic.config {
 }
 
 local lspconfig = require "lspconfig"
+
+
+-- Null-ls is meant to fill the gaps for languages where either no language server exists,
+-- or where standalone linters,formatters,diagnostics provide better results
+-- than the available language server do.
+-- NOTE: Null-ls can be essentially conceptualized as an LSP server responding to LSP
+--       clients request, but instead of being in a separate process, lives inside neovim.
+--       Null-ls then delegates LSP request to external processes interpreting
+--       their outputs and providing diagnostics, ormatting and completion candidates.
 local null_ls = require "null-ls"
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -281,8 +324,6 @@ for _, server in ipairs(lsp_servers) do
         lspconfig[name].setup(config)
     end
 end
-
-
 
 
 null_ls.setup {

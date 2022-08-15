@@ -528,26 +528,11 @@ local generic = {
 
     {
         "neovim/nvim-lspconfig",
-        requires = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "nvim-lua/lsp_extensions.nvim" },
+        requires = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "nvim-lua/lsp_extensions.nvim", "jose-elias-alvarez/null-ls.nvim", "nvim-lua/plenary.nvim", "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim"},
         config = function()
             require "user.plugins.configs.lsp"
         end,
     },
-
-    -- This plugin is very uesfull to fill the gap between LSP servers
-    -- (which some low-end implementation may not provide all the whistles)
-    -- and common command line tools, which are usually quiet complicate but separate
-    -- from the LSP server
-    -- NOTE: Null-ls can be essentially conceptualized as an LSP server responding to LSP
-    --       clients request, but instead of being in a separate process, lives inside neovim.
-    --       Null-ls then delegates LSP request to basically external processes, and interprets
-    --       their outputs and provides diagnostics/formatting and even completion candidates
-    --       (if any are enabled)
-    {
-        "jose-elias-alvarez/null-ls.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
-    },
-
 }
 
 local themes = {
@@ -644,6 +629,7 @@ local themes = {
                 vim.g.tokyonight_style = "storm"
             end,
         },
+
 }
 
 
@@ -654,35 +640,6 @@ local unused = {
                 -- for example, context is off by default, use this to turn it on
                 show_current_context = true,
                 show_current_context_start = true,
-            }
-        end
-    },
-
-    { "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup {
-                ensure_installed = { "lua-language-server" }, -- not an option from mason.nvim
-
-                ui = {
-                    icons = {
-                        package_pending = " ",
-                        package_installed = " ",
-                        package_uninstalled = " ﮊ",
-                    },
-
-                    keymaps = {
-                        toggle_server_expand = "<CR>",
-                        install_server = "i",
-                        update_server = "u",
-                        check_server_version = "c",
-                        update_all_servers = "U",
-                        check_outdated_servers = "C",
-                        uninstall_server = "X",
-                        cancel_installation = "<C-c>",
-                    },
-                },
-
-                max_concurrent_installers = 10,
             }
         end
     },
