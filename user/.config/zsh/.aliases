@@ -66,7 +66,7 @@ if valid_shell_command yay; then
 elif valid_shell_command pacman; then
 	alias update='sudo pacman -Syu'
 elif valid_shell_command apt; then
-	alias update="sudo bash -c 'apt update && apt upgrade && apt autoremove --yes'"
+	alias update="sudo bash -c 'apt update && apt full-upgrade && apt autoremove --yes'"
 elif valid_shell_command dnf; then
 	alias update='sudo dnf update'
 fi
