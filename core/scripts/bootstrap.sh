@@ -141,7 +141,13 @@ pip3 install -U \
 	numpy matplotlib pandas plotly \
 	Pillow notebook jupyterlab scikit-learn \
 	i3ipc neovim-remote pynvim tmuxp \
-	pylint yapf pycodestyle autopep8 mypy pyls pyls-mypy 'python-language-server[all]' 'python-lsp-server[all]' pyls-black black rope jedi jedi-language-server yapf setuptools "ptvsd>=4.2" pyflakes flake8 pyls-flake8 pyls-isort python-lsp-black pyls-memestra \
+    pycodestyle flake8 autopep8 autoflake \
+    black yapf \
+	pylint mypy pyre-check \
+    'python-lsp-server[all]' pylsp-mypy pyls-isort pyls-black python-lsp-black pyls-memestra \
+    jedi jedi-language-server \
+    rope \
+    debugpy \
 	codespell cmakelang cmake-language-server gitlint vim-vint proselint \
 	autorandr \
 	streamlink spotdl yt-dlp
