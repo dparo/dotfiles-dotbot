@@ -8,8 +8,8 @@
 _G.user = _G.user or {}
 _G.user.binds = _G.user.binds or {}
 
-local default_opts = { noremap = true, silent = true }
-local remappable_opts = vim.tbl_deep_extend("force", default_opts, { noremap = false })
+local default_opts = { remap = false, silent = true }
+local remappable_opts = vim.tbl_deep_extend("force", default_opts, { remap = true })
 local term_opts = { silent = true }
 local term_opts = { silent = true }
 
@@ -31,15 +31,15 @@ local function keymap(mode, lhs, rhs, opts)
     end
     if type(lhs) == "table" then
         for _, v in ipairs(lhs) do
-            vim.api.nvim_set_keymap(mode, v, rhs, opts)
+            vim.keymap.set(mode, v, rhs, opts)
         end
     else
-        vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+        vim.keymap.set(mode, lhs, rhs, opts)
     end
 end
 
 local function unmap(mode, lhs)
-    vim.api.nvim_del_keymap(mode, lhs)
+    vim.keymap.del(mode, lhs)
 end
 
 local function map(lhs, rhs, opts)
@@ -226,7 +226,7 @@ local function setup_basic_functionalities()
 
     cmap({ "<C-BS>", "<C-h>" }, "<C-w>")
 
-    vmap({ "x", "d", "<C-w>", "<C-BS>", "<BS>", "<Del>" }, exec_key 'd')
+    vmap({ "x", "d", "<C-w>", "<C-BS>", "<BS>", "<Del>" }, exec_key "d")
     nimap("<C-x>", exec_key "dd")
     vmap("<C-x>", exec_key "d")
 
@@ -327,7 +327,7 @@ local function setup_saner_defaults()
     end
 
     -- Avoid polluting the clipboard when changing text
-    for _, v in ipairs { "c", "C"} do
+    for _, v in ipairs { "c", "C" } do
         vmap(v, '"_' .. v, nil)
         nmap(v, '"_' .. v, nil)
     end
@@ -431,12 +431,10 @@ local feedkey = function(key, mode)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-
-
 local M = {}
 M.plugins = {}
 
-M.plugins['telescope'] = function()
+M.plugins["telescope"] = function()
     local actions = require "telescope.actions"
 
     return {
