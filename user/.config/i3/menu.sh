@@ -21,7 +21,7 @@ Ubuntu Software Properties
 Edit i3 config
 EOF
 	)
-	ask=$(echo "$CHOICES" | rofi -dmenu -i -matching fuzzy)
+	ask=$(echo "$CHOICES" | rofi -theme sidebar -dmenu -i)
 else
 	ask="$1"
 fi

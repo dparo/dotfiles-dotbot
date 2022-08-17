@@ -1,11 +1,13 @@
 * {
-    font: "Noto Sans Nerd Font 10";
+    font: "Noto Sans 10";
 }
 
 
 configuration {
+    location: 2;
+
 	/*---------- General setting ----------*/
-    font: "Noto Sans Nerd Font 10";
+    font: "Noto Sans 10";
     terminal: "kitty";
 
 	modi: "drun,run,filebrowser,window";
@@ -21,7 +23,7 @@ configuration {
 	steal-focus: false;
 
 	/*---------- Matching setting ----------*/
-	matching: "normal";
+	matching: "fuzzy";
 	tokenize: true;
 
 	/*---------- SSH settings ----------*/
