@@ -1,106 +1,82 @@
-configuration{
-    modi: "run,drun,window";
-    combi-modi: "window,drun,ssh";
-    case-sensitive: false;
-    font: "Noto Mono Nerd Font 11";
-    show-icons: true;
-    drun-display-format: "{icon} {name}";
-    location: 2;
-    lines: 5;
-    disable-history: false;
-    hide-scrollbar: true;
-    display-drun: "   Apps ";
-    display-run: "   Run ";
-    display-window: " 﩯  window";
-    display-Network: " 󰤨  Network";
-    sidebar-mode: true;
+* {
+    font: "Noto Sans Nerd Font 10";
+}
 
+
+configuration {
+	/*---------- General setting ----------*/
+    font: "Noto Sans Nerd Font 10";
     terminal: "kitty";
-    run-shell-command: "kitty {cmd}";
+
+	modi: "drun,run,filebrowser,window";
+	combi-modi: "drun,run,filebrowser,window";
+	case-sensitive: false;
+	cycle: true;
+	filter: "";
+	scroll-method: 0;
+	normalize-match: true;
+	show-icons: true;
+	icon-theme: "Adwaita";
+	application-fallback-icon: "Adwaita";
+	steal-focus: false;
+
+	/*---------- Matching setting ----------*/
+	matching: "normal";
+	tokenize: true;
+
+	/*---------- SSH settings ----------*/
+	ssh-client: "ssh";
+	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
+	parse-hosts: true;
+	parse-known-hosts: true;
+
+	/*---------- Drun settings ----------*/
+	drun-categories: "";
+	drun-match-fields: "name,generic,exec,categories,keywords";
+	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
+	drun-show-actions: false;
+	drun-url-launcher: "xdg-open";
+	drun-use-desktop-cache: false;
+	drun-reload-desktop-cache: false;
+	drun {
+		/** Parse user desktop files. */
+		parse-user:   true;
+		/** Parse system desktop files. */
+		parse-system: true;
+    }
+
+	/*---------- Run settings ----------*/
+	run-command: "{cmd}";
+	run-list-command: "";
+	run-shell-command: "{terminal} -e {cmd}";
+
+	/*---------- Window switcher settings ----------*/
+	window-match-fields: "title,class,role,name,desktop";
+	window-command: "wmctrl -i -R {window}";
+	window-format: "{w} - {c} - {t:0}";
+	window-thumbnail: false;
+
+	/*---------- History and Sorting ----------*/
+	disable-history: false;
+	sorting-method: "normal";
+	max-history-size: 25;
+
+	/*---------- Display setting ----------*/
+	display-window: "Windows";
+	display-windowcd: "Window CD";
+	display-run: "Run";
+	display-ssh: "SSH";
+	display-drun: "Apps";
+	display-combi: "Combi";
+	display-keys: "Keys";
+	display-filebrowser: "Files";
+
+	/*---------- File browser settings ----------*/
+    filebrowser {
+      directories-first: true;
+      sorting-method:    "name";
+    }
 }
 
-@theme "catppuccin"
-
-element-text, element-icon , mode-switcher {
-    background-color: inherit;
-    text-color:       inherit;
-}
-
-window {
-    height: 360px;
-    width: 720px;
-    border: 3px;
-    border-color: @border-col;
-    background-color: @bg-col;
-}
-
-mainbox {
-    background-color: @bg-col;
-}
-
-inputbar {
-    children: [prompt,entry];
-    background-color: @bg-col;
-    border-radius: 5px;
-    padding: 2px;
-}
-
-prompt {
-    background-color: @blue;
-    padding: 6px;
-    text-color: @bg-col;
-    border-radius: 3px;
-    margin: 20px 0px 0px 20px;
-}
-
-textbox-prompt-colon {
-    expand: false;
-    str: ":";
-}
-
-entry {
-    padding: 6px;
-    margin: 20px 0px 0px 10px;
-    text-color: @fg-col;
-    background-color: @bg-col;
-}
-
-listview {
-    border: 0px 0px 0px;
-    padding: 6px 0px 0px;
-    margin: 10px 0px 0px 20px;
-    columns: 2;
-    background-color: @bg-col;
-}
-
-element {
-    padding: 5px;
-    background-color: @bg-col;
-    text-color: @fg-col  ;
-}
-
-element-icon {
-    size: 25px;
-}
-
-element selected {
-    background-color:  @selected-col ;
-    text-color: @fg-col2  ;
-}
-
-mode-switcher {
-    spacing: 0;
-  }
-
-button {
-    padding: 10px;
-    background-color: @bg-col-light;
-    text-color: @grey;
-    vertical-align: 0.5;
-    horizontal-align: 0.5;
-}
-
-button selected {
-  background-color: @bg-col;
-  text-color: @blue;
-}
+@theme "themes/adi1090x.rasi"
+/* @theme "themes/catpuccin.rasi" */
