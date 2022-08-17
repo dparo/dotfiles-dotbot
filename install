@@ -116,6 +116,7 @@ _bootstrap_prep_necessary_pkgs() {
 		# Desktop stuff
 		sudo dnf install -y i3 i3lock kitty feh nitrogen sxiv rofi dunst mpd mpc ncmpcpp copyq picom brightnessctl
 		sudo dnf install -y bspwm sxhkd polybar xsetroot xset xinput xss-lock xsecurelock xsettingsd zathura zathura-pdf-poppler
+        sudo dnf install -y nomacs qimgv
 
 		sudo dnf remove -y 'libreoffice*'
 		sudo dnf group remove -y libreoffice
