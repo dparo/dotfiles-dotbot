@@ -131,6 +131,7 @@ alias ln='ln -i -s'
 alias gg='lazygit'
 alias gp='git push origin'
 alias gP='git pull origin'
+alias gap='git add -p'
 
 addlicense() {
 	command addlicense -l mit -c "$(git config --get user.name)" "$@"
