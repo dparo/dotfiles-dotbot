@@ -151,6 +151,9 @@ local generic = {
                     separator = "  ", -- symbol used between a key and it's label
                     group = "+", -- symbol prepended to a group
                 },
+                spelling = {
+                    enabled = true,
+                },
                 popup_mappings = {
                     scroll_down = "<c-d>", -- binding to scroll down inside the popup
                     scroll_up = "<c-u>", -- binding to scroll up inside the popup
@@ -161,10 +164,8 @@ local generic = {
                 },
 
                 layout = {
-                    spacing = 6, -- spacing between columns
+                    spacing = 3, -- spacing between columns
                 },
-
-                hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
             }
         end,
     },
