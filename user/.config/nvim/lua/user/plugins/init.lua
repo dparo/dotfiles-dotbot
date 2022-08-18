@@ -3,12 +3,11 @@ local generic = {
     ---- Must have utility plugins that integrates/improve the core experience
     ----
 
-
     -- A high-performance #RRGGBB format color highlighter for Neovim which has no external dependencies! Written in performant Luajit
     {
         "NvChad/nvim-colorizer.lua",
         config = function()
-            require'colorizer'.setup()
+            require("colorizer").setup()
         end,
     },
 
@@ -113,7 +112,7 @@ local generic = {
         "nvim-telescope/telescope.nvim",
         requires = { "nvim-lua/plenary.nvim" },
         config = function()
-            require("user.plugins.configs.telescope")
+            require "user.plugins.configs.telescope"
         end,
     },
 
@@ -508,7 +507,7 @@ local generic = {
     {
         "hrsh7th/nvim-cmp",
         requires = {
-            'nvim-lua/plenary.nvim',
+            "nvim-lua/plenary.nvim",
             "windwp/nvim-autopairs",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
@@ -520,7 +519,7 @@ local generic = {
             "kyazdani42/nvim-web-devicons",
             "jose-elias-alvarez/null-ls.nvim",
             "hrsh7th/cmp-nvim-lsp-signature-help",
-            'petertriho/cmp-git',
+            "petertriho/cmp-git",
         },
         config = function()
             require "user.plugins.configs.cmp"
@@ -529,7 +528,15 @@ local generic = {
 
     {
         "neovim/nvim-lspconfig",
-        requires = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "nvim-lua/lsp_extensions.nvim", "jose-elias-alvarez/null-ls.nvim", "nvim-lua/plenary.nvim", "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim"},
+        requires = {
+            "hrsh7th/nvim-cmp",
+            "hrsh7th/cmp-nvim-lsp",
+            "nvim-lua/lsp_extensions.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
+            "nvim-lua/plenary.nvim",
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+        },
         config = function()
             require "user.plugins.configs.lsp"
         end,
@@ -537,132 +544,127 @@ local generic = {
 }
 
 local themes = {
-        -- Theme configurations/generators
-        { "rktjmp/lush.nvim" },
-        { "tjdevries/colorbuddy.nvim" },
+    -- Theme configurations/generators
+    { "rktjmp/lush.nvim" },
+    { "tjdevries/colorbuddy.nvim" },
 
+    { "dracula/vim", as = "dracula" },
+    { "metalelf0/jellybeans-nvim", requires = { "rktjmp/lush.nvim" } },
+    { "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } },
+    { "Th3Whit3Wolf/spacebuddy", requires = { "tjdevries/colorbuddy.nvim" } },
+    {
+        "marko-cerovac/material.nvim",
+        config = function()
+            vim.g.material_style = "darker"
+            require("material").setup {
+                custom_highlights = {
+                    Special = "#FFFFFF",
+                    SpecialChar = "#FFFFFF",
+                    cSpecialCharacter = "#FFFFFF",
+                    TSStringEscape = "#FFFFFF",
+                    TSStringSpecial = "#FFFFFF",
+                },
+            }
+        end,
+    },
+    { "joshdick/onedark.vim" },
+    {
+        "olimorris/onedarkpro.nvim",
+        config = function()
+            require("onedarkpro").setup {
+                styles = {
+                    comments = "italic",
+                    functions = "NONE",
+                    keywords = "bold",
+                    strings = "NONE",
+                    variables = "NONE",
+                },
+                options = {
+                    italic = false,
+                },
+            }
+        end,
+    },
 
-        { "dracula/vim", as = "dracula" },
-        { "metalelf0/jellybeans-nvim", requires = { "rktjmp/lush.nvim" } },
-        { "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } },
-        { "Th3Whit3Wolf/spacebuddy", requires = { "tjdevries/colorbuddy.nvim" } },
-        {
-            "marko-cerovac/material.nvim",
-            config = function()
-                vim.g.material_style = "darker"
-                require("material").setup {
-                    custom_highlights = {
-                        Special = "#FFFFFF",
-                        SpecialChar = "#FFFFFF",
-                        cSpecialCharacter = "#FFFFFF",
-                        TSStringEscape = "#FFFFFF",
-                        TSStringSpecial = "#FFFFFF",
-                    },
-                }
-            end,
-        },
-        { "joshdick/onedark.vim" },
-        {
-            "olimorris/onedarkpro.nvim",
-            config = function()
-                require("onedarkpro").setup {
-                    styles = {
-                        comments = "italic",
-                        functions = "NONE",
-                        keywords = "bold",
-                        strings = "NONE",
-                        variables = "NONE",
-                    },
-                    options = {
-                        italic = false,
-                    },
-                }
-            end,
-        },
+    { "arcticicestudio/nord-vim" },
+    {
+        "sainnhe/everforest",
+        config = function()
+            vim.g.everforest_background = "hard"
+        end,
+    },
 
-        { "arcticicestudio/nord-vim" },
-        {
-            "sainnhe/everforest",
-            config = function()
-                vim.g.everforest_background = "hard"
-            end,
-        },
+    { "sainnhe/sonokai" },
+    {
+        "sainnhe/gruvbox-material",
+        config = function()
+            vim.g.gruvbox_material_background = "hard"
+        end,
+    },
+    {
+        "EdenEast/nightfox.nvim",
+        config = function()
+            require("nightfox").setup {
+                options = {
+                    dim_inactive = true,
+                },
+            }
+        end,
+    },
 
-        { "sainnhe/sonokai" },
-        {
-            "sainnhe/gruvbox-material",
-            config = function()
-                vim.g.gruvbox_material_background = "hard"
-            end,
-        },
-        {
-            "EdenEast/nightfox.nvim",
-            config = function()
-                require("nightfox").setup {
-                    options = {
-                        dim_inactive = true,
-                    },
-                }
-            end,
-        },
+    { "tomasiser/vim-code-dark" },
 
-        { "tomasiser/vim-code-dark" },
+    { "tomasr/molokai" },
+    {
+        "ellisonleao/gruvbox.nvim",
+        config = function()
+            vim.g.gruvbox_inverse = 0
+            vim.g.gruvbox_contrast_dark = "hard"
+            vim.g.gruvbox_contrast_light = "hard"
+        end,
+    },
+    {
+        "ayu-theme/ayu-vim",
+        config = function()
+            vim.g.ayucolor = "dark"
+        end,
+    },
+    { "mhartington/oceanic-next" },
+    {
+        "folke/tokyonight.nvim",
+        config = function()
+            vim.g.tokyonight_style = "storm"
+        end,
+    },
 
-        { "tomasr/molokai" },
-        {
-            "ellisonleao/gruvbox.nvim",
-            config = function()
-                vim.g.gruvbox_inverse = 0
-                vim.g.gruvbox_contrast_dark = "hard"
-                vim.g.gruvbox_contrast_light = "hard"
-            end,
-        },
-        {
-            "ayu-theme/ayu-vim",
-            config = function()
-                vim.g.ayucolor = "dark"
-            end,
-        },
-        { "mhartington/oceanic-next" },
-        {
-            "folke/tokyonight.nvim",
-            config = function()
-                vim.g.tokyonight_style = "storm"
-            end,
-        },
-
-        { "Everblush/everblush.nvim" },
-
+    { "Everblush/everblush.nvim" },
 }
 
-
 local unused = {
-    { "lukas-reineke/indent-blankline.nvim",
+    {
+        "lukas-reineke/indent-blankline.nvim",
         config = function()
             require("indent_blankline").setup {
                 -- for example, context is off by default, use this to turn it on
                 show_current_context = true,
                 show_current_context_start = true,
             }
-        end
+        end,
     },
-
 
     -- Dashboard startup page
     {
         "goolord/alpha-nvim",
         config = function()
-            require'alpha'.setup(require'alpha.themes.dashboard'.config)
-        end
+            require("alpha").setup(require("alpha.themes.dashboard").config)
+        end,
     },
 
     -- Speed up loading Lua modules in Neovim to improve startup time
     {
-        "lewis6991/impatient.nvim"
+        "lewis6991/impatient.nvim",
     },
-
 }
-
 
 local M = {}
 table.insert(M, generic)
