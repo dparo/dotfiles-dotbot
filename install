@@ -40,6 +40,10 @@ _invoke_dotbot() {
 		return "$dotbot_result"
 	fi
 
+
+    # Resource the environment after having linked the files
+    source_env
+
 	## Populate user HOME directory with these dotfiles using dotbot
 	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$DOTFILES_LOCATION/meta/configs/post_link.yaml" "$@"
 	dotbot_result=$?
