@@ -46,7 +46,7 @@
 - shell:
     - description: Remove useless files from HOME dir
       command: |
-        rm -rf "$HOME/.bash_history" "$HOME/.python_history" "$HOME/.lesshst"
+        rm -rf "$HOME/.bash_history" "$HOME/.bash_logout" "$HOME/.python_history" "$HOME/.lesshst"
 
 - link:
     ~/.config/:
