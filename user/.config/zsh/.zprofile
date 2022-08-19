@@ -89,7 +89,6 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 
-
 export FZF_DEFAULT_COMMAND='rg -S --files --hidden -g !.ccls-cache -g !.git -g !.vcs -g !.svn'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='find -type d'
@@ -119,6 +118,9 @@ export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 # Exceptions to that rule are dwm, cwm, PLWM, ratpoison and xmonad, due to a lack of any typical window decorations used by these window managers.
 ## export _JAVA_AWT_WM_NONREPARENTING=1
 ## export AWT_TOOLKIT=MToolkit
+
+
+export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar"
 
 
 if systemctl -q is-active graphical.target \

@@ -2,6 +2,27 @@ vim.o.background = "dark"
 vim.o.guifont="JetBrainsMono Nerd Font:h10.0"
 
 
+vim.diagnostic.config {
+    underline = true,
+    virtual_text = true,
+    signs = signs,
+    severity_sort = true,
+}
+
+
+local signs = {
+    { name = "DiagnosticSignError", text = "" },
+    { name = "DiagnosticSignWarn", text = "" },
+    { name = "DiagnosticSignHint", text = "" },
+    { name = "DiagnosticSignInfo", text = "" },
+}
+
+for _, sign in ipairs(signs) do
+    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+end
+
+
+
 
 if vim.regex[[^\(linux\|rxvt\|interix\|putty\)\(-.*\)\?$]]:match_str(vim.env.TERM) then
     vim.o.termguicolors = true
