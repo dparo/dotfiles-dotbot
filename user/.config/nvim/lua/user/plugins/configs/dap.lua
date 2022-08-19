@@ -1,4 +1,7 @@
 local dap = require "dap"
+local home = os.getenv "HOME"
+
+
 
 -- DAP ui
 local dapui = require "dapui"
@@ -21,7 +24,7 @@ require("dap-go").setup()
 dap.adapters.cppdbg = {
     id = "cppdbg",
     type = "executable",
-    command = "~/.local/share/nvim/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
+    command = home .. "/.local/share/nvim/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
 }
 
 dap.configurations.cpp = {
