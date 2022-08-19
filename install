@@ -5,6 +5,7 @@ set -e
 
 DOTFILES_LOCATION="${USER_DOTFILES_LOCATION:-$HOME/src/git/dparo/dotfiles}"
 
+
 _invoke_dotbot() {
 	DOTFILES_LOCATION="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	cd "$DOTFILES_LOCATION" || exit 1
@@ -18,11 +19,18 @@ _invoke_dotbot() {
 		git submodule update --init --recursive --remote "$DOTBOT_LOCATION"
 	}
 
-	git pull --ff-only
-	source "$HOME/.config/bash/bash_profile"
-	source "$HOME/.config/bash/bashrc"
+    source_env() {
+        source "$DOTFILES_LOCATION/user/.config/zsh/.zshenv"
+        source "$DOTFILES_LOCATION/user/.config/zsh/.zprofile"
+        source "$DOTFILES_LOCATION/user/.config/zsh/.zlogin"
 
+        export USER_DOTFILES_LOCATION="$DOTFILES_LOCATION"
+    }
+
+	git pull --ff-only
 	update_dotbot_submodule || true
+
+    source_env
 
 	## Populate user HOME directory with these dotfiles using dotbot
 	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$DOTFILES_LOCATION/meta/configs/link.yaml" "$@"
@@ -31,9 +39,6 @@ _invoke_dotbot() {
 		echo "Dotbot failed with exit status $dotbot_result"
 		return "$dotbot_result"
 	fi
-
-	source "$HOME/.config/bash/bash_profile"
-	source "$HOME/.config/bash/bashrc"
 
 	## Populate user HOME directory with these dotfiles using dotbot
 	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$DOTFILES_LOCATION/meta/configs/post_link.yaml" "$@"
@@ -116,7 +121,7 @@ _bootstrap_prep_necessary_pkgs() {
 		# Desktop stuff
 		sudo dnf install -y i3 i3lock kitty feh nitrogen sxiv rofi dunst mpd mpc ncmpcpp copyq picom brightnessctl
 		sudo dnf install -y bspwm sxhkd polybar xsetroot xset xinput xss-lock xsecurelock xsettingsd zathura zathura-pdf-poppler
-        sudo dnf install -y nomacs qimgv
+		sudo dnf install -y nomacs qimgv
 
 		sudo dnf remove -y 'libreoffice*'
 		sudo dnf group remove -y libreoffice
