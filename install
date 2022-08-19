@@ -158,7 +158,7 @@ _bootstrap_dotfiles_repo() {
 
 	if [ ! -d "$DOTFILES_LOCATION" ]; then
 		mkdir -p "$(dirname "$DOTFILES_LOCATION")"
-		git clone --depth 1 "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
+		git clone --depth 1 --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
 	fi
 
 	cd "$DOTFILES_LOCATION" || exit 1
