@@ -412,84 +412,6 @@ local generic = {
             }
         end,
     },
-    { "dag/vim-fish" },
-    { "mboughaba/i3config.vim" },
-    {
-        "plasticboy/vim-markdown",
-        config = function()
-            vim.g.vim_markdown_folding_disabled = 1
-        end,
-    },
-    { "vim-crystal/vim-crystal" },
-    { "ziglang/zig.vim" },
-    {
-        "rust-lang/rust.vim",
-        config = function()
-            vim.g.cargo_makeprg_params = "build"
-        end,
-    },
-    { "simrat39/rust-tools.nvim" },
-    { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" },
-    -- Plugin that provides nice wrapper commands to build with cmake
-    {
-        "cdelledonne/vim-cmake",
-        config = function()
-            vim.g.cmake_command = "cmake"
-            vim.g.cmake_default_config = "Debug"
-            vim.g.cmake_build_dir_location = "./build"
-            vim.g.cmake_link_compile_commands = 1
-            vim.g.cmake_jump = 0
-            vim.g.cmake_jump_on_completion = 0
-            vim.g.cmake_jump_on_error = 0
-
-            vim.cmd [[
-                augroup vim-cmake-group
-                    autocmd!
-                    autocmd User CMakeBuildFailed :cfirst
-                    autocmd! User CMakeBuildSucceeded CMakeClose
-                augroup END
-            ]]
-        end,
-    },
-
-    ----
-    ---- Git integration
-    ----
-    {
-        "TimUntersberger/neogit",
-        requires = "nvim-lua/plenary.nvim",
-        config = function()
-            local neogit = require "neogit"
-
-            neogit.setup {}
-        end,
-    },
-
-    { "tpope/vim-fugitive" },
-    {
-        "kdheepak/lazygit.nvim",
-        cmd = { "LazyGit" },
-        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-        config = function()
-            require("telescope").load_extension "lazygit"
-        end,
-    },
-
-    {
-        "sindrets/diffview.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
-        config = function()
-            require("diffview").setup {}
-        end,
-    },
-    {
-        "lewis6991/gitsigns.nvim",
-        config = function()
-            require("gitsigns").setup {
-                current_line_blame = false,
-            }
-        end,
-    },
 
     -- Install LuaSnip and load friendly-snippets (a set of already pre-packaged set of snippets)
     {
@@ -539,6 +461,71 @@ local generic = {
         },
         config = function()
             require "user.plugins.configs.lsp"
+        end,
+    },
+
+    {
+        "mfussenegger/nvim-dap",
+        requires = { "rcarriga/nvim-dap-ui", "leoluz/nvim-dap-go", },
+        config = function()
+            -- require "user.plugins.configs.dap"
+        end,
+    },
+}
+
+local syntax_highligthing = {
+    { "dag/vim-fish" },
+    { "mboughaba/i3config.vim" },
+    {
+        "plasticboy/vim-markdown",
+        config = function()
+            vim.g.vim_markdown_folding_disabled = 1
+        end,
+    },
+    { "vim-crystal/vim-crystal" },
+    { "ziglang/zig.vim" },
+    {
+        "rust-lang/rust.vim",
+        config = function()
+            vim.g.cargo_makeprg_params = "build"
+        end,
+    },
+}
+
+local vcs_integration = {
+    {
+        "TimUntersberger/neogit",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            local neogit = require "neogit"
+
+            neogit.setup {}
+        end,
+    },
+
+    { "tpope/vim-fugitive" },
+    {
+        "kdheepak/lazygit.nvim",
+        cmd = { "LazyGit" },
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+        config = function()
+            require("telescope").load_extension "lazygit"
+        end,
+    },
+
+    {
+        "sindrets/diffview.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("diffview").setup {}
+        end,
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require("gitsigns").setup {
+                current_line_blame = false,
+            }
         end,
     },
 }
@@ -640,6 +627,35 @@ local themes = {
     { "Everblush/everblush.nvim" },
 }
 
+local language_specific_toolings = {
+    { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" },
+    -- Plugin that provides nice wrapper commands to build with cmake
+    {
+        "cdelledonne/vim-cmake",
+        config = function()
+            vim.g.cmake_command = "cmake"
+            vim.g.cmake_default_config = "Debug"
+            vim.g.cmake_build_dir_location = "./build"
+            vim.g.cmake_link_compile_commands = 1
+            vim.g.cmake_jump = 0
+            vim.g.cmake_jump_on_completion = 0
+            vim.g.cmake_jump_on_error = 0
+
+            vim.cmd [[
+                augroup vim-cmake-group
+                    autocmd!
+                    autocmd User CMakeBuildFailed :cfirst
+                    autocmd! User CMakeBuildSucceeded CMakeClose
+                augroup END
+            ]]
+        end,
+    },
+
+
+    { "simrat39/rust-tools.nvim" },
+    { "mfussenegger/nvim-jdtls" },
+}
+
 local unused = {
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -667,6 +683,9 @@ local unused = {
 }
 
 local M = {}
-table.insert(M, generic)
-table.insert(M, themes)
+vim.list_extend(M, generic)
+vim.list_extend(M, syntax_highligthing)
+vim.list_extend(M, themes)
+vim.list_extend(M, vcs_integration)
+vim.list_extend(M, language_specific_toolings)
 return M

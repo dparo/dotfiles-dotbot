@@ -247,7 +247,7 @@ local function setup_basic_functionalities()
     -- Pressing leader 2 times enters insert mode
     nmap("<leader><leader>", "i")
 
-    if false then
+    if true then
         -- Enter visual mode when pressing C-space
         -- NOTE:
         --    You can use the CTRL-O command in insert mode to execute a single ex

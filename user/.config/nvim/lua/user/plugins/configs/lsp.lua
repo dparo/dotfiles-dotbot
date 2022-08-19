@@ -1,4 +1,3 @@
-
 -- Portable package manager for Neovim that runs everywhere Neovim runs.
 -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
 -- :help mason.nvim
@@ -26,11 +25,10 @@ require("mason").setup {
 }
 
 -- Plugin to automatically install language servers registered to nvim-lspconfig
-require("mason-lspconfig").setup({
+require("mason-lspconfig").setup {
     ensure_installed = { "sumneko_lua", "rust_analyzer" },
     automatic_installation = true,
-})
-
+}
 
 local signs = {
     { name = "DiagnosticSignError", text = "" },
@@ -51,7 +49,6 @@ vim.diagnostic.config {
 }
 
 local lspconfig = require "lspconfig"
-
 
 -- Null-ls is meant to fill the gaps for languages where either no language server exists,
 -- or where standalone linters,formatters,diagnostics provide better results
@@ -78,8 +75,10 @@ local lsp_on_attach = function(client, bufnr)
     local buf_set_option = vim.api.nvim_buf_set_option
 
     buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-	buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-	buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+    buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+
+    print("Client: " .. client)
 
     -- Mappings.
     local opts = { noremap = true, silent = true }
@@ -111,9 +110,14 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
-
     local augroup = vim.api.nvim_create_augroup("USER_LSP", { clear = true })
-    vim.api.nvim_create_autocmd({"CursorHold"}, { group = augroup, buffer = bufnr, callback = function() user.utils.lsp.show_line_diagnostics() end })
+    vim.api.nvim_create_autocmd({ "CursorHold" }, {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+            user.utils.lsp.show_line_diagnostics()
+        end,
+    })
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
@@ -126,17 +130,41 @@ local lsp_on_attach = function(client, bufnr)
 
     -- Setup highlight references of word under cursor using lsp
     if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_create_autocmd({"CursorHold"}, { group = augroup, buffer = bufnr, callback = function() vim.lsp.buf.document_highlight() end })
-        vim.api.nvim_create_autocmd({"CursorMoved"}, { group = augroup, buffer = bufnr, callback = function() vim.lsp.buf.clear_references() end })
+        vim.api.nvim_create_autocmd({ "CursorHold" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.document_highlight()
+            end,
+        })
+        vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.clear_references()
+            end,
+        })
     end
 
     if false then
-        vim.api.nvim_create_autocmd({"CursorHold"}, { group = augroup, buffer = bufnr, callback = function() vim.lsp.buf.hover() end })
+        vim.api.nvim_create_autocmd({ "CursorHold" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.hover()
+            end,
+        })
     end
 
     -- Enable formatting on save
     if client.resolved_capabilities.document_formatting then
-        vim.api.nvim_create_autocmd({"BufWritePre"}, { group = augroup, buffer = bufnr, callback = function() vim.lsp.buf.formatting_seq_sync() end })
+        vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.formatting_seq_sync()
+            end,
+        })
     end
 end
 
@@ -151,8 +179,11 @@ else
     print "Unsupported system for sumneko"
 end
 
+local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+
 local sumneko_root_path = vim.env.USER_DOTFILES_LOCATION .. "/core/vendor/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
+local jdtls_root_path = "~/.local/share/nvim/mason/packages/jdtls"
 
 local function deno_root_dir(fname)
     -- If the top level directory __DOES__ contain a file named `deno.proj` determine that this is a Deno project.
@@ -165,10 +196,7 @@ end
 local function nodejs_root_dir(fname)
     -- If the top level directory __DOES NOT__ contain a file named `deno.proj` determine that this is a Nodejs project
     if deno_root_dir(fname) == nil then
-        return (
-            lspconfig.util.root_pattern "tsconfig.json"(fname)
-            or lspconfig.util.root_pattern("package.json", "jsconfig.json", ".git")(fname)
-        )
+        return (lspconfig.util.root_pattern "tsconfig.json"(fname) or lspconfig.util.root_pattern("package.json", "jsconfig.json", ".git")(fname))
     end
     return nil
 end
@@ -229,7 +257,58 @@ local lsp_servers = {
     { name = "jsonls", config = {} },
     { name = "yamlls", config = {} },
     { name = "tsserver", config = { root_dir = nodejs_root_dir } },
-    { name = "jdtls", config = {} },
+    {
+        name = "jdtls",
+        config = {
+            cmd = {
+
+                "java",
+                "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+                "-Dosgi.bundles.defaultStartLevel=4",
+                "-Declipse.product=org.eclipse.jdt.ls.core.product",
+                "-Dlog.protocol=true",
+                "-Dlog.level=ALL",
+                "-Xms1g",
+                "--add-modules=ALL-SYSTEM",
+                "--add-opens",
+                "java.base/java.util=ALL-UNNAMED",
+                "--add-opens",
+                "java.base/java.lang=ALL-UNNAMED",
+                "-jar",
+                vim.fn.glob(jdtls_root_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
+                -- 💀
+                "-configuration",
+                jdtls_root_path .. "config_linux",
+                "-data",
+                "~/.cache/nvim/jdtls/" .. string.gsub(vim.fn.getcwd(), "/", "%%")),
+            },
+
+            -- 💀
+            -- This is the default if not provided, you can remove it. Or adjust as needed.
+            -- One dedicated LSP server & client will be started per unique root_dir
+            root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew", "pom.xml" },
+
+            -- Here you can configure eclipse.jdt.ls specific settings
+            -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+            -- for a list of options
+            settings = {
+                java = {},
+            },
+
+            -- Language server `initializationOptions`
+            -- You need to extend the `bundles` with paths to jar files
+            -- if you want to use additional eclipse.jdt.ls plugins.
+            --
+            -- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
+            --
+            -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
+            init_options = {
+                bundles = {
+                    vim.fn.glob("path/to/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
+                };
+            },
+        },
+    },
     {
         name = "denols",
         config = {
@@ -316,15 +395,15 @@ for _, server in ipairs(lsp_servers) do
 
         -- @param server:  all the opts to send to nvim-lspconfig
         -- these override the defaults set by rust-tools.nvim
-        require("rust-tools").setup({
-            server = config
-        })
+        require("rust-tools").setup {
+            server = config,
+        }
+    elseif name == "jdtls" then
+        require("jdtls").start_or_attach(config)
     else
-
         lspconfig[name].setup(config)
     end
 end
-
 
 null_ls.setup {
     on_attach = lsp_on_attach,

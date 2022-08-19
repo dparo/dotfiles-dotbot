@@ -45,8 +45,7 @@ vim.o.inccommand = "nosplit"
 vim.o.hidden = true
 vim.o.wildmode = "longest,list,full"
 vim.o.wildmenu = true
-vim.o.wildignore =
-    ".git,.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor"
+vim.o.wildignore = ".git,.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor"
 
 vim.o.completeopt = "menuone,noinsert,noselect"
 -- Avoid showing message extra message when using completion
