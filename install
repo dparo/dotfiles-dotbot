@@ -19,8 +19,8 @@ _invoke_dotbot() {
 	}
 
 	git pull --ff-only
-	source "$HOME/.config/bash/bash_profile"
-	source "$HOME/.config/bash/bashrc"
+	source "$DOTFILES_LOCATION/user/.config/bash/bash_profile"
+	source "$DOTFILES_LOCATION/user/.config/bash/bashrc"
 
 	update_dotbot_submodule || true
 
