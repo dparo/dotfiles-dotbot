@@ -78,7 +78,7 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
-    print("Client: " .. client)
+    print("Client: " .. vim.inspect(client))
 
     -- Mappings.
     local opts = { noremap = true, silent = true }
@@ -180,10 +180,11 @@ else
 end
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local home = os.getenv("HOME")
 
 local sumneko_root_path = vim.env.USER_DOTFILES_LOCATION .. "/core/vendor/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
-local jdtls_root_path = "~/.local/share/nvim/mason/packages/jdtls"
+local jdtls_root_path = home .. "/.local/share/nvim/mason/packages/jdtls"
 
 local function deno_root_dir(fname)
     -- If the top level directory __DOES__ contain a file named `deno.proj` determine that this is a Deno project.
@@ -276,17 +277,16 @@ local lsp_servers = {
                 "java.base/java.lang=ALL-UNNAMED",
                 "-jar",
                 vim.fn.glob(jdtls_root_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
-                -- 💀
                 "-configuration",
-                jdtls_root_path .. "config_linux",
+                jdtls_root_path .. "/config_linux",
                 "-data",
-                "~/.cache/nvim/jdtls/" .. string.gsub(vim.fn.getcwd(), "/", "%%")),
+                home .. "/.cache/nvim/jdtls/" .. string.gsub(vim.fn.getcwd(), "/", "%%"),
             },
 
             -- 💀
             -- This is the default if not provided, you can remove it. Or adjust as needed.
             -- One dedicated LSP server & client will be started per unique root_dir
-            root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew", "pom.xml" },
+            root_dir = require("jdtls.setup").find_root { "mvnw", "gradlew", "pom.xml", "build.xml", "settings.gradle", "settings.gradle.kts", "build.gradle", "build.gradle.kts" },
 
             -- Here you can configure eclipse.jdt.ls specific settings
             -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -304,7 +304,7 @@ local lsp_servers = {
             -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
             init_options = {
                 bundles = {
-                    vim.fn.glob("path/to/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
+                    -- vim.fn.glob("path/to/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
                 };
             },
         },
