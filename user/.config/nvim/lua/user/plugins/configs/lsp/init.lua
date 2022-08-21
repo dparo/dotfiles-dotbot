@@ -93,7 +93,9 @@ null_ls.setup {
             },
         },
 
-        null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.shfmt.with {
+            args = { "--indent", "4", "-filename", "$FILENAME" }, -- Default to use 4 spaces for indentation
+        },
         null_ls.builtins.diagnostics.shellcheck,
         null_ls.builtins.formatting.shellharden,
 

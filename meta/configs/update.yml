@@ -23,11 +23,10 @@
         sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
         sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
 
-
     - description: Install NVIM lsp-servers, formatters, diagnostics tools
       stdout: false
       stderr: false
       command: |
         nvim --headless -c "MasonInstall stylua lua-language-server" -c "qall"
         nvim --headless -c "MasonInstall rust-analyzer texlab" -c "qall"
-        nvim --headless -c "MasonInstall shellcheck shellharden" -c "qall"
+        nvim --headless -c "MasonInstall shellcheck shellharden shfmt" -c "qall"
