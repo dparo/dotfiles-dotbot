@@ -5,6 +5,10 @@ set -e
 cd "$(dirname "$0")"
 mkdir -p ".cache"
 
+
+nvim --headless -c "MasonInstall stylua lua-language-server" -c "qall"
+nvim --headless -c "MasonInstall rust-analyzer texlab" -c "qall"
+
 source scripts/source.sh
 
 # Install google dns servers
@@ -114,8 +118,11 @@ pkg_install git gcc build-essential emacs gcov lcov watchman nodejs npm \
 	libsass-dev libssl-dev \
 	doxygen doxygen-gui \
 	qemu qemu-utils qemu-system-x86 ovmf \
-	cppcheck aspell-it \
+	cppcheck aspell-it tokei \
 	brightnessctl
+
+
+pkg_install rust-src
 
 # Setup zsh as the default login shell
 if [ -f "/bin/zsh" ]; then
@@ -292,8 +299,6 @@ go install mvdan.cc/sh/v3/cmd/shfmt@latest
 # Slides presentation in the terminal from Markdown
 go install github.com/maaslalani/slides@latest
 
-# Lua formatter for lua
-cargo install stylua
 
 # exa (https://github.com/ogham/exa)
 # A modern replacement for ‘ls’.
@@ -347,19 +352,20 @@ rm -rf "shellcheck-$scversion"
 # Install deno language
 curl -fsSL https://deno.land/x/install/install.sh | sh
 
-# Cargo dependencies for development
-curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - >~/.local/bin/rust-analyzer
+# Rust analyzer
+curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | \
+    gunzip -c - > ~/.local/bin/rust-analyzer
 chmod +x ~/.local/bin/rust-analyzer
+
 rustup update
 rustup component add rust-src
-cargo install cargo-edit
-cargo install cargo-audit
 rustup component add rustfmt
 rustup component add clippy
 rustup toolchain add nightly
-cargo install --git https://github.com/latex-lsp/texlab.git --locked
+
+
+cargo install cargo-audit
 cargo install flamegraph # For profiling
-cargo install tokei      # As cloc replacement for counting lines of code in repository
 
 # Remove snap
 
