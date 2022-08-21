@@ -1,13 +1,15 @@
+local path = require "core.os.path"
+
 -- Get the config file path containing the init.lua
-local configPath = vim.api.nvim_call_function("stdpath", { "config" })
-local dataPath = vim.api.nvim_call_function("stdpath", { "data" })
-local cachePath = vim.api.nvim_call_function("stdpath", { "cache" })
+local configPath = path.get_nvim_config_path()
+local dataPath = path.get_nvim_data_path()
+local cachePath = path.get_nvim_cache_path()
 
 vim.o.shell = "zsh"
 
 -- The shada file remembers the last state of vim: command line history, search history, file marks
-vim.o.shadafile = cachePath .. "/shada"
-vim.o.undodir = cachePath .. "/nvim/undo"
+vim.o.shadafile = path.concat {cachePath, "shada" }
+vim.o.undodir = path.concat { cachePath, "nvim", "undo" }
 
 vim.cmd [[
     filetype indent on

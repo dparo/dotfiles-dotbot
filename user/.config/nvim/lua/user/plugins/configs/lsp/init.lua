@@ -41,7 +41,7 @@ local lspconfig = require "lspconfig"
 --       their outputs and providing diagnostics, ormatting and completion candidates.
 local null_ls = require "null-ls"
 
-for _, server in ipairs(require "user.plugins.configs.lsp.servers") do
+for _, server in ipairs(require("user.plugins.configs.lsp.servers").list) do
     local name = server.name
     local config = require("user.plugins.configs.lsp.utils").update_server_config(server.config)
 

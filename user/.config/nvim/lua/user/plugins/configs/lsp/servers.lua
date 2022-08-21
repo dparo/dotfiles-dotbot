@@ -1,18 +1,17 @@
-local system_name = nil
-if vim.fn.has "mac" == 1 then
-    system_name = "macOS"
-elseif vim.fn.has "unix" == 1 then
-    system_name = "Linux"
-elseif vim.fn.has "win32" == 1 then
-    system_name = "Windows"
-else
-    print "Unsupported system for sumneko"
-end
+local M = {}
 
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local path = require "core.os.path"
+local nvim_data_path = path.get_nvim_data_path()
+local nvim_cache_path = path.get_nvim_cache_path()
+
+local lspconfig = require "lspconfig"
+
+
 local home = os.getenv "HOME"
+local project_path = vim.fn.getcwd()
+local project_basename = vim.fn.fnamemodify(project_path, ":p:h:t")
 
-local jdtls_root_path = home .. "/.local/share/nvim/mason/packages/jdtls"
+local jdtls_root_path = path.concat { nvim_data_path, "mason", "packages", "jdtls" }
 
 local function deno_root_dir(fname)
     -- If the top level directory __DOES__ contain a file named `deno.proj` determine that this is a Deno project.
@@ -30,7 +29,7 @@ local function nodejs_root_dir(fname)
     return nil
 end
 
-return {
+M.list = {
     ----- Python: Pyright seems the best performant and modern solution
     -- { name = 'pylsp', config = {} },
     -- { name = 'jedi_language_server', config = {} },
@@ -97,9 +96,7 @@ return {
                 "-Dlog.protocol=true",
                 "-Dlog.level=ALL",
                 -- https://projectlombok.org/
-                "-javaagent:"
-                    .. home
-                    .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+                "-javaagent:" .. path.concat { nvim_data_path, "mason", "packages", "jdtls", "lombok.jar" },
                 "-Xms1g",
                 "--add-modules=ALL-SYSTEM",
                 "--add-opens",
@@ -107,11 +104,11 @@ return {
                 "--add-opens",
                 "java.base/java.lang=ALL-UNNAMED",
                 "-jar",
-                vim.fn.glob(jdtls_root_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
+                vim.fn.glob(path.concat { jdtls_root_path, "plugins", "org.eclipse.equinox.launcher_*.jar" }),
                 "-configuration",
-                jdtls_root_path .. "/config_linux",
+                path.concat { jdtls_root_path, "config_linux" },
                 "-data",
-                home .. "/.cache/nvim/jdtls/" .. string.gsub(vim.fn.getcwd(), "/", "%%"),
+                path.concat { nvim_cache_path, "jdtls", string.gsub(project_path, path.separator, "%%") },
             },
 
             root_dir = require("jdtls.setup").find_root {
@@ -208,3 +205,13 @@ return {
         end,
     },
 }
+
+function M.get_config(name)
+    for _, server in ipairs(M.list) do
+        if server.name == name then
+            return server.config
+        end
+    end
+end
+
+return M
