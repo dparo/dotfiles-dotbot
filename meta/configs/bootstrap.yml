@@ -1,0 +1,93 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      glob: false
+      force: false
+    shell:
+      quiet: true
+      stdout: true
+      stderr: true
+    clean:
+      force: false
+
+- description: Setup GOOGLE dns servers
+  command: |
+    # Clear immutable flag
+    chattr -i /etc/resolv.conf
+
+    cat <<'EOF' | sudo tee /etc/resolv.conf
+    # Google Nameservers
+    nameserver 8.8.8.8
+    nameserver 8.8.4.4
+    nameserver 2001:4860:4860::8888
+    nameserver 2001:4860:4860::8844
+    EOF
+
+    # Set immutable flag. Prevent Network manager to overwrite this file
+    chattr +i /etc/resolv.conf
+
+    sudo mkdir -p /etc/NetworkManager/conf.d/
+    cat <<'EOF' | sudo tee /etc/NetworkManager/conf.d/dns-servers.conf
+    [global-dns-domain-*]
+    servers=8.8.8.8,8.8.4.4,2001:4860:4860::8888,2001:4860:4860::8844
+    EOF
+
+- description: Setup mutually exclusive ethernet/wifi, automatically disable wifi when ethernet cable is plugged in
+  command: |
+    cat <<'EOF' | sudo tee /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
+    #!/bin/bash
+    export LC_ALL=C
+
+    enable_disable_wifi ()
+    {
+       result=$(nmcli dev | grep "ethernet" | grep -w "connected")
+       if [ -n "$result" ]; then
+           nmcli radio wifi off
+       else
+           nmcli radio wifi on
+       fi
+    }
+
+    if [ "$2" = "up" ]; then
+       enable_disable_wifi
+    fi
+
+    if [ "$2" = "down" ]; then
+       enable_disable_wifi
+    fi
+    EOF
+    sudo chmod a+rx /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
+
+
+- description: Setup ZSH as the default USER shell
+  command: |
+    if [ -f "/bin/zsh" ]; then
+        echo "Setting /bin/zsh as the default shell"
+        sudo usermod --shell /bin/zsh "$USER"
+    elif [ -f "/usr/bin/zsh" ]; then
+        echo "Setting /usr/bin/zsh as the default shell"
+        sudo usermod --shell /usr/bin/zsh "$USER"
+    fi
+
+- description: Setup additional USER groups
+  command: |
+    # Append user to the video group: Allows for brightnessctl to change
+    # the monitor brightness
+    sudo usermod -aG video,input "$USER"
+
+- description: Setup docker user group
+  command: |
+    sudo groupadd docker
+    sudo usermod -aG docker "$USER"
+
+
+- description: Disable GDM display manager
+  command: |
+    sudo systemctl disable gdm gdm3
+
+
+- description: Install required fonts
+  command: |
+    source "${USER_DOTFILES_LOCATION:-./}/meta/lib.sh"
+    install_all_fonts

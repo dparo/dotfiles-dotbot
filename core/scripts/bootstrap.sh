@@ -6,86 +6,10 @@ cd "$(dirname "$0")"
 mkdir -p ".cache"
 
 
-nvim --headless -c "MasonInstall stylua lua-language-server" -c "qall"
-nvim --headless -c "MasonInstall rust-analyzer texlab" -c "qall"
-
 source scripts/source.sh
 
-# Install google dns servers
-sudo chattr -i /etc/resolv.conf
-cat <<'EOF' | sudo tee /etc/resolv.conf
-# Google Nameservers
-nameserver 8.8.8.8
-nameserver 8.8.4.4
-nameserver 2001:4860:4860::8888
-nameserver 2001:4860:4860::8844
 EOF
 
-sudo mkdir -p /etc/NetworkManager/conf.d/
-cat <<'EOF' | sudo tee /etc/NetworkManager/conf.d/dns-servers.conf
-[global-dns-domain-*]
-servers=8.8.8.8,8.8.4.4,2001:4860:4860::8888,2001:4860:4860::8844
-EOF
-
-# Fixed bluetooth headphone lags and reduced download link speed on WIFI connections
-# See here: https://wiki.archlinux.org/index.php/Network_configuration/Wireless#Bluetooth_coexistence
-#   and maybe also this: https://wiki.archlinux.org/index.php/Network_configuration/Wireless#iwlwifi
-#   and here: https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi#wi-fibluetooth_coexistence
-
-# Help when using WIFI intel chipsets
-echo 'options iwlwifi bt_coex_active=0' | sudo tee -a /etc/modprobe.d/iwlwifi.conf
-
-# Helps when using WIFI Atheros chipsets
-# See here: https://wiki.archlinux.org/title/bluetooth_headset#Connecting_works,_but_there_are_sound_glitches_all_the_time
-# Fixes slow wifi: https://wiki.archlinux.org/title/Network_configuration/Wireless#Atheros
-# NOTE: For  the PC the best approach is instead to disable
-#       bluetooth coexistence, and enable the antenna diversity
-#   - NOTE: From 24 December 2021:
-#               On the BM-350 motherboard with the Qualcomm Atheros AR93xx
-#               Wireless Network Adapter it seems that enabling the bt_ant_diversity leads
-#               to an unstable network connection.
-#               So the best approach seems to disable hardware encryption
-#               and disable Bluetooth_coexistence if possible (eg no need for bluetooth headsets)
-cat <<'EOF' | sudo tee /etc/modprobe.d/ath9k.conf
-options ath9k blink=0
-# Fix sound glitches and slow wifi when using bluetooth headphones
-# Enable wifi-BT coexistence
-options ath9k btcoex_enable=1
-# Disable hardware encryption (1 to disable)
-options ath9k nohwcrypt=0
-# Disable power saving
-options ath9k ps_enable=0
-# Disable WLAN/BT RX antenna diversity. Note that enabling antenna diversity may improve SNR,
-#  but requires that bluetooth coexistence is disabled (implies that "btcoex_enable" should be set to 0).
-#  If you do not care about bluetooth you can try to disable the above btcoex_enable option and enable
-#  the bt_ant_diversity=1 option
-options ath9k bt_ant_diversity=0
-EOF
-
-# Mutually exclusive ethernet and wifi: Automatically disable wifi when ethernet cable is connected
-cat <<'EOF' | sudo tee /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
-#!/bin/bash
-export LC_ALL=C
-
-enable_disable_wifi ()
-{
-   result=$(nmcli dev | grep "ethernet" | grep -w "connected")
-   if [ -n "$result" ]; then
-       nmcli radio wifi off
-   else
-       nmcli radio wifi on
-   fi
-}
-
-if [ "$2" = "up" ]; then
-   enable_disable_wifi
-fi
-
-if [ "$2" = "down" ]; then
-   enable_disable_wifi
-fi
-EOF
-sudo chmod a+rx /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
 
 pkg_install git gcc build-essential emacs gcov lcov watchman nodejs npm \
 	cmake cmake-curses-gui cmake-qt-gui ninja-build tmux ruby clang zsh \
@@ -124,24 +48,6 @@ pkg_install git gcc build-essential emacs gcov lcov watchman nodejs npm \
 
 pkg_install rust-src
 
-# Setup zsh as the default login shell
-if [ -f "/bin/zsh" ]; then
-	echo "Setting /bin/zsh as the default shell"
-	sudo usermod --shell /bin/zsh "$USER"
-elif [ -f "/usr/bin/zsh" ]; then
-	echo "Setting /usr/bin/zsh as the default shell"
-	sudo usermod --shell /usr/bin/zsh "$USER"
-fi
-
-## Setup docker
-sudo groupadd docker
-sudo usermod -aG docker "$USER"
-
-# Append user to the video group: Allows for brightnessctl to change
-# the monitor brightness
-sudo usermod -aG video,input "$USER"
-
-sudo systemctl disable gdm gdm3
 
 pip3 install -U \
 	pywal colorz virtualenv \
@@ -343,11 +249,6 @@ flatpak install flathub com.jgraph.drawio.desktop
 # Install Obisidin MD
 flatpak install flathub md.obsidian.Obsidian
 
-# Install latest shellcheck
-scversion="stable" # or "v0.4.7", or "latest"
-wget -qO- "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJv
-cp "shellcheck-$scversion/shellcheck" "$HOME/.local/bin"
-rm -rf "shellcheck-$scversion"
 
 # Install deno language
 curl -fsSL https://deno.land/x/install/install.sh | sh
@@ -366,59 +267,3 @@ rustup toolchain add nightly
 
 cargo install cargo-audit
 cargo install flamegraph # For profiling
-
-# Remove snap
-
-if [ -x /usr/bin/snap ]; then
-	sudo snap remove --purge snap-store
-	sudo snap remove --purge 'gnome-*'
-	sudo snap remove --purge core18
-	sudo snap remove --purge snapd
-	sudo umount /var/snap
-	sudo apt purge -y snapd
-	sudo apt-mark hold snapd
-	rm -rf ~/snap
-	sudo rm -rf /snap
-	sudo rm -rf /var/snap
-	sudo rm -rf /var/lib/snapd
-
-	cat <<'EOF' | sudo tee /etc/apt/preferences.d/nosnap.pref
-# To prevent repository packages from triggering the installation of Snap,
-# this file forbids snapd from being installed by APT.
-# For more information: https://linuxmint-user-guide.readthedocs.io/en/latest/snap.html
-
-Package: snapd
-Pin: release a=*
-Pin-Priority: -10
-EOF
-fi
-
-# Install Required Nerd fonts
-install_nerd_fonts() {
-	pushd /tmp || return 1
-	mkdir -p "$HOME/.local/share/fonts"
-	for font in "$@"; do
-		local outdir="$HOME/.local/share/fonts/$font Nerd Font"
-		wget -c "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$font.zip"
-		mkdir -p "$outdir"
-		pushd "$outdir" || return 1
-		7z x "/tmp/$font.zip" -aoa
-		popd || return 1
-	done
-	popd || return 1
-
-	# Remove unused fonts and install fonts system-wide for all users
-	pushd ~/.local/share/fonts || return 1
-	sudo mkdir -p /usr/local/share/fonts
-	find -type f | grep -Ei "\bWindows Compatible.ttf$" | xargs -I {} rm -rf {}
-	for font in "$@"; do
-		sudo mv "$font Nerd Font" /usr/local/share/fonts
-	done
-	popd || return 1
-
-	# Refresh the cache
-	fc-cache -fvr
-}
-
-install_nerd_fonts "Hack" "JetBrainsMono" "CascadiaCode" "IBMPlexMono" "LiberationMono" "Meslo" "Noto" "Ubuntu" "UbuntuMono" "SourceCodePro"
-sudo wget "https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf" -O /usr/share/fonts/codicon.ttf
