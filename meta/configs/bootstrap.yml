@@ -11,6 +11,40 @@
     clean:
       force: false
 
+
+- description: Install core packages
+  command: |
+    # List of additional commands that didn't make it:
+    # - coz-profiler: https://github.com/plasma-umass/coz
+    # - valgrind + kcachegrind
+    # - gperf
+    # - texlive-* and related minimal packages (including latexmk)
+    # - doxygen
+
+
+    # Noemutt and lazygit are not available in the official repos,
+    # but in semi-official copr repos
+    sudo dnf copr enable -y flatcap/neomutt
+    sudo dnf copr enable -y atim/lazygit
+
+    sudo dnf install -y git gcc clang cmake ninja-build \
+    sqlite python3-pip p7zip p7zip-plugins \
+    clang-tools-extra cppcheck bear editorconfig \
+    hotspot heaptrack \
+    net-tools lm_sensors \
+    nodejs npm golang \
+    zsh tmux trash-cli xsel xclip ranger exa fd-find neovim tokei htop unrar curl jq ripgrep the_silver_searcher entr httpie rsync lazygit \
+    qemu docker \
+    neomutt isync msmtp \
+    rxvt-unicode kitty \
+    i3 i3lock i3status xsettingsd xss-lock brightnessctl wmctrl dunst picom arandr pavucontrol seahorse \
+    polybar bspwm sxhkd \
+    feh nitrogen nomacs qimgv scrot maim flameshot  \
+    mpv zathura zathura-pdf-poppler mpd mpc ncmpcpp  \
+    copyq gparted gimp qt5ct \
+    solaar blueman bluez-tools
+
+
 - description: Setup GOOGLE dns servers
   command: |
     # Clear immutable flag
