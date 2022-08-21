@@ -8,7 +8,7 @@ function M.on_attach(client, bufnr)
     buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
-    print("Client name: " .. client.name)
+    -- print("Client name: " .. client.name)
 
     -- Mappings.
     local opts = { noremap = true, silent = true }
@@ -37,7 +37,6 @@ function M.on_attach(client, bufnr)
     buf_set_keymap(bufnr, "n", "<leader>lwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
-
     -- JDTLS specific binds
     if client.name == "jdt.ls" then
         buf_set_keymap(bufnr, "n", "<leader>lev", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts)
@@ -45,7 +44,6 @@ function M.on_attach(client, bufnr)
 
         buf_set_keymap(bufnr, "n", "<leader>lec", "<Cmd>lua require('jdtls').extract_constant()<CR>", opts)
         buf_set_keymap(bufnr, "v", "<leader>lec", "<Cmd>lua require('jdtls').extract_constant(true)<CR>", opts)
-
 
         buf_set_keymap(bufnr, "v", "<leader>lem", "<Cmd>lua require('jdtls').extract_method(true)<CR>", opts)
 
@@ -118,7 +116,7 @@ function M.on_attach(client, bufnr)
                 group = augroup,
                 buffer = bufnr,
                 callback = function()
-                    require'jdtls'.organize_imports()
+                    require("jdtls").organize_imports()
                 end,
             })
         end
@@ -129,12 +127,8 @@ function M.on_attach(client, bufnr)
         -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
         -- you make during a debug session immediately.
         -- Remove the option if you do not want that.
-        require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+        require("jdtls").setup_dap { hotcodereplace = "auto" }
     end
 end
-
-
-
-
 
 return M

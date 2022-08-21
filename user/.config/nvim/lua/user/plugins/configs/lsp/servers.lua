@@ -6,7 +6,6 @@ local nvim_cache_path = path.get_nvim_cache_path()
 
 local lspconfig = require "lspconfig"
 
-
 local home = os.getenv "HOME"
 local project_path = vim.fn.getcwd()
 local project_basename = vim.fn.fnamemodify(project_path, ":p:h:t")
@@ -87,63 +86,122 @@ M.list = {
     { name = "tsserver", config = { root_dir = nodejs_root_dir } },
     {
         name = "jdtls",
-        config = {
-            cmd = {
-                "java",
-                "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-                "-Dosgi.bundles.defaultStartLevel=4",
-                "-Declipse.product=org.eclipse.jdt.ls.core.product",
-                "-Dlog.protocol=true",
-                "-Dlog.level=ALL",
-                -- https://projectlombok.org/
-                "-javaagent:" .. path.concat { nvim_data_path, "mason", "packages", "jdtls", "lombok.jar" },
-                "-Xms1g",
-                "--add-modules=ALL-SYSTEM",
-                "--add-opens",
-                "java.base/java.util=ALL-UNNAMED",
-                "--add-opens",
-                "java.base/java.lang=ALL-UNNAMED",
-                "-jar",
-                vim.fn.glob(path.concat { jdtls_root_path, "plugins", "org.eclipse.equinox.launcher_*.jar" }),
-                "-configuration",
-                path.concat { jdtls_root_path, "config_linux" },
-                "-data",
-                path.concat { nvim_cache_path, "jdtls", string.gsub(project_path, path.separator, "%%") },
-            },
-
-            root_dir = require("jdtls.setup").find_root {
-                ".git",
-                "mvnw",
-                "gradlew",
-                "build.xml",
-                "pom.xml",
-                "settings.gradle",
-                "settings.gradle.kts",
-                "build.gradle",
-                "build.gradle.kts",
-            },
-
-            -- Here you can configure eclipse.jdt.ls specific settings
-            -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-            -- for a list of options
-            settings = {
-                java = {},
-            },
-
-            -- Language server `initializationOptions`
-            -- You need to extend the `bundles` with paths to jar files
-            -- if you want to use additional eclipse.jdt.ls plugins.
-            --
-            -- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
-            --
-            -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
-            init_options = {
-                resolveAdditionalTextEditsSupport = true,
-                bundles = {
-                    -- vim.fn.glob("path/to/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
+        config = function()
+            local config = {
+                cmd = {
+                    "java",
+                    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+                    "-Dosgi.bundles.defaultStartLevel=4",
+                    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+                    "-Dlog.protocol=true",
+                    "-Dlog.level=ALL",
+                    -- https://projectlombok.org/
+                    "-javaagent:" .. path.concat { nvim_data_path, "mason", "packages", "jdtls", "lombok.jar" },
+                    "-Xms1g",
+                    "--add-modules=ALL-SYSTEM",
+                    "--add-opens",
+                    "java.base/java.util=ALL-UNNAMED",
+                    "--add-opens",
+                    "java.base/java.lang=ALL-UNNAMED",
+                    "-jar",
+                    vim.fn.glob(path.concat { jdtls_root_path, "plugins", "org.eclipse.equinox.launcher_*.jar" }),
+                    "-configuration",
+                    path.concat { jdtls_root_path, "config_linux" },
+                    "-data",
+                    path.concat { nvim_cache_path, "jdtls", string.gsub(project_path, path.separator, "%%") },
                 },
-            },
-        },
+
+                root_dir = require("jdtls.setup").find_root {
+                    ".git",
+                    "mvnw",
+                    "gradlew",
+                    "build.xml",
+                    "pom.xml",
+                    "settings.gradle",
+                    "settings.gradle.kts",
+                    "build.gradle",
+                    "build.gradle.kts",
+                },
+                -- Here you can configure eclipse.jdt.ls specific settings
+                -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+                -- for a list of options
+                settings = {
+                    java = {
+                        signatureHelp = { enabled = true },
+                        sources = {
+                            organizeImports = {
+                                starThreshold = 9999,
+                                staticStarThreshold = 9999,
+                            },
+                        },
+                        codeGeneration = {
+                            toString = {
+                                template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+                            },
+                            hashCodeEquals = {
+                                useJava7Objects = true,
+                            },
+                            useBlocks = true,
+                        },
+                    },
+                },
+
+                -- You need to extend the `bundles` with paths to jar files
+                -- if you want to use additional eclipse.jdt.ls plugins.
+                --
+                -- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
+                --
+                -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
+                init_options = {
+                    extendedClientCapabilities = {
+                        progressReportProvider = true;
+                        classFileContentsSupport = true;
+                        generateToStringPromptSupport = true;
+                        hashCodeEqualsPromptSupport = true;
+                        advancedExtractRefactoringSupport = true;
+                        advancedOrganizeImportsSupport = true;
+                        generateConstructorsPromptSupport = true;
+                        generateDelegateMethodsPromptSupport = true;
+                        moveRefactoringSupport = true;
+                        overrideMethodsPromptSupport = true;
+                        inferSelectionSupport = {"extractMethod", "extractVariable", "extractConstant"};
+                        resolveAdditionalTextEditsSupport = true,
+                    },
+                    bundles = {},
+                },
+            }
+
+            -- mute; having progress reports is enough
+            if false then
+                config.handlers = config.handlers or {}
+                config.handlers["language/status"] = function() end
+            end
+
+            config.init_options = config.init_options or {}
+            config.init_options.bundles = config.init_options.bundles or {}
+
+            -- Append to bundles if we find the corresponding directory
+
+            -- java-debug: https://github.com/microsoft/java-debug
+            local java_debug_path = path.concat { nvim_data_path, "java-debug", "com.microsoft.java.debug.plugin", "target" }
+            if true or vim.fn.isdirectory(java_debug_path) then
+                local bundles = vim.fn.glob(path.concat { java_debug_path, "com.microsoft.java.debug.plugin-*.jar" })
+                if bundles ~= nil and bundles ~= "" then
+                    vim.list_extend(config.init_options.bundles, vim.fn.split(bundles, "\n"))
+                end
+            end
+
+            -- vscode-java-test: https://github.com/microsoft/vscode-java-test
+            local vscode_java_test_path = path.concat { nvim_data_path, "vscode-java-test", "server" }
+            if true or vim.fn.isdirectory(vscode_java_test_path) then
+                local bundles = vim.fn.glob(path.concat { vscode_java_test_path, "*.jar" })
+                if bundles ~= nil and bundles ~= "" then
+                    vim.list_extend(config.init_options.bundles, vim.fn.split(bundles, "\n"))
+                end
+            end
+
+            return config
+        end,
     },
     {
         name = "denols",
