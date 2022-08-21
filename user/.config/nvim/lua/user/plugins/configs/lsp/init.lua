@@ -27,9 +27,8 @@ require("mason").setup {
 -- Plugin to automatically install language servers registered to nvim-lspconfig
 require("mason-lspconfig").setup {
     ensure_installed = { "sumneko_lua", "rust_analyzer" },
-    automatic_installation = true,
+    automatic_installation = false,
 }
-
 
 local lspconfig = require "lspconfig"
 
@@ -42,22 +41,9 @@ local lspconfig = require "lspconfig"
 --       their outputs and providing diagnostics, ormatting and completion candidates.
 local null_ls = require "null-ls"
 
-
-
-for _, server in ipairs(require("user.plugins.configs.lsp.servers")) do
+for _, server in ipairs(require "user.plugins.configs.lsp.servers") do
     local name = server.name
-    local config = nil
-
-    if type(server.config) == "table" then
-        config = server.config
-    elseif type(server.config) == "function" then
-        config = server.config()
-    else
-        config = {}
-    end
-
-
-    require("user.plugins.configs.lsp.utils").update_lsp_config_table(config)
+    local config = require("user.plugins.configs.lsp.utils").update_server_config(server.config)
 
     if name == "rust_analyzer" then
         -- `rust-tools` plugin plugin automatically sets up nvim-lspconfig for rust_analyzer for you,
