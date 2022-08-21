@@ -29,9 +29,9 @@ local generic = {
         end,
     },
 
-    -- Many people really want to do tnoremap <Esc> <C-\><C-n>. However, there is a few command line utilties
+    -- Many people really want to do tnoremap <Esc> <C-\><C-n>. However, there is a few command line utilities
     -- they rely on also use <Esc>.
-    -- This is a plugin that let you map <Esc> to <C-\><C-n> except when these command line utilties are running in the termial
+    -- This is a plugin that let you map <Esc> to <C-\><C-n> except when these command line utilities are running in the terminal
     {
         "sychen52/smart-term-esc.nvim",
         config = function()
@@ -466,7 +466,7 @@ local generic = {
 
     {
         "mfussenegger/nvim-dap",
-        requires = { "rcarriga/nvim-dap-ui", "leoluz/nvim-dap-go", },
+        requires = { "rcarriga/nvim-dap-ui", "leoluz/nvim-dap-go" },
         config = function()
             -- require "user.plugins.configs.dap"
         end,
@@ -625,6 +625,31 @@ local themes = {
     },
 
     { "Everblush/everblush.nvim" },
+
+    {
+        "rebelot/kanagawa.nvim",
+
+        config = function()
+            require("kanagawa").setup {
+                undercurl = true, -- enable undercurls
+                commentStyle = { italic = false },
+                functionStyle = {},
+                keywordStyle = { italic = false },
+                statementStyle = { bold = false },
+                typeStyle = {},
+                variablebuiltinStyle = { italic = false },
+                specialReturn = true, -- special highlight for the return keyword
+                specialException = true, -- special highlight for exception handling keywords
+                transparent = false, -- do not set background color
+                dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+                globalStatus = false, -- adjust window separators highlight for laststatus=3
+                terminalColors = true, -- define vim.g.terminal_color_{0,17}
+                colors = {},
+                overrides = {},
+                theme = "default", -- Load "default" theme or the experimental "light" theme
+            }
+        end,
+    },
 }
 
 local language_specific_toolings = {
@@ -650,7 +675,6 @@ local language_specific_toolings = {
             ]]
         end,
     },
-
 
     { "simrat39/rust-tools.nvim" },
     { "mfussenegger/nvim-jdtls" },

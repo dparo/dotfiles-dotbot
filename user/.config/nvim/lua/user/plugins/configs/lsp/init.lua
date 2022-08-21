@@ -78,7 +78,7 @@ for _, server in ipairs(require("user.plugins.configs.lsp.servers")) do
 end
 
 null_ls.setup {
-    on_attach = lsp_on_attach,
+    on_attach = require("user.plugins.configs.lsp.events").on_attach,
     sources = {
         null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.gitlint,

@@ -98,11 +98,16 @@ cmp.setup {
         -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 
         ["<Esc>"] = cmp.mapping(function(fallback)
-            local entry = cmp.get_selected_entry()
-            if not entry then
-                fallback()
+            if cmp.visible() then
+                local entry = cmp.get_selected_entry()
+                if not entry then
+                    fallback()
+                else
+                    cmp.abort()
+                    -- cmp.confirm { behaviour = confirm_behaviour, select = false }
+                end
             else
-                cmp.abort()
+                fallback()
             end
         end, { "i", "s" }),
         ["<C-y>"] = cmp.config.disable,

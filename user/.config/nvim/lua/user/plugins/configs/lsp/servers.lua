@@ -12,8 +12,6 @@ end
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local home = os.getenv "HOME"
 
-local sumneko_root_path = vim.env.USER_DOTFILES_LOCATION .. "/core/vendor/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 local jdtls_root_path = home .. "/.local/share/nvim/mason/packages/jdtls"
 
 local function deno_root_dir(fname)
@@ -31,8 +29,6 @@ local function nodejs_root_dir(fname)
     end
     return nil
 end
-
-
 
 return {
     ----- Python: Pyright seems the best performant and modern solution
@@ -101,7 +97,9 @@ return {
                 "-Dlog.protocol=true",
                 "-Dlog.level=ALL",
                 -- https://projectlombok.org/
-                "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+                "-javaagent:"
+                    .. home
+                    .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
                 "-Xms1g",
                 "--add-modules=ALL-SYSTEM",
                 "--add-opens",
@@ -116,8 +114,17 @@ return {
                 home .. "/.cache/nvim/jdtls/" .. string.gsub(vim.fn.getcwd(), "/", "%%"),
             },
 
-
-            root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'build.xml', 'pom.xml', 'settings.gradle', 'settings.gradle.kts', 'build.gradle', 'build.gradle.kts'}),
+            root_dir = require("jdtls.setup").find_root {
+                ".git",
+                "mvnw",
+                "gradlew",
+                "build.xml",
+                "pom.xml",
+                "settings.gradle",
+                "settings.gradle.kts",
+                "build.gradle",
+                "build.gradle.kts",
+            },
 
             -- Here you can configure eclipse.jdt.ls specific settings
             -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -175,7 +182,6 @@ return {
             table.insert(runtime_path, "lua/?/init.lua")
 
             return {
-                cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
                 settings = {
                     Lua = {
                         runtime = {
