@@ -30,4 +30,4 @@
       command: |
         nvim --headless -c "MasonInstall stylua lua-language-server" -c "qall"
         nvim --headless -c "MasonInstall rust-analyzer texlab" -c "qall"
-        nvim --headless -c "MasonInstall shellcheck" -c "qall"
+        nvim --headless -c "MasonInstall shellcheck shellharden" -c "qall"
