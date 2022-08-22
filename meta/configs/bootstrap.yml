@@ -11,7 +11,6 @@
     clean:
       force: false
 
-
 - description: Install core packages
   command: |
     # List of additional commands that didn't make it:
@@ -20,6 +19,8 @@
     # - gperf
     # - texlive-* and related minimal packages (including latexmk)
     # - doxygen
+    # - flamegraph (cargo)   profiling tool
+    # - hyperfine (cargo)    benchmarking tool
 
 
     # Noemutt and lazygit are not available in the official repos,
@@ -33,17 +34,24 @@
     hotspot heaptrack \
     net-tools lm_sensors \
     nodejs npm golang \
-    zsh tmux trash-cli xsel xclip ranger exa fd-find neovim tokei htop unrar curl jq ripgrep the_silver_searcher entr httpie rsync lazygit \
+    zsh tmux trash-cli xsel xclip ranger exa bat git-delta fd-find neovim tokei htop unrar curl jq ripgrep the_silver_searcher entr httpie rsync lazygit \
     qemu docker \
     neomutt isync msmtp \
     rxvt-unicode kitty \
     i3 i3lock i3status xsettingsd xss-lock brightnessctl wmctrl dunst picom arandr pavucontrol seahorse \
     polybar bspwm sxhkd \
     feh nitrogen nomacs qimgv scrot maim flameshot  \
-    mpv zathura zathura-pdf-poppler mpd mpc ncmpcpp  \
+    mpv yt-dlp zathura zathura-pdf-poppler mpd mpc ncmpcpp  \
     copyq gparted gimp qt5ct \
     solaar blueman bluez-tools
 
+- description: Install RUSTUP (rust + cargo)
+  stdout: false
+  stderr: false
+  command: |
+    if [ ! -d "${CARGO_HOME:-$HOME/.cargo}/bin"]; then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    fi
 
 - description: Setup GOOGLE dns servers
   command: |
@@ -55,6 +63,8 @@
     nameserver 8.8.8.8
     nameserver 8.8.4.4
     nameserver 2001:4860:4860::8888
+    # NOTE: the libc resolver may not support more than 3 nameservers.
+    # The nameservers listed below may not be recognized.
     nameserver 2001:4860:4860::8844
     EOF
 
@@ -93,7 +103,6 @@
     EOF
     sudo chmod a+rx /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
 
-
 - description: Setup ZSH as the default USER shell
   command: |
     if [ -f "/bin/zsh" ]; then
@@ -115,13 +124,67 @@
     sudo groupadd docker
     sudo usermod -aG docker "$USER"
 
-
 - description: Disable GDM display manager
   command: |
     sudo systemctl disable gdm gdm3
 
+- description: Allow display managers to list and exec user xinitrc file
+  command: |
+    cat <<'EOF' | sudo tee /usr/local/bin/xinitrcsession-run
+    #!/bin/bash
+    entry=""
+    if [ -n "$XINITRC" ]; then
+        entry="$XINITRC"
+    elif [ -f "$XDG_CONFIG_HOME/X11/xinitrc" ]; then
+        entry="$XDG_CONFIG_HOME/X11/xinitrc"
+    elif [ -f "$HOME/.config/X11/xinitrc" ]; then
+        entry="$HOME/.config/X11/xinitrc"
+    elif [ -f "$HOME/.xinitrc" ]; then
+        entry="$HOME/.xinitrc"
+    fi
+    if [ -n "$entry" ]; then
+        exec "$entry"
+    fi
+    EOF
+
+    sudo chmod 0775 /usr/local/bin/xinitrcsession-run
+
+    cat <<'EOF' | sudo tee /usr/share/xsessions/xinitrc.desktop
+    [Desktop Entry]
+    Name=xinitrc
+    Comment=Executes the .xinitrc script in your home directory
+    Exec=xinitrcsession-run
+    TryExec=xinitrcsession-run
+    Type=Application
+    EOF
+
+    sudo chmod 0664 /usr/share/xsessions/xinitrc.desktop
+
+- description: Unlock GNOME keyring on login
+  command: |
+    cat <<'EOF' | sudo tee /etc/pam.d/common-unlock-gnome-keyring
+    auth       optional     pam_gnome_keyring.so
+    session    optional     pam_gnome_keyring.so auto_start
+    EOF
+
+    cat <<'EOF' | sudo tee -a /etc/pam.d/login
+    @include common-unlock-gnome-keyring
+    EOF
 
 - description: Install required fonts
   command: |
     source "${USER_DOTFILES_LOCATION:-./}/meta/lib.sh"
     install_all_fonts
+
+- description: Install additional software
+  command: |
+    if [ ! -f "$HOME/.dropbox-dist/dropboxd" ]; then
+        pushd "$HOME"
+        wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+        popd
+    fi
+
+    curl -fsSL https://deno.land/x/install/install.sh | sh
+
+    flatpak install -y flathub com.jgraph.drawio.desktop
+    flatpak install -y flathub md.obsidian.Obsidian

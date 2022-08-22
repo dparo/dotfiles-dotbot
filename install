@@ -140,7 +140,7 @@ _bootstrap_prep_necessary_pkgs() {
 		_bootstrap_fedora_install_proprietary_codecs_rpmfusion
 
 		# Install NVIDIA drivers if possible and desired by the user
-		_bootstrap_fedora_query_for_installing_nvidia_drivers
+		_bootstrap_fedora_maybe_install_nvidia_drivers
 
 		# Enable Flathub repo for installing flatpaks
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

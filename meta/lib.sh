@@ -47,6 +47,17 @@ function __install_nerd_fonts {
 ##########################################################################################################
 ##########################################################################################################
 
+
+function prompt_yes_no {
+	while true; do
+		read -r -p "${1} [yN] " yn
+		case $yn in
+		[Yy]*) return 0 ;;
+		*) return 1 ;;
+		esac
+	done
+}
+
 function install_all_fonts {
 	__install_nerd_fonts "Hack" "JetBrainsMono" "CascadiaCode" "IBMPlexMono" "LiberationMono" "Meslo" "Noto" "Ubuntu" "UbuntuMono" "SourceCodePro"
 	sudo wget "https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf" -O /usr/share/fonts/codicon.ttf
@@ -69,7 +80,7 @@ function curl_download {
 }
 
 function wget_tar_unpack {
-	pushd "$HOME/Downloads"
+	pushd "$HOME/Downloads" || exit 1
 	mkdir -p "$HOME/Software"
 
 	local url="$1"
@@ -88,7 +99,7 @@ function wget_tar_unpack {
 		result=$?
 	fi
 
-	popd
+	popd || exit 1
 	return "$result"
 }
 
@@ -96,18 +107,18 @@ function wget_tar_unpack {
 function git_ensure {
 	local result=0
 	mkdir -p "$HOME/git-clone"
-	pushd "$HOME/git-clone"
+	pushd "$HOME/git-clone" || exit 1
 	if [ ! "$(is_avail "$1")" ]; then
 		git clone "$2"
 
-		pushd "$(basename "$2")"
+		pushd "$(basename "$2")" || exit 1
 
 		if [ -f "./CMakeLists.txt" ]; then
 			mkdir -p build
-			pushd build
+			pushd build || exit 1
 			cmake ../ && make all && sudo make install
 			result=$?
-			popd
+			popd || exit 1
 		elif [ -f "./meson.build" ]; then
 			meson build && ninja -C build all && sudo ninja -C build install
 			result=$?
@@ -122,8 +133,102 @@ function git_ensure {
 			result=$?
 		fi
 
-		popd
+		popd || exit 1
 	fi
-	popd
+	popd || exit 1
 	return "$result"
+}
+
+
+function update_rust_pkgs {
+    cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ' | xargs -I {} bash -c "cargo install {} || true"
+}
+
+function update_submodules {
+	pushd ../ || exit 1
+	git submodule update --init --recursive --remote "dotbot"
+	pushd dotbot || exit 1
+	git checkout master
+	git pull
+	popd || exit 1
+	git add dotbot
+	git commit -m "Dotbot update ($(date))"
+
+	find ./vendor/ -mindepth 1 -maxdepth 1 -type d | while IFS= read -r f; do
+		git submodule update --init --recursive --remote "$f"
+		pushd "$f" || exit 1
+		git checkout -f master
+		git checkout -f ./
+		git pull
+		git submodule update --init --recursive
+		popd || exit 1
+		git add "$f"
+	done
+
+	pushd vendor/neovim || exit 1
+	git checkout v0.7.0
+	popd || exit 1
+
+	git add vendor/neovim
+	git commit -m "Software update ($(date))"
+	popd || exit 1
+}
+
+function update_themes {
+	GTK_THEME="${GTK_THEME:-Adwaita}"
+	CURSOR_THEME="${CURSOR_THEME:-Adwaita}"
+	ICON_THEME="${ICON_THEME:-Adwaita}"
+
+	local xsettingsd_config="${XDG_CONFIG_HOME:-$HOME/.config}/xsettingsd/xsettingsd.conf"
+	local xresources_config="${XDG_CONFIG_HOME:-$HOME/.config}/X11/.Xresources"
+	local gtk4_config="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-4.0/settings.ini"
+	local gtk3_config="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"
+	local gtk2_config="${GTK2_RC_FILES:-$HOME/.gtkrc-2.0}"
+
+	if [ ! -f "$xresources_config" ]; then
+		xresources_config="$HOME/.Xresources"
+	fi
+
+	set -x
+
+	# Setup default cursor
+	cat <<EOF 1>~/.local/share/icons/default/index.theme
+[Icon Theme]
+Name=default
+Comment=Default Cursor Theme
+Inherits=${CURSOR_THEME}
+EOF
+
+	# Symlink legacy ~/.icons/default path to the new XDG one (Required for Xresources and xsettingsd to find the `default` theme)
+	if 0; then
+		mkdir -p ~/.icons && ln -sfT ~/.local/share/icons/default ~/.icons/default
+	fi
+
+	# Update .Xresources
+	sed "s@^Xcursor.theme.*@Xcursor.theme: $CURSOR_THEME@g" -i "$xresources_config"
+
+	# Update xsettingsd config first
+	sed "s@^Gtk/CursorThemeName.*@Gtk/CursorThemeName   \"$CURSOR_THEME\"@g" -i "$xsettingsd_config"
+	sed "s@^Net/ThemeName.*@Net/ThemeName \"$GTK_THEME\"@g" -i "$xsettingsd_config"
+	sed "s@^Net/IconThemeName.*@Net/IconThemeName \"$ICON_THEME\"@g" -i "$xsettingsd_config"
+
+
+    for c in "$gtk2_config" "$gtk3_config" "$gtk4_config"; do
+        # Update Gtk-2.0 config
+        sed "s@^gtk-theme-name\s*=.*@gtk-theme-name=\"$GTK_THEME\"@g" -i "$c"
+        sed "s@^gtk-icon-theme-name\s*=.*@gtk-icon-theme-name=\"$ICON_THEME\"@g" -i "$c"
+        sed "s@^gtk-cursor-theme-name\s*=.*@gtk-cursor-theme-name=\"$CURSOR_THEME\"@g" -i "$c"
+    done
+
+
+	# Sync gsettings configuration (Used only by Wayland, X11 sessions respect the XSETTINGS daemon)
+	#     See https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland#setting-values-in-gsettings
+	local gnome_schema="org.gnome.desktop.interface"
+	gsettings set "$gnome_schema" gtk-theme "$GTK_THEME"
+	gsettings set "$gnome_schema" icon-theme "$ICON_THEME"
+	gsettings set "$gnome_schema" cursor-theme "$CURSOR_THEME"
+
+	set +x
+
+	return 0
 }

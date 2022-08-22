@@ -78,7 +78,11 @@ null_ls.setup {
             },
         },
 
-        null_ls.builtins.diagnostics.eslint,
+        -- NOTE(dparo): We use eslint-lsp server now (https://github.com/hrsh7th/vscode-langservers-extracted).
+        -- The server is hooked directly from nvim-lspconfig
+        -- null_ls.builtins.diagnostics.eslint,
+
+
         null_ls.builtins.formatting.prettier.with {
             filetypes = {
                 "html",

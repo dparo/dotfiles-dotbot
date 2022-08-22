@@ -10,9 +10,6 @@
 [submodule "meta/vendor/zsh-syntax-highlighting"]
 	path = core/vendor/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "meta/vendor/lua-language-server"]
-	path = core/vendor/lua-language-server
-	url = https://github.com/sumneko/lua-language-server
 [submodule "meta/vendor/zsh-autosuggestions"]
 	path = core/vendor/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
