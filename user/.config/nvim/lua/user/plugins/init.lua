@@ -13,6 +13,9 @@ local generic = {
 
     { "nathom/filetype.nvim" },
 
+    -- Better quickfix window in Neovim, polish old quickfix window.
+    { "kevinhwang91/nvim-bqf" },
+
     --- Trim trailing whitespaces
     {
         "cappyzawa/trim.nvim",
