@@ -21,6 +21,7 @@ function M.on_attach(client, bufnr)
     buf_set_keymap(bufnr, "n", "<leader>D", "<cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "<S-LeftMouse>", "<Cmd>Telescope lsp_references theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "<M-CR>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<C-1>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
     buf_set_keymap(bufnr, "n", "<leader>e", "<cmd>lua user.utils.lsp.show_line_diagnostics()<CR>", opts)
