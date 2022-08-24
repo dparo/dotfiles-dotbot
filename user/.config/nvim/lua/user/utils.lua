@@ -6,7 +6,6 @@ com! GetHighlightUnderCursor echo {l,c,n ->
 \ }(line("."), col("."), "name")
 
 
-
 " Show highlight of group under cursor
 function s:SynStack()
     if !exists("*synstack")
@@ -17,8 +16,6 @@ endfunction
 
 command! SyntaxQuery call s:SynStack()
 ]]
-
-
 
 
 local M = {}
@@ -232,10 +229,10 @@ M.post_build = function()
                 -- If the type is not set, then resort back to a very naive/crude
                 -- string find method. Ideally we should use the errorformat
                 -- string here to know exactly the type of the error message.
-                local low = string.lower(string.trim(v.text))
+                local low = string.lower(vim.trim(v.text))
 
-                local is_err = string.starts(low, "error:")
-                local is_warn = string.starts(low, "warn:") or string.starts(low, "warning:")
+                local is_err = vim.startswith(low, "error:")
+                local is_warn = vim.startswith(low, "warn:") or vim.startswith(low, "warning:")
 
                 if is_err then
                     nerrs = nerrs + 1
