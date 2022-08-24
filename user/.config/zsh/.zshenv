@@ -21,7 +21,6 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
 export GPG_TTY="$(tty)"
 
 
-
 # @NOTE: Path prepends WIN over standard /usr/bin and /usr/local/bin paths
 # @NOTE: Path adds have LOWER precedence compared to standard /usr/bin and /usr/local/bin paths
 
@@ -56,6 +55,7 @@ pathprepend \
     "$USER_DOTFILES_LOCATION/core/vendor/fzf/bin" \
     "$XDG_DATA_HOME/bin" \
     "$HOME/.local/bin" \
+    /opt/gradle/gradle-*/bin \
     "${PYTHONUSERBASE:-$XDG_DATA_HOME/python}/bin" \
     "${GOPATH:-$XDG_DATA_HOME/go}/bin" \
     "${CARGO_HOME:-$XDG_DATA_HOME/cargo}/bin" \
