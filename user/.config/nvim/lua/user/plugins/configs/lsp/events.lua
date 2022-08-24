@@ -39,17 +39,19 @@ function M.on_attach(client, bufnr)
 
     -- JDTLS specific binds
     if client.name == "jdt.ls" then
-        buf_set_keymap(bufnr, "n", "<leader>lev", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts)
-        buf_set_keymap(bufnr, "v", "<leader>lev", "<Cmd>lua require('jdtls').extract_variable(true)<CR>", opts)
+        buf_set_keymap(bufnr, "n", "<leader>ljo", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
 
-        buf_set_keymap(bufnr, "n", "<leader>lec", "<Cmd>lua require('jdtls').extract_constant()<CR>", opts)
-        buf_set_keymap(bufnr, "v", "<leader>lec", "<Cmd>lua require('jdtls').extract_constant(true)<CR>", opts)
+        buf_set_keymap(bufnr, "n", "<leader>ljev", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts)
+        buf_set_keymap(bufnr, "v", "<leader>ljev", "<Cmd>lua require('jdtls').extract_variable(true)<CR>", opts)
 
-        buf_set_keymap(bufnr, "v", "<leader>lem", "<Cmd>lua require('jdtls').extract_method(true)<CR>", opts)
+        buf_set_keymap(bufnr, "n", "<leader>ljec", "<Cmd>lua require('jdtls').extract_constant()<CR>", opts)
+        buf_set_keymap(bufnr, "v", "<leader>ljec", "<Cmd>lua require('jdtls').extract_constant(true)<CR>", opts)
+
+        buf_set_keymap(bufnr, "v", "<leader>ljem", "<Cmd>lua require('jdtls').extract_method(true)<CR>", opts)
 
         -- DAP
-        buf_set_keymap(bufnr, "n", "<leader>ddc", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
-        buf_set_keymap(bufnr, "n", "<leader>ddm", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", opts)
+        buf_set_keymap(bufnr, "n", "<leader>djtc", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
+        buf_set_keymap(bufnr, "n", "<leader>djtm", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", opts)
     end
 
     buf_set_keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
@@ -110,8 +112,16 @@ function M.on_attach(client, bufnr)
                 vim.lsp.buf.formatting_seq_sync()
             end,
         })
-        if client.name == "jdt.ls" then
-            -- Automatically organize imports for java code
+
+        -- Automatically organize imports for java code
+        -- NOTE(dparo): 24 Aug 2022:
+        -- `require("jdtls").organize_imports()` is an async function,
+        -- and unfortunately it does not provide a sync equivalent, so it cannot
+        -- be used in this context.
+        -- I've tried to implement my `organize_imports_sync()` function.
+        -- It worked, but I needed to hack the `client_id` since there was no clear way
+        -- to retrieve it due to the structure of the `nvim-jdlts` source code
+        if false and client.name == "jdt.ls" then
             vim.api.nvim_create_autocmd({ "BufWritePre" }, {
                 group = augroup,
                 buffer = bufnr,
