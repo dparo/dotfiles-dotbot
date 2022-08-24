@@ -80,12 +80,12 @@ cmp.setup {
     },
     enabled = function()
         -- Disable completion in comments
-        local context = require 'cmp.config.context'
+        local context = require "cmp.config.context"
         -- keep command mode completion enabled when cursor is in a comment
-        if vim.api.nvim_get_mode().mode == 'c' then
+        if vim.api.nvim_get_mode().mode == "c" then
             return true
         else
-            return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+            return not context.in_treesitter_capture "comment" and not context.in_syntax_group "Comment"
         end
     end,
     mapping = {
@@ -97,19 +97,19 @@ cmp.setup {
         -- ["<C-Space>"] = cmp.mapping.complete(),
         -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 
-        ["<Esc>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                local entry = cmp.get_selected_entry()
-                if not entry then
-                    fallback()
-                else
-                    cmp.abort()
-                    -- cmp.confirm { behaviour = confirm_behaviour, select = false }
-                end
-            else
-                fallback()
-            end
-        end, { "i", "s" }),
+        -- ["<Esc>"] = cmp.mapping(function(fallback)
+        --     if cmp.visible() then
+        --         local entry = cmp.get_selected_entry()
+        --         if not entry then
+        --             fallback()
+        --         else
+        --             cmp.abort()
+        --             -- cmp.confirm { behaviour = confirm_behaviour, select = false }
+        --         end
+        --     else
+        --         fallback()
+        --     end
+        -- end, { "i", "s" }),
         ["<C-y>"] = cmp.config.disable,
         ["<C-a>"] = cmp.mapping {
             i = abort_and_fallback(),
@@ -187,15 +187,14 @@ cmp.setup {
     }),
 }
 
-
 -- Set configuration for specific filetype.
 if vim.env.GITHUB_API_TOKEN ~= nil then
-    cmp.setup.filetype('gitcommit', {
+    cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
-            { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+            { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
         }, {
-            { name = 'buffer' },
-        })
+            { name = "buffer" },
+        }),
     })
 end
 
@@ -203,7 +202,7 @@ end
 if false then
     cmp.setup.cmdline("/", {
         view = {
-            entries = {name = 'wildmenu', separator = '|' }
+            entries = { name = "wildmenu", separator = "|" },
         },
         sources = {
             { name = "buffer" },
