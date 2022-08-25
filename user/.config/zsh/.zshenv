@@ -55,7 +55,6 @@ pathprepend \
     "$USER_DOTFILES_LOCATION/core/vendor/fzf/bin" \
     "$XDG_DATA_HOME/bin" \
     "$HOME/.local/bin" \
-    /opt/gradle/gradle-*/bin \
     "${PYTHONUSERBASE:-$XDG_DATA_HOME/python}/bin" \
     "${GOPATH:-$XDG_DATA_HOME/go}/bin" \
     "${CARGO_HOME:-$XDG_DATA_HOME/cargo}/bin" \
