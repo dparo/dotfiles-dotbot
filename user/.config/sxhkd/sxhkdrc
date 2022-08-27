@@ -169,7 +169,7 @@ super + r : {Left,Down,Up,Right}
 
 
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
-    brightnessctl --min-value=20% s {'+5%','5%-'}
+    brightnessctl --min-value=20% s {'5%+','5%-'}
 
 
 {XF86AudioLowerVolume,XF86AudioRaiseVolume,XF86AudioMute}
