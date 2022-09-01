@@ -82,7 +82,6 @@ null_ls.setup {
         -- The server is hooked directly from nvim-lspconfig
         -- null_ls.builtins.diagnostics.eslint,
 
-
         null_ls.builtins.formatting.prettier.with {
             filetypes = {
                 "html",
@@ -119,8 +118,12 @@ null_ls.setup {
         -- null_ls.builtins.diagnostics.mypy,
         -- flake8 is a python tool that glues together pycodestyle, pyflakes, mccabe, and third-party plugins to check the style and quality of some python code
         null_ls.builtins.diagnostics.flake8,
+
         -- Pylint is a Python static code analysis tool which looks for programming errors, helps enforcing a coding standard, sniffs for code smells and offers simple refactoring suggestions.
-        -- null_ls.builtins.diagnostics.pylint,
+        -- NOTE(dparo): Run pylint only on save due to its shitty performance
+        null_ls.builtins.diagnostics.pylint.with {
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        },
     },
 }
 
