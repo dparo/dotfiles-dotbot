@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+"${MAVEN_HOME:-/usr}/bin/mvn" -gs "$HOME/.config/maven/settings.xml" "$@"

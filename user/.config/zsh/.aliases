@@ -102,9 +102,6 @@ alias lola="git log --graph --decorate --oneline --abbrev-commit --all"
 alias nvidia-settings='nvidia-settings --verbose --config="$XDG_CONFIG_HOME"/nvidia/settings'
 alias edit-shell-hist='fc -W; "$EDITOR" "$HISTFILE"; fc -R;'
 
-# Maven: Specify localrepository to be in XDG_CACHE_HOME instead of being in $HOME dir
-alias mvn='mvn -gs "$XDG_CONFIG_HOME/maven/settings.xml"'
-
 # Kitty cat image to stdout (yes, show the image on the terminal)
 alias icat="kitty +kitten icat"
 
