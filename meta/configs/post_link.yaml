@@ -94,7 +94,9 @@
       command: which fzf || ./core/vendor/fzf/install --xdg --key-bindings --completion --no-update-rc
 
     - description: Setup and sync between multiple programs config files GTK theming and Cursor theming
-      command: GTK_THEME=Adwaita-dark ICON_THEME=Adwaita CURSOR_THEME=Adwaita ./core/scripts/update.sh --themes
+      command: |
+        source "${USER_DOTFILES_LOCATION:-./}/meta/lib.sh"
+        GTK_THEME=Adwaita-dark ICON_THEME=Adwaita CURSOR_THEME=Adwaita update_themes
       stdout: false
       stderr: false
 
