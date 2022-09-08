@@ -30,6 +30,14 @@ git:
   paging:
     colorArg: always
     pager: delta --dark --paging=never
+  autoFetch: false
+  autoRefresh: true
+
+
+refresher:
+  refreshInterval: 5
+  fetchInterval: 300
+
 
 keybinding:
   universal:
