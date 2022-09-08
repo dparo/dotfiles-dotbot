@@ -17,7 +17,6 @@ endfunction
 command! SyntaxQuery call s:SynStack()
 ]]
 
-
 local M = {}
 M.lsp = M.lsp or {}
 
@@ -26,7 +25,6 @@ M.update_tbl = function(tbl, other)
         tbl[k] = v
     end
 end
-
 
 function M.filename_escape(p)
     return vim.api.nvim_call_function("fnameescape", { p })
@@ -127,7 +125,7 @@ local function get_makeprg(p)
     elseif latexmkrc then
         command = "latexmk -pdf"
     elseif maven then
-        command = "mvn -s ~/.config/maven/settings.xml compile"
+        command = "mvn -gs ~/.config/maven/settings.xml -T4 -Dmaven.test.skip -Dmaven.javadoc.skip=true -DskipTests package"
     elseif gradle and gradle_w then
         command = p .. "/gradlew build"
     elseif gradle and not gradle_w then
@@ -150,9 +148,9 @@ M.set_makeprg = function(p)
     local invalid_previous_makeprg = (
         vim.o.makeprg == nil
         or vim.o.makeprg == ""
-        or string.starts(vim.o.makeprg, " ")
-        or string.starts(vim.o.makeprg, "\n")
-        or string.starts(vim.o.makeprg, "#")
+        or string.startswith(vim.o.makeprg, " ")
+        or string.startswith(vim.o.makeprg, "\n")
+        or string.startswith(vim.o.makeprg, "#")
     )
 
     if invalid_previous_makeprg then
@@ -302,6 +300,5 @@ function M.eval_lua()
     -- print(str)
     vim.api.nvim_eval(str)
 end
-
 
 return M
