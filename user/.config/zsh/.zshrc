@@ -5,8 +5,6 @@ HISTSIZE=32768
 HISTTIMEFORMAT="[%F %T] "
 
 
-
-
 # Delete word on forward slash boundaries, and saner word delimiters in general
 autoload -U select-word-style
 WORDCHARS=':#$%^-_.'
@@ -23,7 +21,6 @@ function zle-clipboard-paste {
   LBUFFER+="$(xclip -selection clipboard -out)"
 }
 zle -N zle-clipboard-paste
-
 
 
 ## X11 clipboard
@@ -51,6 +48,9 @@ bindkey "^[[1;3A" beep
 bindkey "^[[1;3B" beep
 bindkey "^[[1;3C" beep
 bindkey "^[[1;3D" beep
+bindkey "^[[5~" beep      # Unbind page up
+bindkey "^[[6~" beep      # Unbind PageDown
+
 
 # Some additional keybinds
 # bindkey -s "^P" 'nvim +Files ./\n'
@@ -165,7 +165,6 @@ if [ -d "$XDG_DATA_HOME/anaconda3/bin" ]; then
     unset __conda_setup
     # <<< conda initialize <<<
 fi
-
 
 
 ## TERMINATE: Setup the aliases that we need
