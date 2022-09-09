@@ -61,6 +61,9 @@
     navigate=true
     features = line-numbers decorations
     whitespace-error-style = 22 reverse
+    syntax-theme = ansi
+    # plus-style = syntax bold auto
+    # minus-style = syntax bold auto
 [delta "interactive"]
     keep-plus-minus-markers = true
 [delta "decorations"]
