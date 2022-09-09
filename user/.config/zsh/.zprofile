@@ -58,6 +58,10 @@ export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export ANDROID_HOME="$XDG_DATA_HOME/android"
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 
+
+# Java runtime options used when Maven 3 (and above?) is executed.
+export MAVEN_OPTS="-Xverify:none -XX:TieredStopAtLevel=1 -XX:-TieredCompilation"
+
 # Supported only from Maven 4
 export MAVEN_ARGS="-s $XDG_CONFIG_HOME/maven/settings.xml"
 # For compatibility with maven-wrapper scripts (https://github.com/takari/maven-wrapper)

@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
+export JAVA_OPTS="$MAVEN_OPTS"
 "${MAVEN_HOME:-/usr}/bin/mvn" -gs "$HOME/.config/maven/settings.xml" "$@"

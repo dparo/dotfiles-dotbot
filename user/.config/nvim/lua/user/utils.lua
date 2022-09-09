@@ -125,7 +125,7 @@ local function get_makeprg(p)
     elseif latexmkrc then
         command = "latexmk -pdf"
     elseif maven then
-        command = "mvn -T4 -Dmaven.test.skip -Dmaven.javadoc.skip=true -DskipTests package"
+        command = "mvn --offline --no-snapshot-updates -T1C -Dparallel=all -DperCoreThreadCount=false -DthreadCount=4 -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DskipTests=true --also-make-dependents compiler:compile compiler:testCompile package --projects {}"
     elseif gradle and gradle_w then
         command = p .. "/gradlew build"
     elseif gradle and not gradle_w then
