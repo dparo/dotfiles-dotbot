@@ -62,6 +62,8 @@
     features = line-numbers decorations
     whitespace-error-style = 22 reverse
     syntax-theme = ansi
+    diff-so-fancy=true
+    side-by-side=false
     # plus-style = syntax bold auto
     # minus-style = syntax bold auto
 [delta "interactive"]
