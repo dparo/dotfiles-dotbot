@@ -125,7 +125,8 @@ local function get_makeprg(p)
     elseif latexmkrc then
         command = "latexmk -pdf"
     elseif maven then
-        command = "mvn --offline --no-snapshot-updates -T1C -Dparallel=all -DperCoreThreadCount=false -DthreadCount=4 -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DskipTests=true --also-make-dependents compiler:compile compiler:testCompile package --projects {}"
+        command =
+            "mvn --offline --no-snapshot-updates -T1C -Dparallel=all -DperCoreThreadCount=false -DthreadCount=4 -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DskipTests=true --also-make-dependents compiler:compile compiler:testCompile package --projects {}"
     elseif gradle and gradle_w then
         command = p .. "/gradlew build"
     elseif gradle and not gradle_w then
@@ -147,11 +148,11 @@ M.set_makeprg = function(p)
 
     local invalid_previous_makeprg = (
         vim.o.makeprg == nil
-            or vim.o.makeprg == ""
-            or string.startswith(vim.o.makeprg, " ")
-            or string.startswith(vim.o.makeprg, "\n")
-            or string.startswith(vim.o.makeprg, "#")
-        )
+        or vim.o.makeprg == ""
+        or vim.startswith(vim.o.makeprg, " ")
+        or vim.startswith(vim.o.makeprg, "\n")
+        or vim.startswith(vim.o.makeprg, "#")
+    )
 
     if invalid_previous_makeprg then
         command = get_makeprg(p)
@@ -261,7 +262,7 @@ M.post_build = function()
         notifylvl = "info"
     end
 
-    require "notify" (msg, notifylvl, { title = "Build status", timeout = 1000 })
+    require "notify"(msg, notifylvl, { title = "Build status", timeout = 1000 })
 end
 
 M.build = function()
