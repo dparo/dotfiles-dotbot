@@ -180,7 +180,7 @@ local generic = {
                 options = {
                     globalstatus = true,
                     icons_enabled = true,
-                    theme = "nightfox",
+                    theme = "material",
                     component_separators = { left = "", right = "" },
                     section_separators = { left = "", right = "" },
                 },

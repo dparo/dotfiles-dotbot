@@ -2,10 +2,13 @@
 
 # WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/4k.png}"
 # WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/abstract-blue-blobs.png}"
-WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/adwaita-d.jpg}"
+WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/adwaita-d42.jpg}"
+# WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/adwaita-d43.jpg}"
 # WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/lake-of-rage.jpg}"
 # WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/night-city-art.png}"
 # WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/aesthetic_dear_color_palette.png}"
+WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/bird_1.jpg}"
+
 
 LOCK_WALLPAPER="${2:-$XDG_DATA_HOME/backgrounds/stand_back_im_going_to_try_science.jpg}"
 
