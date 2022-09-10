@@ -16,35 +16,34 @@ set $bar_font Noto Mono Nerd Font 8
 ##########################################################
 ## Theme
 ##########################################################
-set $background #1a1b26
-set $foreground #c0caf5
-set $selection_background #33467C
-set $selection_foreground #c0caf5
-
+set $bg #212121
+set $bgalt #1A1A1A
+set $fg #B0BEC5
+set $selbg #EEFFFF
+set $selfg #404040
 
 # normal
-set $color0 #15161E
-set $color1 #f7768e
-set $color2 #9ece6a
-set $color3 #e0af68
-set $color4 #7aa2f7
-set $color5 #bb9af7
-set $color6 #7dcfff
-set $color7 #a9b1d6
+set $col0 #000000
+set $col1 #DC6068
+set $col2 #ABCF76
+set $col3 #E6B455
+set $col4 #6E98EB
+set $col5 #B480D6
+set $col6 #71C6E7
+set $col7 #EEFFFF
 
 # bright
-set $color8 #414868
-set $color9 #f7768e
-set $color10 #9ece6a
-set $color11 #e0af68
-set $color12 #7aa2f7
-set $color13 #bb9af7
-set $color14 #7dcfff
-set $color15 #c0caf5
+set $col8 #474747
+set $col9 #F07178
+set $col10 #C3E88D
+set $col11 #FFCB6B
+set $col12 #82AAFF
+set $col13 #C792EA
+set $col14 #89DDFF
+set $col15 #EEFFFF
 
-# extended colors
-set $color16 #ff9e64
-set $color17 #db4b4b
+set $highl #E6B455
+
 ###########################################################
 ###########################################################
 ###########################################################
@@ -60,9 +59,9 @@ focus_on_window_activation smart
 workspace_layout tabbed
 workspace_auto_back_and_forth no
 force_display_urgency_hint 1000 ms
-default_border pixel 2
-default_floating_border pixel 2
-for_window [all] border pixel 2
+default_border pixel 1
+default_floating_border pixel 1
+for_window [all] border pixel 1
 for_window [all] title_window_icon padding 4px
 
 
