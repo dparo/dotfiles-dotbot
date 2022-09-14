@@ -1,0 +1,18 @@
+[Unit]
+Description=X session
+BindsTo=graphical-session.target
+Wants=dunst.service
+Wants=gnome-keyring
+Wants=policykit-agent.service
+Wants=gpg-agent.service
+Wants=start gpg-agent.socket
+Wants=gpg-agent-extra.socket
+Wants=gpg-agent-browser.socket
+Wants=gpg-agent-ssh.socket
+Wants=mpd.service
+Wants=xsettingsd.service
+
+# Wants=picom.service
+# Wants=redshift.service
+# Wants=ssh-agent.service
+# Wants=xss-lock.service

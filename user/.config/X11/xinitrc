@@ -113,6 +113,12 @@ update-env \
 	GNUPGHOME \
 	XDG_DATA_HOME XDG_CONFIG_HOME XDG_CACHE_HOME XDG_STATE_HOME XDG_DATA_DIRS
 
+# Import all environment variables, from the shell to the --user systemd level.
+#    Usually it is overkill
+if false; then
+    systemctl --user import-environment
+fi
+
 if [ "$DBUS_SESSION_BUS_ADDRESS" = "" ]; then
 	# NOTE(dparo): 30 June 2022
 	#       - Ubuntu 22.04 fix for dbus and flatpak.
@@ -149,8 +155,11 @@ exec_wm() {
 	#     be able to connect to the dbus socket
 	#     Up to to Ubuntu 21.10 and before, `dbus-launch --sh-syntax --exit-with-session "$WM"`
 	#     was necessary but nowadays it is not anymore
-	exec "$WM"
+    exec systemctl --user start --wait "${WM}.service"
 }
+
+
+systemctl --user daemon-reload
 
 ## Try out different WMs using precedence and resolve the first installed
 for WM in i3 bspwm dwm; do

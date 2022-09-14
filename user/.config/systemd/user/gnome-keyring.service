@@ -1,10 +1,12 @@
 [Unit]
 Description=Start gnome-keyring for the Secrets Service, and PKCS #11
+PartOf=graphical-session.target
 Before=graphical-session-pre.target
 
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/gnome-keyring-daemon --start --components pkcs11,secrets
+Restart=on-failure
 
 [Install]
 WantedBy=graphical-session-pre.target
