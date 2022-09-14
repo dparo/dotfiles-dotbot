@@ -156,7 +156,7 @@ XTerm.vt100.faceName: Monospace:size=11:antialias=true
 XTerm.vt100.font: 7x13
 
 
-# Material darker theme
+! Material darker theme
 
 *.foreground:   #B0BEC5
 *.background:   #212121
