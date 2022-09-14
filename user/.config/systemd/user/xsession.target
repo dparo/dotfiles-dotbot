@@ -1,6 +1,8 @@
 [Unit]
 Description=X session
 BindsTo=graphical-session.target
+Wants=pipewire.service
+Wants=pipewire-pulse.service
 Wants=dunst.service
 Wants=gnome-keyring
 Wants=policykit-agent.service
@@ -11,6 +13,7 @@ Wants=gpg-agent-browser.socket
 Wants=gpg-agent-ssh.socket
 Wants=mpd.service
 Wants=xsettingsd.service
+Wants=xss-lock.service
 
 # Wants=picom.service
 # Wants=redshift.service

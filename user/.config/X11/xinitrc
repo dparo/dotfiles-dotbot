@@ -62,10 +62,8 @@ if command -v numlockx >/dev/null 2>&1; then
 	numlocx on
 fi
 
-# Automatic locking: https://github.com/google/xsecurelock
+# Timing for automatic locking (see xss-lock and xsecurelock (https://github.com/google/xsecurelock))
 xset s 300 5
-env XSECURELOCK_AUTH_TIMEOUT=20 XSECURELOCK_BLANK_TIMEOUT=2 XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_SHOW_HOSTNAME=1 XSECURELOCK_SHOW_USERNAME=1 \
-	xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
 
 # This two ENV vars are required if running `gnome-session` from this .xinitrc script
 export XDG_SESSION_TYPE=x11
@@ -114,10 +112,8 @@ update-env \
 	XDG_DATA_HOME XDG_CONFIG_HOME XDG_CACHE_HOME XDG_STATE_HOME XDG_DATA_DIRS
 
 # Import all environment variables, from the shell to the --user systemd level.
-#    Usually it is overkill
-if false; then
-    systemctl --user import-environment
-fi
+# Necessary to export what is inside the .zprofile
+systemctl --user import-environment
 
 if [ "$DBUS_SESSION_BUS_ADDRESS" = "" ]; then
 	# NOTE(dparo): 30 June 2022
