@@ -140,7 +140,11 @@ exec_wm() {
     # and, most importantly, the variables exported from the .zprofile
     # This env variables will be available to systemd services, including the service
     # which will start the window manager.
-    systemctl --user import-environment
+    # NOTE(d.paro): `systemctl --user import-environment` is deprecated when importing the ENTIRE environment,
+    #               and therefore might be removed in later versions (who knows).
+    #               Just for a fail safe case, revert to using `dbus-update-activation-environment  --systemd --all`,
+    #               which will also update the DBUS environment on top of the systemd one
+    systemctl --user import-environment || dbus-update-activation-environment --systemd --all
 
 
 	# NOTE(dparo): 27 Jan 2022
