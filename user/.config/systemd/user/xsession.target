@@ -12,6 +12,7 @@ Wants=gpg-agent-extra.socket
 Wants=gpg-agent-browser.socket
 Wants=gpg-agent-ssh.socket
 Wants=mpd.service
+Wants=mpd-notification.service
 Wants=xsettingsd.service
 Wants=xss-lock.service
 
