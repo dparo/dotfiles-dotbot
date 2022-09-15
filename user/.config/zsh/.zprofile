@@ -20,6 +20,10 @@ export LC_NUMERIC="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
 
+# DBUS_SESSION_BUS_ADDRESS
+eval "export $(systemctl --user show-environment | grep DBUS_SESSION_BUS_ADDRESS)"
+
+
 # Setup programs default config location to avoid cluttering the HOME directory
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
@@ -72,13 +76,6 @@ export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
 
 # Default CMAKE_GENERATOR
 export CMKAE_GENERATOR=Ninja
-##
-## This is the typical DBUS session address that is used when DBUS
-## is started from systemd.
-## Question to myself??? Do some applications require this environment
-## variable to be exposed, or they can access it implicitly by systemd integration???
-# NOTE(dparo): See .xinitrc, we export it there
-# export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 
 
 export STEAM_FRAME_FORCE_CLOSE=1

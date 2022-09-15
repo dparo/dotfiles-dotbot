@@ -5,6 +5,13 @@ USERXSESSIONRC="$XDG_CACHE_HOME/X11/xsessionrc"
 ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
 ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
 
+
+# The xhost program is used to add and delete host names or user names to
+# the list allowed to make connections to the X server.
+[ -x /usr/bin/xhost ] && [ -x /usr/bin/id ] &&
+    xhost "+si:localuser:$(id -un)" >& /dev/null
+
+
 touchpad_setup() {
 	xinput --set-prop "Elan Touchpad" 'libinput Accel Speed' 0
 	xinput --set-prop "Elan Touchpad" "Device Accel Profile" 0
@@ -73,12 +80,17 @@ export GDK_BACKEND=x11
 export OOO_FORCE_DESKTOP="gnome"
 
 # Source system-wide xinitrc dependencies
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-	for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
-		[ -f "$f" ] && source "$f"
-	done
-	unset f
-fi
+# NOTE(dparo): Unrecommended. Some linux distros (eg Fedora) contains scripts to autostart dbus.
+#              We don't want to start dbus manually from startx. Instead we rely on systemd
+#              to automatically start dbus when it is necessary.
+source_distro_xinit_scripts() {
+    if [ -d /etc/X11/xinit/xinitrc.d ]; then
+        for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
+            [ -f "$f" ] && source "$f"
+        done
+        unset f
+    fi
+}
 
 update-env() {
 	##
@@ -107,17 +119,6 @@ update-env() {
 }
 
 
-if [ "$DBUS_SESSION_BUS_ADDRESS" = "" ]; then
-	# NOTE(dparo): 30 June 2022
-	#       - Ubuntu 22.04 fix for dbus and flatpak.
-	#         In Arch Linux this variable is already exported in the shell env.
-	#         However in Ubuntu this variable is not exported and it causes
-	#         certain flatpak programs to not function since they cannot find the DBUS session
-	#       - Ubuntu 22.04, Fixes GUI invocation for GPG password when git commit signing.
-	#         If this variable is not exported in Ubuntu, git will request the GPG password in the terminal
-	export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
-fi
-
 update-env \
 	DISPLAY XAUTHORITY \
 	GNUPGHOME \
@@ -135,8 +136,10 @@ exec_wm() {
 	*) ;;
 	esac
 
-    # Import all environment variables, from the shell to the --user systemd level.
-    # Necessary to export what is inside the .zprofile
+    # Import all environment variables exported from xinitrc script
+    # and, most importantly, the variables exported from the .zprofile
+    # This env variables will be available to systemd services, including the service
+    # which will start the window manager.
     systemctl --user import-environment
 
 
