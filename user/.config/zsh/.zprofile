@@ -3,11 +3,20 @@
 # According to the zsh documentation, ".zprofile is meant as an alternative to .zlogin
 # for ksh fans; the two are not intended to be used together,
 # although this could certainly be done if desired."
+# NOTE(dparo): login shells do not source the zshrc.
+#           So .zprofile and .zlogin run one after the other, and behave basically equivalent
 
 
-# NOTE(dparo): login shells do not source the zshrc regardless.
-#           So .zprofile and .zlogin run one after the other,
-#           and are basically identical
+# --- DBUS_SESSION_BUS_ADDRESS ---
+	# NOTE(dparo): 30 June 2022
+	#       - Ubuntu 22.04 fix for dbus and flatpak.
+	#         In Arch Linux this variable is already exported in the shell env.
+	#         However in Ubuntu this variable is not exported and it causes
+	#         certain flatpak programs to not function since they cannot find the DBUS session
+	#       - Ubuntu 22.04, Fixes GUI invocation for GPG password when using git commit signing.
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+    eval "export $(systemctl --user show-environment | grep DBUS_SESSION_BUS_ADDRESS)"
+fi
 
 
 # User specific environment and startup programs
@@ -18,10 +27,6 @@ export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
-
-
-# DBUS_SESSION_BUS_ADDRESS
-eval "export $(systemctl --user show-environment | grep DBUS_SESSION_BUS_ADDRESS)"
 
 
 # Setup programs default config location to avoid cluttering the HOME directory
