@@ -106,14 +106,6 @@ update-env() {
 	fi
 }
 
-update-env \
-	DISPLAY XAUTHORITY \
-	GNUPGHOME \
-	XDG_DATA_HOME XDG_CONFIG_HOME XDG_CACHE_HOME XDG_STATE_HOME XDG_DATA_DIRS
-
-# Import all environment variables, from the shell to the --user systemd level.
-# Necessary to export what is inside the .zprofile
-systemctl --user import-environment
 
 if [ "$DBUS_SESSION_BUS_ADDRESS" = "" ]; then
 	# NOTE(dparo): 30 June 2022
@@ -126,6 +118,12 @@ if [ "$DBUS_SESSION_BUS_ADDRESS" = "" ]; then
 	export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 fi
 
+update-env \
+	DISPLAY XAUTHORITY \
+	GNUPGHOME \
+	XDG_DATA_HOME XDG_CONFIG_HOME XDG_CACHE_HOME XDG_STATE_HOME XDG_DATA_DIRS
+
+
 exec_wm() {
 	WM="$1"
 
@@ -136,6 +134,11 @@ exec_wm() {
 		;;
 	*) ;;
 	esac
+
+    # Import all environment variables, from the shell to the --user systemd level.
+    # Necessary to export what is inside the .zprofile
+    systemctl --user import-environment
+
 
 	# NOTE(dparo): 27 Jan 2022
 	#     dbus-launch is now deprecated, since it is now part of systemd
@@ -151,6 +154,8 @@ exec_wm() {
 	#     be able to connect to the dbus socket
 	#     Up to to Ubuntu 21.10 and before, `dbus-launch --sh-syntax --exit-with-session "$WM"`
 	#     was necessary but nowadays it is not anymore
+
+
     exec systemctl --user start --wait "${WM}.service"
 }
 
