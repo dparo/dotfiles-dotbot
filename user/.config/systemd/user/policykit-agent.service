@@ -1,8 +1,6 @@
 [Unit]
 Description=polkit-agent (GNOME)
 PartOf=graphical-session.target
-# After=xsession.target
-# Wants=xsesion.target
 
 [Service]
 ExecStart=/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
