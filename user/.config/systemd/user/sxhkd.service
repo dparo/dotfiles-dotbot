@@ -1,0 +1,8 @@
+[Unit]
+Description=Simple X Hotkey Daemon (sxhkd)
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=sxhdk
+ExecReload=pkill -USR1 -x sxhkd
+Restart=on-failure

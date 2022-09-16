@@ -1,6 +1,8 @@
 [Unit]
 Description=X session
 BindsTo=graphical-session.target
+Wants=dbus.session
+Wants=dbus.socket
 Wants=pipewire.service
 Wants=pipewire-pulse.service
 Wants=dunst.service

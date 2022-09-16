@@ -51,12 +51,8 @@ bspc config normal_border_color "#1a1b26"
 bspc config presel_feedback_color "#33467C"
 
 xrdb -load "$HOME/.config/X11/.Xresources"
-pgrep -U "$(whoami)" sxhkd || sxhkd 1>"$HOME/.config/sxhkd/stdoutlog.txt" 2>"$HOME/.config/sxhkd/stderrlog.txt" &
 
 systemd-inhibit --what=handle-power-key sleep infinity &
-
-systemctl --user restart dunst
-systemctl --user restart mpd-notification
 
 "$HOME/.config/X11/setup_background.sh" &
 
@@ -66,20 +62,8 @@ kill_and_wait() {
 }
 
 ##
-## Polybar
-##
-# Terminate already running bar instances
-kill_and_wait polybar
-polybar --reload main &
-
-kill_and_wait picom
-picom &
-
-##
 ## Startup the programs (wait one second so that polybar and the notification daemon has enough time to startup)
 ##
-sleep 1
-
 copyq &
 flameshot &
 ~/Applications/User/Telegram/Telegram -startintray &
