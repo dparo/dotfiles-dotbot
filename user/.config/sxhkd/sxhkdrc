@@ -26,15 +26,15 @@ super + d
 # Quit bspwm
 super + alt + q
     pkill -u "$USER" -f "$HOME/.config/bspwm/bspwmrc"; \
-    pkill -u "$USER" sxhkd; \
+    systemctl --user stop sxhkd.service; \
     bspc quit;
 
 # Reload bspwm and configs
 super + shift + r
-    pkill -USR1 -x sxhkd; \
+    systemctl --user reload sxhkd.service; \
     bspwm wm -r
 
-# close and kill
+# close and kill window
 super + {_,shift + }q
 	bspc node -{c,k}
 
