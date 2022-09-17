@@ -4,5 +4,5 @@ PartOf=graphical-session.target
 
 [Service]
 ExecStart=sxhdk
-ExecReload=pkill -USR1 -x sxhkd
+ExecReload=kill -USR1 $MAINPID
 Restart=on-failure
