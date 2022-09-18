@@ -21,8 +21,7 @@ Wants=xsettingsd.service
 Wants=xss-lock.service
 Wants=background-setter.service
 Wants=xrdb-load.service
+Wants=redshift.service
 
 # Wants=picom.service
-# Wants=redshift.service
 # Wants=ssh-agent.service
-# Wants=xss-lock.service
