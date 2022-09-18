@@ -301,7 +301,6 @@ local function setup_saner_defaults()
     -- Unbind some keys that i always press by mistake, or that do behaviour that i don't want
     nmap("Q", "")
     nmap("gQ", "")
-    nmap("u", "")
 
     --- Goto next, previous matches centers the line
     nvmap("n", exec_key("nzzzv", true))
