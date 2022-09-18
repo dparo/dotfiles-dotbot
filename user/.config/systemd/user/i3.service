@@ -5,7 +5,7 @@ After=xsession.target
 Wants=xsession.target
 
 [Service]
-ExecStart=/usr/bin/i3
-ExecReload=/usr/bin/i3-msg reload
-ExecStopPost=/bin/systemctl --user stop --no-block graphical-session.target
+ExecStart=i3
+ExecReload=i3-msg reload
+ExecStopPost=systemctl --user stop --no-block graphical-session.target
 Restart=on-failure

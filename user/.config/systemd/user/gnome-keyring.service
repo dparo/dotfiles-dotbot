@@ -5,7 +5,7 @@ Before=graphical-session-pre.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/gnome-keyring-daemon --start --components pkcs11,secrets
+ExecStart=gnome-keyring-daemon --start --components pkcs11,secrets
 Restart=on-failure
 
 [Install]
