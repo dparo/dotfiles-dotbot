@@ -4,4 +4,4 @@ PartOf=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=zsh -c \"$XDG_CONFIG_HOME/X11/setup_background.sh\"
+ExecStart=%h/.config/X11/setup_background.sh
