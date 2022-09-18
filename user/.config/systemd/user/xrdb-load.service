@@ -1,6 +1,7 @@
 [Unit]
 Description=Load Xresources
 PartOf=graphical-session.target
+Type=oneshot
 
 [Service]
 ExecStart=xrdb -load "$XDG_CONFIG_HOME/X11/.Xresources"
