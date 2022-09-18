@@ -5,6 +5,7 @@ After=xsession.target
 Wants=xsession.target
 
 [Service]
+Type=notify
 ExecStart=i3
 ExecReload=i3-msg reload
 ExecStopPost=systemctl --user stop --no-block graphical-session.target
