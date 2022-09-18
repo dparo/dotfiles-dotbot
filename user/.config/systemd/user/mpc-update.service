@@ -1,0 +1,7 @@
+[Unit]
+Description=Update mpd music library
+PartOf=graphical-session.target
+After=mpd.service
+
+[Service]
+ExecStart=mpc update

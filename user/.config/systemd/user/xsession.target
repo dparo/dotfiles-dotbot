@@ -1,6 +1,7 @@
 [Unit]
 Description=X session
 BindsTo=graphical-session.target
+Wants=systemd-inhibit-power-key.service
 Wants=dbus.session
 Wants=dbus.socket
 Wants=pipewire.service
@@ -15,8 +16,11 @@ Wants=gpg-agent-browser.socket
 Wants=gpg-agent-ssh.socket
 Wants=mpd.service
 Wants=mpd-notification.service
+Wants=mpc-update.service
 Wants=xsettingsd.service
 Wants=xss-lock.service
+Wants=background-setter.service
+Wants=xrdb-load.service
 
 # Wants=picom.service
 # Wants=redshift.service

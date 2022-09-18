@@ -1,0 +1,6 @@
+[Unit]
+Description=Sets the XRoot window background picture
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=zsh -c \"$XDG_CONFIG_HOME/X11/setup_background.sh\"
