@@ -20,7 +20,7 @@ fi
 
 # From gnoome-keyring-daemon which is automatically started (enabled) freom systemd at login
 export GNOME_KEYRING_CONTROL="/run/user/$UID/keyring"
-export SSH_AUTH_SOCK="/run/user/$UID/keyring/ssh"
+export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
 
 # User specific environment and startup programs
 export LANGUAGE="en_US"
