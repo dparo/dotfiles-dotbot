@@ -7,13 +7,7 @@ Wants=dbus.socket
 Wants=pipewire.service
 Wants=pipewire-pulse.service
 Wants=dunst.service
-Wants=gnome-keyring-daemon.service
 Wants=policykit-agent.service
-Wants=gpg-agent.service
-Wants=start gpg-agent.socket
-Wants=gpg-agent-extra.socket
-Wants=gpg-agent-browser.socket
-Wants=gpg-agent-ssh.socket
 Wants=mpd.service
 Wants=mpd-notification.service
 Wants=mpc-update.service
@@ -24,4 +18,11 @@ Wants=xrdb-load.service
 Wants=redshift.service
 
 # Wants=picom.service
+
+## Not needed: covered by gnome-keyring-daemon enabled by default at login
 # Wants=ssh-agent.service
+# Wants=gpg-agent.service
+# Wants=gpg-agent.socket
+# Wants=gpg-agent-extra.socket
+# Wants=gpg-agent-browser.socket
+# Wants=gpg-agent-ssh.socket

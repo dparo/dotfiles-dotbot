@@ -18,6 +18,9 @@ if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
     eval "export $(systemctl --user show-environment | grep DBUS_SESSION_BUS_ADDRESS)"
 fi
 
+# From gnoome-keyring-daemon which is automatically started (enabled) freom systemd at login
+export GNOME_KEYRING_CONTROL="/run/user/$UID/keyring"
+export SSH_AUTH_SOCK="/run/user/$UID/keyring/ssh"
 
 # User specific environment and startup programs
 export LANGUAGE="en_US"
@@ -80,7 +83,7 @@ export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
 
 
 # Default CMAKE_GENERATOR
-export CMKAE_GENERATOR=Ninja
+export CMAKE_GENERATOR=Ninja
 
 
 export STEAM_FRAME_FORCE_CLOSE=1
@@ -102,17 +105,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='find -type d'
 
 export MAKEFLAGS=--no-print-directory
-
-
-# Use the gpg-agent provided SSH emulation.
-#    gpg-agent is nicer, because on Arch Linux it can be started
-#    through systemd and has socket activation support.
-#    Ask the gpg-agent connection directly for which ssh socket
-#    is it listening to.
-# The env variable SSH_AUTH_SOCK, is required to make ssh utilities,
-# such as `ssh-add` to work.
-unset SSH_AGENT_PID
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
 
 ##
