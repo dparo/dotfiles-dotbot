@@ -15,9 +15,9 @@ Wants=xsettingsd.service
 Wants=xss-lock.service
 Wants=background-setter.service
 Wants=xrdb-load.service
-Wants=redshift.service
 
 # Wants=picom.service
+# Wants=redshift.service
 
 ## Not needed: covered by gnome-keyring-daemon enabled by default at login
 # Wants=ssh-agent.service
