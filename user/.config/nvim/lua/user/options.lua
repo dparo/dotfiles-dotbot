@@ -103,7 +103,11 @@ vim.o.updatetime = 1000
 
 -- Winbar support nvim version 0.8 and above
 if vim.fn.has "nvim-0.8" == 1 then
-    vim.o.winbar = "=%=%m %f"
+    vim.o.winbar = "%=%m %f"
+    vim.o.laststatus = 1
+    vim.o.cmdheight = 1
+
+    vim.o.spell = false
 end
 
 vim.o.makeprg = ""
