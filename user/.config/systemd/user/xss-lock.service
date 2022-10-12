@@ -3,5 +3,10 @@ Description=X Automatic Screen locker
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=zsh -c 'env XSECURELOCK_AUTH_TIMEOUT=20 XSECURELOCK_BLANK_TIMEOUT=2 XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_SHOW_HOSTNAME=1 XSECURELOCK_SHOW_USERNAME=1 xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock'
+Environment="XSECURELOCK_AUTH_TIMEOUT=20"
+Environment="XSECURELOCK_BLANK_TIMEOUT=2"
+Environment="XSECURELOCK_SHOW_DATETIME=1"
+Environment="XSECURELOCK_SHOW_HOSTNAME=1"
+Environment="XSECURELOCK_SHOW_USERNAME=1"
+ExecStart=xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
 Restart=on-failure
