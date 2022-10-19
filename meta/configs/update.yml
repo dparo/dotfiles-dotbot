@@ -130,3 +130,4 @@
         nvim --headless -c "MasonInstall eslint-lsp prettier" -c "qall"
         nvim --headless -c "MasonInstall json-lsp yamllint yaml-language-server" -c "qall"
         nvim --headless -c "MasonInstall texlab write-good proselint" -c "qall"
+        nvim --headless -c "MasonInstall sqlfluff" -c "qall"
