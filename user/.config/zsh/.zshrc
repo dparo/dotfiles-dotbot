@@ -125,21 +125,15 @@ fi
 
 # FZF Auto-completion and keybinds
 # ---------------
-[[ $- == *i* ]] && source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/completion.zsh" 2> /dev/null
+[[ $- == *i* ]] && source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/completion.zsh" 2> /dev/null  # Ebabke cinoketuib ibky uf shell is interactive
 source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/key-bindings.zsh"
 
 
-# Command not found plugin
-if test -f /usr/share/doc/pkgfile/command-not-found.zsh; then
-    # For pacman support
-    source "/usr/share/doc/pkgfile/command-not-found.zsh"
-else
-    source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
-fi
-
+source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
 
 source "$USER_DOTFILES_LOCATION/core/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$USER_DOTFILES_LOCATION/core/vendor/powerlevel10k/powerlevel10k.zsh-theme"
+
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
