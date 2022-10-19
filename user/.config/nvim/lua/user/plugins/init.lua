@@ -1,3 +1,10 @@
+local dbs_plugin = {
+    { "tpope/vim-dadbod" },
+    { "kristijanhusak/vim-dadbod-ui", requires = { "tpope/vim-dadbod" },},
+    { "kristijanhusak/vim-dadbod-completion", requires = { "tpope/vim-dadbod", "vim-dadbod-completion" } },
+};
+
+
 local generic = {
     ----
     ---- Must have utility plugins that integrates/improve the core experience
@@ -445,6 +452,7 @@ local generic = {
             "jose-elias-alvarez/null-ls.nvim",
             "hrsh7th/cmp-nvim-lsp-signature-help",
             "petertriho/cmp-git",
+            "kristijanhusak/vim-dadbod-completion",
         },
         config = function()
             require "user.plugins.configs.cmp"
@@ -655,6 +663,7 @@ local themes = {
     },
 }
 
+
 local language_specific_toolings = {
     { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" },
     -- Plugin that provides nice wrapper commands to build with cmake
@@ -710,6 +719,7 @@ local unused = {
 }
 
 local M = {}
+vim.list_extend(M, dbs_plugin)
 vim.list_extend(M, generic)
 vim.list_extend(M, syntax_highligthing)
 vim.list_extend(M, themes)

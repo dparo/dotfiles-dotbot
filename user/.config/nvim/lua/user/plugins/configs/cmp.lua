@@ -68,8 +68,13 @@ cmp.setup {
             local icons = require("core.icons.lsp").default
             local kind = vim_item.kind
 
+            local menu = entry.source.name
+            if menu == "vim-dadbod-completion" then
+                menu = "DB"
+            end
+
             vim_item.kind = string.format("%s %s", icons[kind] or "", kind)
-            vim_item.menu = string.format("[%s]", entry.source.name)
+            vim_item.menu = string.format("[%s]", menu)
             return vim_item
         end,
     },
@@ -180,6 +185,7 @@ cmp.setup {
         { name = "nvim_lsp_signature_help" },
         { name = "nvim_lua" },
         { name = "luasnip" },
+        { name = "vim-dadbod-completion" }
     }, {
         { name = "buffer", keyword_length = 4 },
         { name = "path" },
