@@ -62,13 +62,13 @@ else
 fi
 
 if valid_shell_command yay; then
-	alias update='yay -Syu'
+	alias update='yay -Syu && sudo flatpak update'
 elif valid_shell_command pacman; then
-	alias update='sudo pacman -Syu'
+	alias update="sudo bash -c 'pacman -Syu && flatpak update'"
 elif valid_shell_command apt; then
-	alias update="sudo bash -c 'apt update && apt full-upgrade && apt autoremove --yes'"
+	alias update="sudo bash -c 'apt update && apt full-upgrade && apt autoremove --yes && flatpak update'"
 elif valid_shell_command dnf; then
-	alias update='sudo dnf update'
+	alias update="sudo bash -c 'dnf update && flatpak update'"
 fi
 
 alias ..='cd ..'
