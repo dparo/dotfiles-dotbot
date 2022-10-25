@@ -45,6 +45,10 @@
     - description: Dark mode for Gtk-4.0/Libadwaita apps
       command: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
+    - description: Install FZF
+      stdout: false
+      command: ./core/vendor/fzf/install --xdg --key-bindings --completion --no-update-rc
+
     - description: Install NVIM Python3 provider for neovim plugins (pynvim)
       command: pip3 install -U pynvim
 
@@ -89,9 +93,6 @@
 
     - description: Clean pip cache
       command: command pip3 cache purge 2> /dev/null || true
-
-    - description: Install FZF if not already installed
-      command: which fzf || ./core/vendor/fzf/install --xdg --key-bindings --completion --no-update-rc
 
     - description: Setup and sync between multiple programs config files GTK theming and Cursor theming
       command: |
