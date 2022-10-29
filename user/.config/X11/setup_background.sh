@@ -8,7 +8,8 @@
 # WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/night-city-art.png}"
 # WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/aesthetic_dear_color_palette.png}"
 # WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/bird_1.jpg}"
-WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/canvas-material-darker.png}"
+#WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/canvas-material-darker.png}"
+WALLPAPER="${1:-$XDG_DATA_HOME/backgrounds/nebula.jpg}"
 
 
 LOCK_WALLPAPER="${2:-$XDG_DATA_HOME/backgrounds/stand_back_im_going_to_try_science.jpg}"
