@@ -13,6 +13,7 @@ do
                     [".envrc"] = "sh",
                     [".direnvrc"] = "sh",
                     ["direnvrc"] = "sh",
+                    [".httpie"] = "sh",
                 },
             },
         }
