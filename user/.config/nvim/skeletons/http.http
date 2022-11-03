@@ -1,8 +1,8 @@
-PUT /person/1 HTTP/1.1
-Accept: application/json, */*;q=0.5
-Accept-Encoding: gzip, deflate
+###
+POST localhost:8080/api/foobar
 Content-Type: application/json
 
 {
-
+    "name": "entity",
+    "value": "content"
 }
