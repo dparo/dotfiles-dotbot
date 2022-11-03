@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+
+endpoint=""
+method=GET
+
+curl -X "$method" "${CURL_URL:-localhost:8080}/${endpoint}" \
+           'Accept-Encoding: gzip, deflate' \
+           'Content-Type: application/json' \
+           --data-binary @- \
+<<JSONBLOCKDELIMITER
+{
+    name: "Davide"
+}
+JSONBLOCKDELIMITER
