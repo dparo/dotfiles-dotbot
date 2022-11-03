@@ -1,0 +1,8 @@
+PUT /person/1 HTTP/1.1
+Accept: application/json, */*;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+
+{
+
+}
