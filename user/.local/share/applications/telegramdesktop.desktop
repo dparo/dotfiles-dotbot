@@ -2,8 +2,8 @@
 Version=1.0
 Name=Telegram Desktop
 Comment=Official desktop version of Telegram messaging app
-TryExec=./Applications/User/Telegram/Telegram
-Exec=./Applications/User/Telegram/Telegram -- %u
+TryExec=./opt/Telegram/Telegram
+Exec=./opt/Telegram/Telegram -- %u
 Icon=telegram
 Terminal=false
 StartupWMClass=TelegramDesktop

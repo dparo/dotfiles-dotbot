@@ -56,5 +56,5 @@ bspc config presel_feedback_color "#33467C"
 ##
 copyq &
 flameshot &
-~/Applications/User/Telegram/Telegram -startintray &
+~/opt/Telegram/Telegram -startintray &
 ~/.dropbox-dist/dropboxd &

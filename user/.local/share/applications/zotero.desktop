@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Zotero
-Exec=./Applications/User/Zotero_linux-x86_64/zotero -url %U
+Exec=./opt/Zotero_linux-x86_64/zotero -url %U
 Icon=zotero
 Type=Application
 Terminal=false
