@@ -79,3 +79,5 @@
 	verbose = false
 [alias]
 	lola = log --graph --decorate --oneline --abbrev-commit --all
+[gpg]
+	program = gpg2
