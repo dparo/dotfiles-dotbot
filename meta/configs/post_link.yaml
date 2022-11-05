@@ -29,8 +29,8 @@
 
     - description: Setup xdg-terminal-exec (Overrides default terminal used by `glib/gio/gdesktopappinfo.c` which affects programs such as `gtk-launch` and `nautilus`)
       command: |
-        See: https://gitlab.gnome.org/GNOME/glib/-/blob/main/gio/gdesktopappinfo.c, known_terminals[] array. Glib uses a predefined set of terminals with precedence.
-        See: https://gitlab.freedesktop.org/xdg/xdg-specs/-/issues/54
+        # See: https://gitlab.gnome.org/GNOME/glib/-/blob/main/gio/gdesktopappinfo.c, known_terminals[] array. Glib uses a predefined set of terminals with precedence.
+        # See: https://gitlab.freedesktop.org/xdg/xdg-specs/-/issues/54
         test -f ~/.local/bin/xdg-terminal-exec || ln -sf "$(which kitty)" ~/.local/bin/xdg-terminal-exec    # See: https://gitlab.gnome.org/GNOME/glib/-/commit/22e1b9bcc0ca7cd1ba2457ddf5b5545752f9c7ea
         test -f ~/.local/bin/rxvt || ln -sf "$(which kitty)" ~/.local/bin/rxvt
 
