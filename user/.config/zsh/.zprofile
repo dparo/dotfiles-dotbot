@@ -76,7 +76,7 @@ export WINEPREFIX="$XDG_DATA_HOME/wine"
 export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
 
 
-export REBEL_BASE="$XDG_DATA_HOME/jrebel"
+export REBEL_BASE="$XDG_CONFIG_HOME/jrebel"
 
 
 # _JAVA_OPTIONS is picked up from the JVM, thus it applies to all JAVA programs. See: https://sourcegraph.com/github.com/openjdk/jdk@91292d5/-/blob/src/hotspot/share/runtime/arguments.cpp?L3233:17&popover=pinned
