@@ -72,9 +72,10 @@ export WINEPREFIX="$XDG_DATA_HOME/wine"
 
 export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
 
+export MAVEN_HOME="$HOME/.local/apache-maven-3.8.6/"
 
 # This variable contains parameters used to start up the JVM running Maven.
-export MAVEN_OPTS="-Xverify:none -XX:TieredStopAtLevel=1 -XX:-TieredCompilation"
+export MAVEN_OPTS="$JAVA_OPTS -Xverify:none -XX:TieredStopAtLevel=1 -XX:-TieredCompilation"
 
 # Supported only from Maven 4
 export MAVEN_ARGS="-gs $XDG_CONFIG_HOME/maven/settings.xml"

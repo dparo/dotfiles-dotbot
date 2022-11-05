@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-export MAVEN_OPTS="$JAVA_OPTS $MAVEN_OPTS"
-exec "${MAVEN_HOME:-/usr}/bin/mvnDebug" -gs "$XDG_CONFIG_HOME/maven/settings.xml" "$@"

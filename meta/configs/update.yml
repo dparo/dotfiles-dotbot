@@ -132,3 +132,10 @@
         nvim --headless -c "MasonInstall json-lsp yamllint yaml-language-server" -c "qall"
         nvim --headless -c "MasonInstall texlab write-good proselint" -c "qall"
         nvim --headless -c "MasonInstall sqlfluff" -c "qall"
+
+    - description: Install MAVEN 3.8.6
+      stdout: false
+      stderr: false
+      command: |
+        wget -c 'https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz' -O - | tar xvz -C "$HOME/.local"
+        ln --force -s "$HOME/.config/maven/settings.xml" "$HOME/.local/apache-maven-3.8.6/conf/settings.xml"
