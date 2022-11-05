@@ -167,7 +167,17 @@ exec_wm() {
 	#     was necessary but nowadays it is not anymore
 
 
-    exec systemctl --user start --wait "${WM}.service"
+    if test -f "$HOME/.config/systemd/user/$WM.service"; then
+        exec systemctl --user start --wait "${WM}.service"
+    else
+        >&2 echo "Did not find a systemd user service file for ${WM}.service"
+        if which "$WM"; then
+            exec "$WM"
+        else
+            >&2 echo "$WM: Was not found"
+            exit 1
+        fi
+    fi
 }
 
 
