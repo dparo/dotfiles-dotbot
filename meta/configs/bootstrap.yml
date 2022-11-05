@@ -132,6 +132,13 @@
   command: |
     cat <<'EOF' | sudo tee /usr/local/bin/xinitrcsession-run
     #!/bin/bash
+
+    if [ -f "$HOME/.config/bash/bash_profile" ]; then
+      source "$HOME/.config/bash/bash_profile"
+    else
+      source "$HOME/.bash_profile"
+    fi
+
     entry=""
     if [ -n "$XINITRC" ]; then
         entry="$XINITRC"
