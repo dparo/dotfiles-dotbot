@@ -56,7 +56,8 @@
           jedi jedi-language-server \
           rope \
           debugpy \
-          codespell cmakelang cmake-language-server gitlint vim-vint proselint
+          codespell cmakelang cmake-language-server gitlint vim-vint proselint \
+          httpie
 
         pip3 cache purge
 
