@@ -29,12 +29,12 @@
       stdout: false
       stderr: false
       command: |
-        curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-        ln -sf ~/.local/kitty.app/bin/kitty ~/.local/bin/
-        cp -f ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-        cp -f ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-        sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-        sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+        curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest="$HOME/opt" launch=n
+        ln -sf ~/opt/kitty.app/bin/kitty ~/.local/bin/
+        cp -f ~/opt/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+        cp -f ~/opt/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+        sed -i "s|Icon=kitty|Icon=/home/$USER/opt/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+        sed -i "s|Exec=kitty|Exec=/home/$USER/opt/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
 
     - description: Install/Update PIP3 packages
       stdout: false
@@ -132,10 +132,12 @@
         nvim --headless -c "MasonInstall json-lsp yamllint yaml-language-server" -c "qall"
         nvim --headless -c "MasonInstall texlab write-good proselint" -c "qall"
         nvim --headless -c "MasonInstall sqlfluff" -c "qall"
+        nvim --headless -c "MasonInstall jdtls" -c "qall"
+        nvim --headless -c "MasonInstall ltex-ls" -c "qall"
 
     - description: Install MAVEN 3.8.6
       stdout: false
       stderr: false
       command: |
-        wget -c 'https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz' -O - | tar xvz -C "$HOME/.local"
-        ln --force -s "$HOME/.config/maven/settings.xml" "$HOME/.local/apache-maven-3.8.6/conf/settings.xml"
+        wget -c 'https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz' -O - | tar xvz -C "$HOME/opt"
+        ln --force -s "$HOME/.config/maven/settings.xml" "$HOME/opt/apache-maven-3.8.6/conf/settings.xml"

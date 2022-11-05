@@ -72,7 +72,7 @@ export WINEPREFIX="$XDG_DATA_HOME/wine"
 
 export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
 
-export MAVEN_HOME="$HOME/.local/apache-maven-3.8.6/"
+export MAVEN_HOME="$HOME/opt/apache-maven-3.8.6/"
 
 # This variable contains parameters used to start up the JVM running Maven.
 export MAVEN_OPTS="$JAVA_OPTS -Xverify:none -XX:TieredStopAtLevel=1 -XX:-TieredCompilation"
@@ -120,9 +120,6 @@ export MAKEFLAGS=--no-print-directory
 # Exceptions to that rule are dwm, cwm, PLWM, ratpoison and xmonad, due to a lack of any typical window decorations used by these window managers.
 ## export _JAVA_AWT_WM_NONREPARENTING=1
 ## export AWT_TOOLKIT=MToolkit
-
-
-export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar"
 
 
 if systemctl -q is-active graphical.target \

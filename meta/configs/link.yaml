@@ -15,9 +15,7 @@
       force: false
 
 - create:
-    - ~/Applications
-    - ~/Applications/User
-    - ~/Applications/AppImgs
+    - ~/opt
     - ~/.local/bin
     - ~/.local/share
     - ~/.local/share/sounds
