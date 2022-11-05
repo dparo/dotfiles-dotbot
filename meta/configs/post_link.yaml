@@ -15,6 +15,15 @@
       force: false
 
 - shell:
+    - description: Install MAVEN 3.8.6
+      stdout: false
+      stderr: false
+      command: |
+        if [ ! -d  "$HOME/opt/apache-maven-3.8.6" ]; then
+          wget -c 'https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz' -O - | tar xvz -C "$HOME/opt"
+          ln --force -s "$HOME/.config/maven/settings.xml" "$HOME/opt/apache-maven-3.8.6/conf/settings.xml"
+        fi
+
     - description: Setup alternatives (x-www-browser)
       command: test -f ~/.local/bin/x-www-browser || ln -sf /usr/bin/firefox ~/.local/bin/x-www-browser
 
