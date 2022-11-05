@@ -72,6 +72,10 @@ fi
 # Timing for automatic locking (see xss-lock and xsecurelock (https://github.com/google/xsecurelock))
 xset s 300 5
 
+# Explicitly adding the ssh-keys is required if using ssh-agent | gpg-agent
+# gnome-keyring-daemon, instead, does the ssh-add autonomously at startup
+# ssh-add
+
 # This two ENV vars are required if running `gnome-session` from this .xinitrc script
 export XDG_SESSION_TYPE=x11
 export GDK_BACKEND=x11
