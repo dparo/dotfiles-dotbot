@@ -82,6 +82,7 @@ export REBEL_BASE="$XDG_DATA_HOME/jrebel"
 # _JAVA_OPTIONS is picked up from the JVM, thus it applies to all JAVA programs. See: https://sourcegraph.com/github.com/openjdk/jdk@91292d5/-/blob/src/hotspot/share/runtime/arguments.cpp?L3233:17&popover=pinned
 # JAVA_OPTS: Is used by many shell launcher scripts to pass JVM options to the wrapped programs.
 #        Not all java programs use this environment variable, but it is preferred over _JAVA_OPTIONS whenever possible
+# java.util.prefs.userRoot --- See: https://sourcegraph.com/github.com/openjdk/jdk@91292d5/-/blob/src/java.prefs/unix/classes/java/util/prefs/FileSystemPreferences.java?L124:17&subtree=true&popover=pinned#tab=def
 export _JAVA_OPTIONS="$_JAVA_OPTIONS -Djava.util.prefs.userRoot=$XDG_CONFIG_HOME -Drebel.base=\"$REBEL_BASE\""
 
 # Hack for fixing the OpenJDK implementation from creating fontcache files in ~/.java/fonts.
