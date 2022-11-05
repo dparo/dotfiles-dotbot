@@ -70,16 +70,17 @@ export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export ANDROID_HOME="$XDG_DATA_HOME/android"
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 
+export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
 
-# Java runtime options used when Maven 3 (and above?) is executed.
+
+# This variable contains parameters used to start up the JVM running Maven.
 export MAVEN_OPTS="-Xverify:none -XX:TieredStopAtLevel=1 -XX:-TieredCompilation"
 
 # Supported only from Maven 4
-export MAVEN_ARGS="-s $XDG_CONFIG_HOME/maven/settings.xml"
-# For compatibility with maven-wrapper scripts (https://github.com/takari/maven-wrapper)
-export MAVEN_CONFIG="-s $XDG_CONFIG_HOME/maven/settings.xml"
+export MAVEN_ARGS="-gs $XDG_CONFIG_HOME/maven/settings.xml"
 
-export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
+# For compatibility with maven-wrapper scripts (https://github.com/takari/maven-wrapper)
+export MAVEN_CONFIG="-gs $XDG_CONFIG_HOME/maven/settings.xml"
 
 
 # Default CMAKE_GENERATOR
