@@ -73,6 +73,8 @@ export WINEPREFIX="$XDG_DATA_HOME/wine"
 export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
 
 export MAVEN_HOME="$HOME/opt/apache-maven-3.8.6/"
+# M2_HOME is used from mvnw (Maven wrapper script)
+export M2_HOME="$MAVEN_HOME"
 
 # This variable contains parameters used to start up the JVM running Maven.
 export MAVEN_OPTS="$JAVA_OPTS -Xverify:none -XX:TieredStopAtLevel=1 -XX:-TieredCompilation"
