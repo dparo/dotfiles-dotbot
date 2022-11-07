@@ -1,0 +1,10 @@
+[Unit]
+Description=Record ENVIRONMENT at startup
+PartOf=default.target
+
+[Service]
+Type=oneshot
+ExecStart=env
+
+[Install]
+WantedBy=default.target
