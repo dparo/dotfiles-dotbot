@@ -21,6 +21,7 @@ fi
 # From gnoome-keyring-daemon which is automatically started (enabled) freom systemd at login
 export GNOME_KEYRING_CONTROL="/run/user/$UID/keyring"
 export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
+export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 
 # User specific environment and startup programs
 export LANGUAGE="en_US"
@@ -41,7 +42,6 @@ export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 export ASPELL_CONF="per-conf $XDG_CACHE_HOME/aspell/aspell.conf; personal $XDG_CACHE_HOME/aspell/en.pws; repl $XDG_CACHE_HOME/aspell/en.prepl"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export KDEHOME="$XDG_CONFIG_HOME/kde"
-export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NPM_DIR="$XDG_DATA_HOME/npm"
 export DENO_DIR="$XDG_DATA_HOME/deno"
