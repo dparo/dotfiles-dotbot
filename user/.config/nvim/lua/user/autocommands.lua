@@ -8,13 +8,14 @@ do
         require("filetype").setup {
             overrides = {
                 complex = {
-                    ["*.mutt-.*"] = "mail",
+                    [".*.mutt-.*"] = "mail",
                     [".*/.config/i3/config"] = "i3config",
                     [".envrc"] = "sh",
                     [".direnvrc"] = "sh",
                     ["direnvrc"] = "sh",
                     [".curl"] = "sh",
                     [".httpie"] = "sh",
+                    [".*systemd/user"] = "systemd",
                 },
             },
         }
