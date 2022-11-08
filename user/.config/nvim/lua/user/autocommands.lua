@@ -15,7 +15,9 @@ do
                     ["direnvrc"] = "sh",
                     [".curl"] = "sh",
                     [".httpie"] = "sh",
-                    [".*systemd/user"] = "systemd",
+                    [".session"] = "systemd",
+                    [".session"] = "systemd",
+                    [".target"] = "systemd",
                 },
             },
         }
