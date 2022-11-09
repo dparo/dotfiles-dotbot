@@ -64,3 +64,8 @@ pathprepend \
     "${BUN_INSTALL:-$XDG_DATA_HOME/bun}/bin" \
     "$XDG_DATA_HOME/zig" \
     "${NIMBLE_DIR:-$XDG_DATA_HOME/nimble}/bin"
+
+
+if [ -f "$ZDOTDIR/.localenv" ]; then
+    source "$ZDOTDIR/.localenv"
+fi

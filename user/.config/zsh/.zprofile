@@ -130,6 +130,11 @@ export FZF_ALT_C_COMMAND='find -type d'
 export MAKEFLAGS=--no-print-directory
 
 
+if [ -f "$ZDOTDIR/.localprofile" ]; then
+    source "$ZDOTDIR/.localprofile"
+fi
+
+
 ##
 ## Better font rendering for Java applications, useful if not running xsettings daemon
 ##   NOTE(dparo): IntelliJ complains if this variable is set. It may cause performance degradations.

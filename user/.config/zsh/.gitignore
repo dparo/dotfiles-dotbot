@@ -1,4 +1,5 @@
-.zcompdump*
-history
-
-
+/.zcompdump*
+/history
+/.localrc
+/.localenv
+/.localprofile

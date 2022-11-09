@@ -162,4 +162,8 @@ fi
 
 
 ## TERMINATE: Setup the aliases that we need
-source "$XDG_CONFIG_HOME/zsh/.aliases"
+source "$ZDOTDIR/.aliases"
+
+if [ -f "$ZDOTDIR/.localrc" ]; then
+    source "$ZDOTDIR/.localrc"
+fi
