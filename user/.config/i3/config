@@ -50,6 +50,7 @@ set $highl #E6B455
 
 font pango:$font
 floating_modifier $alt
+tiling_drag modifier
 
 focus_follows_mouse yes
 mouse_warping output
