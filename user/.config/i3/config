@@ -59,9 +59,9 @@ focus_on_window_activation smart
 workspace_layout tabbed
 workspace_auto_back_and_forth no
 force_display_urgency_hint 1000 ms
-default_border pixel 1
-default_floating_border pixel 1
-for_window [all] border pixel 1
+default_border normal 1
+default_floating_border normal 1
+for_window [all] border normal 1
 for_window [all] title_window_icon padding 4px
 
 
