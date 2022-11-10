@@ -19,6 +19,10 @@ _invoke_dotbot() {
 		git submodule update --init --recursive --remote "$DOTBOT_LOCATION"
 	}
 
+    update_all_submodules() {
+        git submodule sync --quiet --recursive && git submodule update --init --recursive --remote
+    }
+
     source_env() {
         source "$DOTFILES_LOCATION/user/.config/zsh/.zshenv"
         source "$DOTFILES_LOCATION/user/.config/zsh/.zprofile"

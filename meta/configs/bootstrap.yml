@@ -28,6 +28,8 @@
     sudo dnf copr enable -y flatcap/neomutt
     sudo dnf copr enable -y atim/lazygit
 
+    sudo dnf install -y git-crypt
+
     sudo dnf install -y git gcc clang cmake ninja-build \
     sqlite python3-pip p7zip p7zip-plugins \
     clang-tools-extra cppcheck bear editorconfig \

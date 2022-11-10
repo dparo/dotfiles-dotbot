@@ -14,6 +14,7 @@
     clean:
       force: false
 
+
 - create:
     - ~/opt
     - ~/.local/bin
@@ -28,9 +29,6 @@
     - ~/.cache/zsh
     - ~/.cache/mpd/
 
-- shell:
-    - description: Update all submodules
-      command: git submodule sync --quiet --recursive && git submodule update --init --recursive
 
 # Clean commands specify directories that should be checked for dead symbolic links. These dead links are removed automatically
 - clean:
