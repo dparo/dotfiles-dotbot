@@ -151,5 +151,8 @@ fi
 if systemctl -q is-active graphical.target \
 	&& [ -z "${DISPLAY}" ] && [ -z "$SSH_CLIENT" ]
     ( [ "$(tty)" = "/dev/tty1" ] || [ "$(tty)" = "/dev/tty2" ] || [ "$(tty)" = "/dev/tty3" ] || [ "$(tty)" = "/dev/tty4" ]); then
-	exec startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc"
+
+    # NOTE:-- Marks the beginning of xserver options: view man Xserver(1)
+    exec startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
+        /usr/bin/Xorg -ardelay 300 -arinterval 30
 fi
