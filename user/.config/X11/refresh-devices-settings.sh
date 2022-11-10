@@ -18,5 +18,7 @@ touchpad_setup
 
 xset -b # disable bell
 
+xset r rate 300 30
+
 # Set keyboard layout, and compose international chars with R-Alt
 setxkbmap -layout us -option ctrl:nocaps,compose:ralt -option terminate:ctrl_alt_bksp
