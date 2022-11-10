@@ -1,4 +1,4 @@
-# .zprofile is for login shells. It is basically the same as .zlogin except
+ .zprofile is for login shells. It is basically the same as .zlogin except
 # that it's sourced before .zshrc whereas .zlogin is sourced after .zshrc.
 # According to the zsh documentation, ".zprofile is meant as an alternative to .zlogin
 # for ksh fans; the two are not intended to be used together,
@@ -152,7 +152,26 @@ if systemctl -q is-active graphical.target \
 	&& [ -z "${DISPLAY}" ] && [ -z "$SSH_CLIENT" ]
     ( [ "$(tty)" = "/dev/tty1" ] || [ "$(tty)" = "/dev/tty2" ] || [ "$(tty)" = "/dev/tty3" ] || [ "$(tty)" = "/dev/tty4" ]); then
 
-    # NOTE:-- Marks the beginning of xserver options: view man Xserver(1)
+#    systemctl --user daemon-reload
+#    systemctl --user import-environment || dbus-update-activation-environment --systemd --all
+#    exec systemctl --user restart x11.service
+
+
+    local tty=$(tty)
+    local vt_num=$(echo "$tty" | grep -oE '[0-9]+$')
+
+
+    # TODO: Rootless XORG + systemd
+    # - https://wiki.archlinux.org/title/Systemd/User#Xorg_as_a_systemd_user_service
+    # - https://wiki.ubuntu.com/X/Rootless
+    # - https://wiki.archlinux.org/title/Xorg#Rootless_Xorg
+    # - https://man.archlinux.org/man/extra/xorg-server/Xorg.wrap.1.en
+    # TODO: Look ``-auth` flag : specifies  a  file which contains a collection of authorization
+    #           records used to authenticate access.  See also the  xdm(1)  and
+    #           Xsecurity(7) manual pages.`
+
+    # See manpages for command line: Xorg(1), Xserver(1)
     exec startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
-        /usr/bin/Xorg vt"$XDG_VTNR" -keeptty -nolisten tcp -ardelay 300 -arinterval 33.333
+        /usr/bin/Xorg -nolisten tcp -ardelay 300 -arinterval 33.333 \
+        vt"$vt_num" -keeptty
 fi
