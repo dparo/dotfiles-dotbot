@@ -3,6 +3,7 @@ Description=tmux: A terminal multiplexer
 Documentation=man:tmux(1)
 After=gnome-keyring-daemon.service
 Wants=gnome-keyring-daemon.service
+PartOf=default.target
 
 [Service]
 Type=forking
