@@ -154,5 +154,5 @@ if systemctl -q is-active graphical.target \
 
     # NOTE:-- Marks the beginning of xserver options: view man Xserver(1)
     exec startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
-        /usr/bin/Xorg -ardelay 300 -arinterval 30
+        /usr/bin/Xorg -ardelay 300 -arinterval 30 -logfile /dev/null
 fi
