@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+set -x
+
 USERXSESSION="$XDG_CACHE_HOME/X11/xsession"
 USERXSESSIONRC="$XDG_CACHE_HOME/X11/xsessionrc"
 ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
@@ -11,16 +13,6 @@ ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
 [ -x /usr/bin/xhost ] && [ -x /usr/bin/id ] &&
     xhost "+si:localuser:$(id -un)" >& /dev/null
 
-
-touchpad_setup() {
-	xinput --set-prop "Elan Touchpad" 'libinput Accel Speed' 0
-	xinput --set-prop "Elan Touchpad" "Device Accel Profile" 0
-
-	xinput --set-prop "Elan Touchpad" "libinput Tapping Enabled" 1
-	xinput --set-prop "Elan Touchpad" "libinput Middle Emulation Enabled" 1
-	xinput --set-prop "Elan Touchpad" "libinput Disable While Typing Enabled" 1
-	xinput --set-prop "Elan Touchpad" "libinput Natural Scrolling Enabled" 1 # Reverse scrolling
-}
 
 # xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
@@ -41,9 +33,12 @@ if [ "$HOST" = "dparo-pc" ]; then
 	# Set PowerMizerMode to prefer performance mode:
 	#     When in Adaptive mode, the GPU automatically downclocks itself when there's little load,
 	#     to reduce power consumption
-	command nvidia-settings --verbose -a '[gpu:0]/GpuPowerMizerMode=1'
-	command nvidia-settings --verbose -a 'AllowFlipping=1'
-	command nvidia-settings --verbose -a 'CurrentMetaMode=nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }'
+
+    # Necessari???
+	# command nvidia-settings --verbose -a '[gpu:0]/GpuPowerMizerMode=1'
+    # command nvidia-settings --verbose -a 'AllowFlipping=1'
+	# command nvidia-settings --verbose -a 'CurrentMetaMode=nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }'
+    true
 fi
 
 [[ -f "/etc/X11/xinit/.Xresources" ]] && xrdb -merge "/etc/X11/xinit/.Xresources"
@@ -51,26 +46,17 @@ fi
 [[ -f "/etc/X11/xinit/.Xmodmap" ]] && xmodmap "/etc/X11/xinit/.Xmodmap"
 [[ -f "$XDG_CONFIG_HOME/X11/.Xmodmap" ]] && xmodmap "$XDG_CONFIG_HOME/X11/.Xmodmap"
 
-# Set keyboard layout, and compose international chars with R-Alt
-setxkbmap -layout us -option ctrl:nocaps,compose:ralt
-# Restart Xorg server by using Ctrl + Alt + Backspace
-setxkbmap -option terminate:ctrl_alt_bksp
-xset -b # disable bell
-xset r rate 300 30
-touchpad_setup
+
+"${XDG_CONFIG_HOME:-$HOME/.config}/X11/refresh-devices-settings.sh"
 
 xset s off # Disables screen saver
 xset -dpms # Disables DPMS (Display Power Management Signaling)
+# Timing for automatic locking (see xss-lock and xsecurelock (https://github.com/google/xsecurelock))
+xset s 300 5
 
 xsetroot -solid darkgray
 xsetroot -cursor_name left_ptr
 
-if command -v numlockx >/dev/null 2>&1; then
-	numlocx on
-fi
-
-# Timing for automatic locking (see xss-lock and xsecurelock (https://github.com/google/xsecurelock))
-xset s 300 5
 
 # Explicitly adding the ssh-keys is required if using ssh-agent | gpg-agent
 # gnome-keyring-daemon, instead, does the ssh-add autonomously at startup
