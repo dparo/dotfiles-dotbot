@@ -147,14 +147,13 @@ fi
 ## export _JAVA_AWT_WM_NONREPARENTING=1
 ## export AWT_TOOLKIT=MToolkit
 
+# Refetch the DISPLAY env variable from systemd
+eval "export $(systemctl --user show-environment | grep -E 'DISPLAY=:[0-9]+')" 1> /dev/null 2> /dev/null
 
 if systemctl -q is-active graphical.target \
 	&& [ -z "${DISPLAY}" ] && [ -z "$SSH_CLIENT" ]
     ( [ "$(tty)" = "/dev/tty1" ] || [ "$(tty)" = "/dev/tty2" ] || [ "$(tty)" = "/dev/tty3" ] || [ "$(tty)" = "/dev/tty4" ]); then
 
-
-    # Refetch the DISPLAY env variable from systemd
-    eval "export $(systemctl --user show-environment | grep -E 'DISPLAY=:[0-9]+')"
 
     # Test connection to Xserver. If it's already running do not create a new one
     if ! timeout 1s xset q 1> /dev/null 2> /dev/null; then

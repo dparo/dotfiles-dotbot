@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-
 #    systemctl --user daemon-reload
 #    systemctl --user import-environment || dbus-update-activation-environment --systemd --all
 #    exec systemctl --user restart x11.service
+
+
+# Refetch the DISPLAY env variable from systemd
+eval "export $(systemctl --user show-environment | grep -E 'DISPLAY=:[0-9]+')" 1> /dev/null 2> /dev/null
 
 
 # Test connection to Xserver. If it's already running do not create a new one
@@ -28,4 +31,7 @@ if ! timeout 1s xset q 1> /dev/null 2> /dev/null; then
     exec /usr/bin/startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
         /usr/bin/Xorg "$DISPLAY" vt"$XDG_VTNR" -keeptty -nolisten tcp \
         -ardelay 300 -arinterval 33.333
+else
+    echo "Xorg is already running at DISPLAY=$DISPLAY"
+    exit 1
 fi
