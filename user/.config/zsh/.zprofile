@@ -1,4 +1,4 @@
- .zprofile is for login shells. It is basically the same as .zlogin except
+# .zprofile is for login shells. It is basically the same as .zlogin except
 # that it's sourced before .zshrc whereas .zlogin is sourced after .zshrc.
 # According to the zsh documentation, ".zprofile is meant as an alternative to .zlogin
 # for ksh fans; the two are not intended to be used together,
@@ -158,7 +158,9 @@ if systemctl -q is-active graphical.target \
 
 
     local tty=$(tty)
-    local vt_num=$(echo "$tty" | grep -oE '[0-9]+$')
+    export XDG_VTNR=$(echo "$tty" | grep -oE '[0-9]+$')
+
+    systemctl --user import-environment XDG_VTNR
 
 
     # TODO: Rootless XORG + systemd
@@ -172,6 +174,6 @@ if systemctl -q is-active graphical.target \
 
     # See manpages for command line: Xorg(1), Xserver(1)
     exec startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
-        /usr/bin/Xorg -nolisten tcp -ardelay 300 -arinterval 33.333 \
-        vt"$vt_num" -keeptty
+        /usr/bin/Xorg vt"$XDG_VTNR" -keeptty -nolisten tcp \
+        -ardelay 300 -arinterval 33.333
 fi
