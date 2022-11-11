@@ -153,8 +153,8 @@ if systemctl -q is-active graphical.target \
     ( [ "$(tty)" = "/dev/tty1" ] || [ "$(tty)" = "/dev/tty2" ] || [ "$(tty)" = "/dev/tty3" ] || [ "$(tty)" = "/dev/tty4" ]); then
 
 
-    # IF xserver is not already running
-    if ! timeout 1s xset q 1> /dev/null 2> /dev/null && ! pgrep -u "$USER" xinit; then
+    # Spawn the Xserver only if it is npt already running.
+    if ! timeout 1s xset q 1> /dev/null 2> /dev/null && ! systemctl show-environment --user | grep DISPLAY=: 1> /dev/null 2> /dev/null; then
     #    systemctl --user daemon-reload
     #    systemctl --user import-environment || dbus-update-activation-environment --systemd --all
     #    exec systemctl --user restart x11.service
