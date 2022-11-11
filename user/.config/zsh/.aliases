@@ -96,7 +96,6 @@ alias fm="run spacefm"
 alias gksu='pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY'
 alias cheat='cht.sh'
 alias feh='feh --scale-down -Z'
-alias startx="startx \"\$XDG_CONFIG_HOME/X11/xinitrc\""
 alias lola="git log --graph --decorate --oneline --abbrev-commit --all"
 
 alias nvidia-settings='nvidia-settings --verbose --config="$XDG_CONFIG_HOME"/nvidia/settings'

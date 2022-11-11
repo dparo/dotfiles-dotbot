@@ -158,30 +158,6 @@ if systemctl -q is-active graphical.target \
 
     # Test connection to Xserver. If it's already running do not create a new one
     if ! timeout 1s xset q 1> /dev/null 2> /dev/null; then
-    #    systemctl --user daemon-reload
-    #    systemctl --user import-environment || dbus-update-activation-environment --systemd --all
-    #    exec systemctl --user restart x11.service
-
-
-        export XDG_VTNR="$(tty | grep -oE '[0-9]+$')"
-        export DISPLAY=":$XDG_VTNR"
-
-        systemctl --user import-environment XDG_VTNR
-        systemctl --user import-environment DISPLAY
-
-
-        # TODO: Rootless XORG + systemd
-        # - https://wiki.archlinux.org/title/Systemd/User#Xorg_as_a_systemd_user_service
-        # - https://wiki.ubuntu.com/X/Rootless
-        # - https://wiki.archlinux.org/title/Xorg#Rootless_Xorg
-        # - https://man.archlinux.org/man/extra/xorg-server/Xorg.wrap.1.en
-        # TODO: Look ``-auth` flag : specifies  a  file which contains a collection of authorization
-        #           records used to authenticate access.  See also the  xdm(1)  and
-        #           Xsecurity(7) manual pages.`
-
-        # See manpages for command line: Xorg(1), Xserver(1)
-        exec startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
-            /usr/bin/Xorg "$DISPLAY" vt"$XDG_VTNR" -keeptty -nolisten tcp \
-            -ardelay 300 -arinterval 33.333
+        startx
     fi
 fi
