@@ -152,28 +152,32 @@ if systemctl -q is-active graphical.target \
 	&& [ -z "${DISPLAY}" ] && [ -z "$SSH_CLIENT" ]
     ( [ "$(tty)" = "/dev/tty1" ] || [ "$(tty)" = "/dev/tty2" ] || [ "$(tty)" = "/dev/tty3" ] || [ "$(tty)" = "/dev/tty4" ]); then
 
-#    systemctl --user daemon-reload
-#    systemctl --user import-environment || dbus-update-activation-environment --systemd --all
-#    exec systemctl --user restart x11.service
+
+    # IF xserver is not already running
+    if ! timeout 1s xset q 1> /dev/null 2> /dev/null && ! pgrep -u "$USER" xinit; then
+    #    systemctl --user daemon-reload
+    #    systemctl --user import-environment || dbus-update-activation-environment --systemd --all
+    #    exec systemctl --user restart x11.service
 
 
-    local tty=$(tty)
-    export XDG_VTNR=$(echo "$tty" | grep -oE '[0-9]+$')
+        local tty=$(tty)
+        export XDG_VTNR=$(echo "$tty" | grep -oE '[0-9]+$')
 
-    systemctl --user import-environment XDG_VTNR
+        systemctl --user import-environment XDG_VTNR
 
 
-    # TODO: Rootless XORG + systemd
-    # - https://wiki.archlinux.org/title/Systemd/User#Xorg_as_a_systemd_user_service
-    # - https://wiki.ubuntu.com/X/Rootless
-    # - https://wiki.archlinux.org/title/Xorg#Rootless_Xorg
-    # - https://man.archlinux.org/man/extra/xorg-server/Xorg.wrap.1.en
-    # TODO: Look ``-auth` flag : specifies  a  file which contains a collection of authorization
-    #           records used to authenticate access.  See also the  xdm(1)  and
-    #           Xsecurity(7) manual pages.`
+        # TODO: Rootless XORG + systemd
+        # - https://wiki.archlinux.org/title/Systemd/User#Xorg_as_a_systemd_user_service
+        # - https://wiki.ubuntu.com/X/Rootless
+        # - https://wiki.archlinux.org/title/Xorg#Rootless_Xorg
+        # - https://man.archlinux.org/man/extra/xorg-server/Xorg.wrap.1.en
+        # TODO: Look ``-auth` flag : specifies  a  file which contains a collection of authorization
+        #           records used to authenticate access.  See also the  xdm(1)  and
+        #           Xsecurity(7) manual pages.`
 
-    # See manpages for command line: Xorg(1), Xserver(1)
-    exec startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
-        /usr/bin/Xorg vt"$XDG_VTNR" -keeptty -nolisten tcp \
-        -ardelay 300 -arinterval 33.333
+        # See manpages for command line: Xorg(1), Xserver(1)
+        exec startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
+            /usr/bin/Xorg vt"$XDG_VTNR" -keeptty -nolisten tcp \
+            -ardelay 300 -arinterval 33.333
+    fi
 fi
