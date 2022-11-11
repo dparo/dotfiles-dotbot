@@ -158,6 +158,6 @@ if systemctl -q is-active graphical.target \
 
     # Test connection to Xserver. If it's already running do not create a new one
     if ! timeout 1s xset q 1> /dev/null 2> /dev/null; then
-        startx
+        exec "${XDG_DATA_HOME-:$HOME/.local/share}/bin/startx"
     fi
 fi
