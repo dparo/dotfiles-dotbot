@@ -120,8 +120,6 @@ mkfile() {
 
 alias run='nohup'
 
-alias mv='mv -i'
-alias cp='cp -i'
 alias rm='rm -i'
 alias ln='ln -i -s'
 alias gg='lazygit'
