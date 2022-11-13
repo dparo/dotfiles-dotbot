@@ -33,6 +33,13 @@ export LC_NUMERIC="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
 
+# NOTE(d.paro): Are these environment variables necessary??
+export USERXSESSION="$XDG_CACHE_HOME/X11/xsession"
+export USERXSESSIONRC="$XDG_CACHE_HOME/X11/xsessionrc"
+export ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
+export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
+
+
 # Setup programs default config location to avoid cluttering the HOME directory
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
