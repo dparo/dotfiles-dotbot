@@ -16,31 +16,30 @@ set $bar_font Noto Mono Nerd Font 8
 ##########################################################
 ## Theme
 ##########################################################
-set $bg #212121
-set $bgalt #1A1A1A
-set $fg #B0BEC5
-set $selbg #EEFFFF
-set $selfg #404040
 
-# normal
-set $col0 #000000
-set $col1 #DC6068
-set $col2 #ABCF76
-set $col3 #E6B455
-set $col4 #6E98EB
-set $col5 #B480D6
-set $col6 #71C6E7
-set $col7 #EEFFFF
+set_from_resource $bg     i3wm.background       #24283b
+set_from_resource $bgalt  i3wm.background_dark  #1f2335
+set_from_resource $fg     i3wm.foreground       #c0caf5
+set_from_resource $fgalt  i3wm.foreground_dark  #a9b1d6
+set_from_resource $selbg  i3wm.bg_highlight     #292e42
 
-# bright
-set $col8 #474747
-set $col9 #F07178
-set $col10 #C3E88D
-set $col11 #FFCB6B
-set $col12 #82AAFF
-set $col13 #C792EA
-set $col14 #89DDFF
-set $col15 #EEFFFF
+set_from_resource $col0   i3wm.color0           #1d202f
+set_from_resource $col1   i3wm.color1           #f7768e
+set_from_resource $col2   i3wm.color2           #9ece6a
+set_from_resource $col3   i3wm.color3           #e0af68
+set_from_resource $col4   i3wm.color4           #7aa2f7
+set_from_resource $col5   i3wm.color5           #bb9af7
+set_from_resource $col6   i3wm.color6           #7dcfff
+set_from_resource $col7   i3wm.color7           #a9b1d6
+
+set_from_resource $col8   i3wm.color8           #414868
+set_from_resource $col9   i3wm.color9           #f7768e
+set_from_resource $col10  i3wm.color10          #9ece6a
+set_from_resource $col11  i3wm.color11          #e0af68
+set_from_resource $col12  i3wm.color12          #7aa2f7
+set_from_resource $col13  i3wm.color13          #bb9af7
+set_from_resource $col14  i3wm.color14          #7dcfff
+set_from_resource $col15  i3wm.color15          #c0caf5
 
 ###########################################################
 ###########################################################

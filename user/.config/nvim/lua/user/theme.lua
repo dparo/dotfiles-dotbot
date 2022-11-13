@@ -1,18 +1,18 @@
 vim.o.background = "dark"
 vim.o.guifont = "JetBrainsMono Nerd Font:h10.0"
 
-vim.diagnostic.config {
-    underline = true,
-    virtual_text = true,
-    signs = signs,
-    severity_sort = true,
-}
-
 local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },
     { name = "DiagnosticSignHint", text = "" },
     { name = "DiagnosticSignInfo", text = "" },
+}
+
+vim.diagnostic.config {
+    underline = true,
+    virtual_text = true,
+    signs = signs,
+    severity_sort = true,
 }
 
 for _, sign in ipairs(signs) do
@@ -27,7 +27,9 @@ elseif vim.regex([[^\(tmux\|screen\|iterm\|xterm\|vte\|gnome\|xterm-kitty\|kitty
     -- require('colorbuddy').colorscheme('gruvbuddy')
     -- user.utils.load_color_scheme 'nightfox'
     vim.g.material_style = "darker"
-    user.utils.load_color_scheme "material"
+    -- user.utils.load_color_scheme "material"
+
+    user.utils.load_color_scheme "tokyonight-storm"
 end
 
 local function theme_overrides()
