@@ -120,7 +120,7 @@ _bootstrap_prep_necessary_pkgs() {
 	if [ -x /usr/bin/dnf ]; then
 		# Core/Fundamental packages
 		sudo dnf install -y util-linux-user python3-pyyaml p7zip p7zip-plugins sqlite
-		sudo dnf install -y make cmake gcc g++ clang clang-tools-extra pip
+		sudo dnf install -y make cmake gcc g++ meson ninja clang clang-tools-extra pip
 		sudo dnf install -y nodejs npm tree-sitter-cli
 		sudo dnf install -y polkit polkit-gnome
 
