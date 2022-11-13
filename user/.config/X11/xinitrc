@@ -71,38 +71,6 @@ source_distro_xinit_scripts() {
     fi
 }
 
-update-env() {
-	##
-	## The user instance of systemd does not inherit any of the environment variables set in places like .bashrc etc.
-	##
-	# NOTE(dparo): Use `systemctl --user show-environment` to dump
-	#              all the environment variables visible from the user systemd's services.
-
-	if command -v dbus-update-activation-environment >/dev/null 2>&1; then
-		# NOTE(dparo): `dub-update-activation-environemnt --systemd`
-		#              has the same effect as `systemctl --user import-environment`,
-		#              but also affects the D-Bus session.
-		# NOTE(dparo): You can use `--all` flags to import all environment variables from your shell
-		#              You can list all the environment variables of your shell with `env`
-		#
-
-		# dbus-update-activation-environment is primarily designed to be used in Linux distributions'
-		# X11 session startup scripts, in conjunction with the "user bus" design.
-		# To propagate DISPLAY and XAUTHORITY to dbus-daemon and, if present, systemd,
-		# and propagate DBUS_SESSION_BUS_ADDRESS to systemd:
-
-		dbus-update-activation-environment --systemd "$@"
-	else
-		systemctl --user import-environment "$@"
-	fi
-}
-
-
-update-env \
-	DISPLAY XAUTHORITY \
-	GNUPGHOME \
-	XDG_DATA_HOME XDG_CONFIG_HOME XDG_CACHE_HOME XDG_STATE_HOME XDG_DATA_DIRS
-
 
 exec_wm() {
 	WM="$1"

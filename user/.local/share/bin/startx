@@ -21,8 +21,8 @@ if ! timeout 1s xset q 1> /dev/null 2> /dev/null; then
     export XDG_VTNR="$(tty | grep -oE '[0-9]+$')"
     export DISPLAY=":$XDG_VTNR"
 
-    systemctl --user import-environment XDG_VTNR
-    systemctl --user import-environment DISPLAY
+    systemctl --user import-environment XDG_VTNR DISPLAY XAUTHORITY
+    dbus-update-activation-environment --systemd DISPLAY XAUTHORITY
 
 
     # TODO: Rootless XORG + systemd
