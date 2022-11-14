@@ -158,11 +158,14 @@ _bootstrap_post_dotfiles_linked() {
 }
 
 _bootstrap_dotfiles_repo() {
-	if ! type git 1>/dev/null 2>/dev/null; then
-		sudo dnf install -y git || sudo apt install -y git || sudo pacman -Syy git
-	fi
 
-	_bootstrap_prep_necessary_pkgs
+    if test "$1" = "--fedora"; then
+        if ! type git 1>/dev/null 2>/dev/null; then
+            sudo dnf install -y git || sudo apt install -y git || sudo pacman -Syy git
+        fi
+
+        _bootstrap_prep_necessary_pkgs
+    fi
 
 	set -x
 
