@@ -79,6 +79,7 @@
     ~/.zshenv: user/.config/zsh/.zshenv
     ~/.vscode: ~/.local/share/vscode
     ~/.local/share/anaconda3/etc/conda/activate.d/env_vars.sh: user/.local/share/anaconda3/etc/conda/activate.d/env_vars.sh
+    ~/.local/share/java/.m2/settings.xml: user/.config/maven/settings_local.xml
 
 - create:
     - ~/.config/systemd/user/systemd/user/default.target.wants
