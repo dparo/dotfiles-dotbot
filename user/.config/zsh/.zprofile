@@ -86,6 +86,9 @@ export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
 export REBEL_BASE="$XDG_CONFIG_HOME/jrebel"
 
 
+export JAVA_USER_HOME="$$XDG_DATA_HOME/java"
+
+
 # _JAVA_OPTIONS is picked up from the JVM, thus it applies to all JAVA programs. See: https://sourcegraph.com/github.com/openjdk/jdk@91292d5/-/blob/src/hotspot/share/runtime/arguments.cpp?L3233:17&popover=pinned
 # JAVA_OPTS: Is used by many shell launcher scripts to pass JVM options to the wrapped programs.
 #        Not all java programs use this environment variable, but it is preferred over _JAVA_OPTIONS whenever possible
@@ -95,7 +98,7 @@ export _JAVA_OPTIONS="$_JAVA_OPTIONS -Djava.util.prefs.userRoot=$XDG_CONFIG_HOME
 # Hack for fixing the OpenJDK implementation from creating fontcache files in ~/.java/fonts.
 # See: https://sourcegraph.com/github.com/openjdk/jdk@91292d56a9c2b8010466d105520e6e898ae53679/-/blob/src/java.desktop/unix/classes/sun/font/FcFontConfiguration.java?L358:18&popover=pinned#tab=references
 #   The openjdk implementation hardcodes the location of the fontcache file regardless if the user specified java.util.prefs.userRoot to a different location
-export _JAVA_OPTIONS="$_JAVA_OPTIONS -Duser.home=$XDG_DATA_HOME/java"
+export _JAVA_OPTIONS="$_JAVA_OPTIONS -Duser.home=\"$JAVA_USER_HOME\""
 
 
 export MAVEN_HOME="$HOME/opt/apache-maven-3.8.6/"
