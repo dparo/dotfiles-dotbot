@@ -24,7 +24,7 @@
           ln --force -s "$HOME/.config/maven/settings_global.xml" "$HOME/opt/apache-maven-3.8.6/conf/settings.xml"
         fi
         mkdir -p "${JAVA_USER_HOME:$HOME/.local/share/java}/.m2"
-        ln --force -s "$HOME/.config/maven/settings_local.xml" "${JAVA_USER_HOME:$HOME/.local/share/java}/.m2/settings.xml"
+        ln --force -s "$HOME/.config/maven/settings_local.xml" "${JAVA_USER_HOME:-$HOME/.local/share/java}/.m2/settings.xml"
 
     - description: Setup alternatives (x-www-browser)
       command: test -f ~/.local/bin/x-www-browser || ln -sf /usr/bin/firefox ~/.local/bin/x-www-browser
