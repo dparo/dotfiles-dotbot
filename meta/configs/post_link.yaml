@@ -47,7 +47,7 @@
 
     - description: GNOME keyboard repeat rate / delay
       command: |
-        gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30
+        gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 33
         gsettings set org.gnome.desktop.peripherals.keyboard delay 300
 
     - description: Gnome/Cinnamon gsettings setup preferred terminal
@@ -105,22 +105,18 @@
     - description: Refresh available user services
       command: systemctl --user daemon-reload
 
-    - description: Enable user services
-      command: |
-        # systemctl --user enable .....
-
     - description: Clean pip cache
       command: command pip3 cache purge 2> /dev/null || true
 
     - description: Setup and sync between multiple programs config files GTK theming and Cursor theming
+      stdout: false
+      stderr: false
       command: |
         source "${USER_DOTFILES_LOCATION:-./}/meta/lib.sh"
         GTK_THEME=Adwaita-dark ICON_THEME=Adwaita CURSOR_THEME=Adwaita update_themes
-      stdout: false
-      stderr: false
 
     - description: Reload i3
       command: |
-        if command -v i3-msg; then
-          i3-msg reload || true
+        if test -n "$I3SOCK"; then
+          i3-msg reload
         fi
