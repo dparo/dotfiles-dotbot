@@ -89,7 +89,9 @@ null_ls.setup {
 
         -- A flexible JSON/YAML linter for creating automated style guides, with baked in support for OpenAPI v3.1, v3.0, and v2.0 as well as AsyncAPI v2.x.
         -- null_ls.builtins.diagnostics.spectral,
-        -- null_ls.builtins.diagnostics.spectral,
+        --
+
+        null_ls.builtins.formatting.google_java_format
 
 
         null_ls.builtins.formatting.prettier.with {
