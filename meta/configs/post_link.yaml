@@ -25,6 +25,12 @@
         fi
         mkdir -p "${JAVA_USER_HOME:$HOME}/.m2"
         ln --force -s "$HOME/.config/maven/settings_local.xml" "${JAVA_USER_HOME:-$HOME}/.m2/settings.xml"
+        # Necessary for IDEs (Eclipse, Netbeans, JDTLS) to find the installed sources.
+        #    IDEs do not usually parse the contents of the maven settings files to determine where the repository
+        #    is located, and instead use "${user.home}/.m2/repository" where ${user.home} is a Java property,
+        #    and it is overridden in $_JAVA_OPTIONS
+        ln --force -s "$XDG_CACHE_HOME/maven/repository" "${JAVA_USER_HOME:-$HOME}/.m2/repository"
+
 
     - description: Setup alternatives (x-www-browser)
       command: test -f ~/.local/bin/x-www-browser || ln -sf /usr/bin/firefox ~/.local/bin/x-www-browser
