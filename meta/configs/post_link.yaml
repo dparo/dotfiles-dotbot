@@ -23,7 +23,7 @@
           wget -c 'https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz' -O - | tar xvz -C "$HOME/opt"
           ln --force -s "$HOME/.config/maven/settings_global.xml" "$HOME/opt/apache-maven-3.8.6/conf/settings.xml"
         fi
-        mkdir -p "${JAVA_USER_HOME:$HOME}/.m2"
+        mkdir -p "${JAVA_USER_HOME:-$HOME}/.m2"
         ln --force -s "$HOME/.config/maven/settings_local.xml" "${JAVA_USER_HOME:-$HOME}/.m2/settings.xml"
         # Necessary for IDEs (Eclipse, Netbeans, JDTLS) to find the installed sources.
         #    IDEs do not usually parse the contents of the maven settings files to determine where the repository
