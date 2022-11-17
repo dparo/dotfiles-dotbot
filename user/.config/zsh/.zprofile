@@ -161,12 +161,11 @@ fi
 eval "export $(systemctl --user show-environment | grep -E 'DISPLAY=:[0-9]+')" 1> /dev/null 2> /dev/null
 
 if systemctl -q is-active graphical.target \
-	&& [ -z "${DISPLAY}" ] && [ -z "$SSH_CLIENT" ]
-    ( [ "$(tty)" = "/dev/tty1" ] || [ "$(tty)" = "/dev/tty2" ] || [ "$(tty)" = "/dev/tty3" ] || [ "$(tty)" = "/dev/tty4" ]); then
-
+	&& [ -z "$SSH_CLIENT" ] \
+    && [ "$XDG_VTNR" -le 4 ]; then
 
     # Test connection to Xserver. If it's already running do not create a new one
-    if ! timeout 1s xset q 1> /dev/null 2> /dev/null; then
+    if test -z "$DISPLAY" || ! timeout 1s xset q 1> /dev/null 2> /dev/null; then
         exec "${XDG_DATA_HOME-:$HOME/.local/share}/bin/startx"
     else
         echo "Xorg is already running at DISPLAY=$DISPLAY"
