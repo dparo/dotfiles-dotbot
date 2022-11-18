@@ -1,9 +1,8 @@
 local dbs_plugin = {
     { "tpope/vim-dadbod" },
-    { "kristijanhusak/vim-dadbod-ui", requires = { "tpope/vim-dadbod" },},
+    { "kristijanhusak/vim-dadbod-ui", requires = { "tpope/vim-dadbod" } },
     { "kristijanhusak/vim-dadbod-completion", requires = { "tpope/vim-dadbod", "vim-dadbod-completion" } },
-};
-
+}
 
 local generic = {
     ----
@@ -267,21 +266,6 @@ local generic = {
                     extra = true,
                     extended = false,
                 },
-            }
-        end,
-    },
-    -- Multiple cursors support
-    {
-        "mg979/vim-visual-multi",
-        branch = "master",
-        config = function()
-            vim.g.VM_theme = "codedark"
-            vim.g.VM_maps = {
-                ["Add Cursor Down"] = "<C-j>",
-                ["Add Cursor Up"] = "<C-k>",
-                ["Find Subword Under"] = "<C-d>",
-                ["Find Under"] = "<C-d>",
-                Undo = "<C-u>",
             }
         end,
     },
@@ -662,7 +646,6 @@ local themes = {
         end,
     },
 }
-
 
 local language_specific_toolings = {
     { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" },
