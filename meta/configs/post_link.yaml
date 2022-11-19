@@ -15,6 +15,10 @@
       force: false
 
 - shell:
+    - description: Install FZF
+      stdout: false
+      command: ./core/vendor/fzf/install --xdg --key-bindings --completion --no-update-rc
+
     - description: Install MAVEN 3.8.6
       stdout: false
       stderr: false
@@ -30,7 +34,6 @@
         #    is located, and instead use "${user.home}/.m2/repository" where ${user.home} is a Java property,
         #    and it is overridden in $_JAVA_OPTIONS
         ln --force -s "$XDG_CACHE_HOME/maven/repository" "${JAVA_USER_HOME:-$HOME}/.m2/repository"
-
 
     - description: Setup alternatives (x-www-browser)
       command: test -f ~/.local/bin/x-www-browser || ln -sf /usr/bin/firefox ~/.local/bin/x-www-browser
@@ -69,9 +72,6 @@
     - description: Dark mode for Gtk-4.0/Libadwaita apps
       command: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
-    - description: Install FZF
-      stdout: false
-      command: ./core/vendor/fzf/install --xdg --key-bindings --completion --no-update-rc
 
     - description: Install NVIM Python3 provider for neovim plugins (pynvim)
       command: pip3 install -U pynvim
