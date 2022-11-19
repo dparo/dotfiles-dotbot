@@ -1,0 +1,4 @@
+#t  vi: ft=yaml
+
+default_roles:
+  - neovim
