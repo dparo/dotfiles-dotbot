@@ -128,6 +128,6 @@ core.utils.augroup("USER_GENERIC", {
     -- Chezmoi
     {
         { "BufWritePost" },
-        { pattern = vim.env.XDG_DATA_HOME .. "/chezmoi/src/*", command = [[silent ! chezmoi apply --source-path "%"]] },
+        { pattern = vim.env.XDG_DATA_HOME .. "/chezmoi/src/*", command = [[! chezmoi apply --source-path "%"]] },
     },
 })
