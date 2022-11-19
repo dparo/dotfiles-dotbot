@@ -101,7 +101,10 @@ core.utils.augroup("USER_GENERIC", {
     { { "BufWritePre" }, { pattern = "*", command = [[call mkdir(expand("<afile>:p:h"), "p")]] } },
 
     -- Flash yanked region
-    { { "TextYankPost" }, { pattern = "*", command = [[silent! lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})]] } },
+    {
+        { "TextYankPost" },
+        { pattern = "*", command = [[silent! lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})]] },
+    },
 
     -- Post build
     { { "QuickfixCmdPost" }, { pattern = "make", callback = user.utils.post_build } },
@@ -116,6 +119,15 @@ core.utils.augroup("USER_GENERIC", {
     --     (eg useful when using gdb, or external shell scripts)
     {
         { "BufReadPre" },
-        { pattern = "*", command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]] },
+        {
+            pattern = "*",
+            command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]],
+        },
+    },
+
+    -- Chezmoi
+    {
+        { "BufWritePost" },
+        { pattern = "~/.local/share/chezmoi/home/*", command = [[! chezmoi apply --source-path "%"]] },
     },
 })
