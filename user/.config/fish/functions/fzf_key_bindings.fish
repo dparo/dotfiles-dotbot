@@ -1,1 +1,0 @@
-/home/dparo/src/git/dparo/dotfiles/core/vendor/fzf/shell/key-bindings.fish
