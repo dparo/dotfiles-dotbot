@@ -128,6 +128,6 @@ core.utils.augroup("USER_GENERIC", {
     -- Chezmoi
     {
         { "BufWritePost" },
-        { pattern = "~/.local/share/chezmoi/home/*", command = [[! chezmoi apply --source-path "%"]] },
+        { pattern = "~/.local/share/chezmoi/src/*", command = [[! chezmoi apply --source-path "%"]] },
     },
 })
