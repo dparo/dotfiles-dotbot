@@ -162,7 +162,7 @@ eval "export $(systemctl --user show-environment | grep -E 'DISPLAY=:[0-9]+')" 1
 
 if systemctl -q is-active graphical.target \
 	&& [ -z "$SSH_CLIENT" ] \
-    && [ "$XDG_VTNR" -le 4 ]; then
+    && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -le 4 ]; then
 
     # Test connection to Xserver. If it's already running do not create a new one
     if test -z "$DISPLAY" || ! timeout 1s xset q 1> /dev/null 2> /dev/null; then
