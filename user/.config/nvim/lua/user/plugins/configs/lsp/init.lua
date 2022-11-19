@@ -114,6 +114,8 @@ null_ls.setup {
         null_ls.builtins.diagnostics.shellcheck,
         null_ls.builtins.formatting.shellharden,
 
+        null_ls.builtins.diagnostics.ansiblelint,
+
         null_ls.builtins.formatting.stylua,
 
         null_ls.builtins.formatting.cmake_format,

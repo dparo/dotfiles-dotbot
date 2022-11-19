@@ -46,6 +46,7 @@
         pip3 install -U numpy matplotlib pandas plotly
         pip3 install -U i3ipc neovim-remote pynvim tmuxp autorandr
         pip3 install -U streamlink spotdl
+        pip3 install -U ansible-lint
 
         # Packages for development
 
@@ -138,3 +139,4 @@
         nvim --headless -c "MasonInstall sqlfluff" -c "qall"
         nvim --headless -c "MasonInstall jdtls" -c "qall"
         nvim --headless -c "MasonInstall ltex-ls" -c "qall"
+        nvim --headless -c "MasonInstall ansible-language-server" -c "qall"
