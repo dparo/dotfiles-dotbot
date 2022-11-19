@@ -57,7 +57,7 @@ local generic = {
         requires = {
             {
                 "$USER_DOTFILES_LOCATION/core/vendor/fzf",
-                run = 'cd "$USER_DOTFILES_LOCATIONcore/vendor/fzf" && ./install --xdg --key-bindings --completion --update-rc --no-zsh --no-bash',
+                run = 'cd "$USER_DOTFILES_LOCATION/core/vendor/fzf" && ./install --xdg --key-bindings --completion --update-rc --no-zsh --no-bash',
             },
         },
         config = function()

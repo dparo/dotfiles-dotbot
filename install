@@ -3,14 +3,16 @@
 
 set -e
 
-DOTFILES_LOCATION="${USER_DOTFILES_LOCATION:-$HOME/src/git/dparo/dotfiles}"
+XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local}/share"
+USER_DOTFILES_LOCATION="${USER_DOTFILES_LOCATION:-$XDG_DATA_HOME/dotfiles}"
+mkdir -p "$(dirname "$USER_DOTFILES_LOCATION")"
 
 
 _invoke_dotbot() {
-	DOTFILES_LOCATION="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-	cd "$DOTFILES_LOCATION" || exit 1
+	USER_DOTFILES_LOCATION="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	cd "$USER_DOTFILES_LOCATION" || exit 1
 
-	DOTBOT_LOCATION="$DOTFILES_LOCATION/meta/dotbot"
+	DOTBOT_LOCATION="$USER_DOTFILES_LOCATION/meta/dotbot"
 	DOTBOT_BIN="$DOTBOT_LOCATION/bin/dotbot"
 
 	# Update dot-files repo while avoiding merge conflicts
@@ -24,11 +26,11 @@ _invoke_dotbot() {
     }
 
     source_env() {
-        source "$DOTFILES_LOCATION/user/.config/zsh/.zshenv"
-        source "$DOTFILES_LOCATION/user/.config/zsh/.zprofile"
-        source "$DOTFILES_LOCATION/user/.config/zsh/.zlogin"
+        source "$USER_DOTFILES_LOCATION/user/.config/zsh/.zshenv"
+        source "$USER_DOTFILES_LOCATION/user/.config/zsh/.zprofile"
+        source "$USER_DOTFILES_LOCATION/user/.config/zsh/.zlogin"
 
-        export USER_DOTFILES_LOCATION="$DOTFILES_LOCATION"
+        export USER_DOTFILES_LOCATION="$USER_DOTFILES_LOCATION"
     }
 
 	git pull --ff-only
@@ -37,7 +39,7 @@ _invoke_dotbot() {
     source_env
 
 	## Populate user HOME directory with these dotfiles using dotbot
-	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$DOTFILES_LOCATION/meta/configs/link.yaml" "$@"
+	"$DOTBOT_BIN" --exit-on-failure -d "$USER_DOTFILES_LOCATION" -c "$USER_DOTFILES_LOCATION/meta/configs/link.yaml" "$@"
 	dotbot_result=$?
 	if [ "$dotbot_result" -ne 0 ]; then
 		echo "Dotbot failed with exit status $dotbot_result"
@@ -49,7 +51,7 @@ _invoke_dotbot() {
     source_env
 
 	## Populate user HOME directory with these dotfiles using dotbot
-	"$DOTBOT_BIN" --exit-on-failure -d "$DOTFILES_LOCATION" -c "$DOTFILES_LOCATION/meta/configs/post_link.yaml" "$@"
+	"$DOTBOT_BIN" --exit-on-failure -d "$USER_DOTFILES_LOCATION" -c "$USER_DOTFILES_LOCATION/meta/configs/post_link.yaml" "$@"
 	dotbot_result=$?
 	if [ "$dotbot_result" -ne 0 ]; then
 		echo "Dotbot failed with exit status $dotbot_result"
@@ -169,12 +171,12 @@ _bootstrap_dotfiles_repo() {
 
 	set -x
 
-	if [ ! -d "$DOTFILES_LOCATION" ]; then
-		mkdir -p "$(dirname "$DOTFILES_LOCATION")"
-		git clone --depth 1 --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
+	if [ ! -d "$USER_DOTFILES_LOCATION" ]; then
+		mkdir -p "$(dirname "$USER_DOTFILES_LOCATION")"
+		git clone --depth 1 --recursive "https://github.com/dparo/dotfiles" "$USER_DOTFILES_LOCATION"
 	fi
 
-	cd "$DOTFILES_LOCATION" || exit 1
+	cd "$USER_DOTFILES_LOCATION" || exit 1
 	if [ "$USER" = "dparo" ]; then
 		git remote set-url origin "git@github.com:dparo/dotfiles.git"
 	fi

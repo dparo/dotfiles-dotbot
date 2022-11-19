@@ -12,7 +12,7 @@ export XDG_DATA_DIRS="$XDG_DATA_HOME/flatpak/exports/share:/var/lib/flatpak/expo
 
 
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-export USER_DOTFILES_LOCATION="$HOME/src/git/dparo/dotfiles"
+export USER_DOTFILES_LOCATION="${XDG_DATA_HOME}/dotfiles"
 export EDITOR=nvim
 export VISUAL=nvim
 export MANROFFOPT="-c"
