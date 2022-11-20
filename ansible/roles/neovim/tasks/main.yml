@@ -44,11 +44,16 @@
     state: absent
   become: true
 
-- name: Install NVIM NodeJS provider for neovim plugins
+- name: Install required providers - npm neovim
   community.general.npm:
     name: neovim
     state: latest
     global: true
+
+- name: Install required providers - pip3 pynvim
+  ansible.builtin.pip:
+    name: pynvim
+    state: latest
 
 
 - name: Refresh packer
