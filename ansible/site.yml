@@ -4,3 +4,4 @@
   roles:
     - neovim
     - rust
+    - maven
