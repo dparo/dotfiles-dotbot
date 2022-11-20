@@ -44,6 +44,40 @@
     state: absent
   become: true
 
+- name: Install NVIM NodeJS provider for neovim plugins
+  community.general.npm:
+    name: neovim
+    state: latest
+    global: true
+
+
+- name: Refresh packer
+  ansible.builtin.shell: |
+    rm "$HOME/.config/nvim/plugin/packer_compiled.lua"
+    nvim --headless -c 'autocmd User PackerCompileDone quitall!' -c 'PackerCompile' 1> /dev/null 2> /dev/null
+
+- name: Install plugins
+  ansible.builtin.shell: |
+    nvim --headless -c 'autocmd User PackerComplete quitall!' -c 'PackerSync'
+    nvim --headless -c 'UpdateRemotePlugins' -c qall
+
+- name: Install lsp-servers, formatters, diagnostics tools
+  ansible.builtin.shell: |
+    nvim --headless -c "MasonInstall vim-language-server stylua lua-language-server" -c "qall"
+    nvim --headless -c "MasonInstall bash-language-server" -c "qall"
+    nvim --headless -c "MasonInstall pyright" -c "qall"
+    nvim --headless -c "MasonInstall rust-analyzer" -c "qall"
+    nvim --headless -c "MasonInstall shellcheck shellharden shfmt" -c "qall"
+    nvim --headless -c "MasonInstall typescript-language-server" -c "qall"
+    nvim --headless -c "MasonInstall eslint-lsp prettier" -c "qall"
+    nvim --headless -c "MasonInstall json-lsp yamllint yaml-language-server" -c "qall"
+    nvim --headless -c "MasonInstall texlab write-good proselint" -c "qall"
+    nvim --headless -c "MasonInstall sqlfluff" -c "qall"
+    nvim --headless -c "MasonInstall jdtls" -c "qall"
+    nvim --headless -c "MasonInstall ltex-ls" -c "qall"
+    nvim --headless -c "MasonInstall ansible-language-server" -c "qall"
+
+
 # - name: Config folder
 #   ansible.builtin.file:
 #     mode: "0755"

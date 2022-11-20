@@ -3,3 +3,4 @@
   connection: local
   roles:
     - neovim
+    - rust
