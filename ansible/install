@@ -2,5 +2,9 @@
 
 cd "$(dirname "$0")" || exit
 
-# ansible-galaxy install -r requirements.yml && \
-    exec ansible-playbook --diff --extra-vars "@$PWD/values.yml" --ask-become-pass "$PWD/site.yml" "$@"
+if [[ -f "$PWD/requirements.yml" ]]; then
+    # ansible-galaxy install -r "$PWD/requirements.yml"
+    true
+fi
+
+exec ansible-playbook --diff --extra-vars "@$PWD/values.yml" --ask-become-pass "$PWD/site.yml" "$@"
