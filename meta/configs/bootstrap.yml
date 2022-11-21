@@ -85,7 +85,7 @@
     #!/bin/bash
     export LC_ALL=C
 
-    enable_disable_wifi ()
+    toggle_wifi ()
     {
        result=$(nmcli dev | grep "ethernet" | grep -w "connected")
        if [ -n "$result" ]; then
@@ -96,11 +96,11 @@
     }
 
     if [ "$2" = "up" ]; then
-       enable_disable_wifi
+       toggle_wifi
     fi
 
     if [ "$2" = "down" ]; then
-       enable_disable_wifi
+       toggle_wifi
     fi
     EOF
     sudo chmod a+rx /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
