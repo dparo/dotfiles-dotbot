@@ -59,7 +59,7 @@ pathprepend \
     "${GOPATH:-$XDG_DATA_HOME/go}/bin" \
     "${CARGO_HOME:-$XDG_DATA_HOME/cargo}/bin" \
     "${MAVEN_HOME}/bin" \
-    "${npm_config_prefix:-$HOME/.local/share/npm}/bin" \
+    "${NPM_CONFIG_PREFIX:-$XDG_DATA_HOME/npm}/bin" \
     "${DENO_DIR:-$XDG_DATA_HOME/deno}/bin" \
     "${BUN_INSTALL:-$XDG_DATA_HOME/bun}/bin" \
     "$XDG_DATA_HOME/zig" \
