@@ -273,7 +273,7 @@ local function setup_basic_functionalities()
     nmap(",", "@q")
 
     --- Maximize current window
-    nmap("<C-m>", "<C-W>_<C-W>|")
+    nmap("<leader>z", "<C-W>_<C-W>|")
 end
 
 local function setup_window_controls()
