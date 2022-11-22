@@ -358,15 +358,11 @@ local function setup_plugins()
     nmap({ "<leader>ff", "<C-p>" }, exec_cmd "Files")
     nmap("<C-r>", exec_cmd "Telescope command_history")
     nmap("<M-x>", exec_cmd "Telescope commands")
-    nmap("<C-t>", exec_cmd "Telescope lsp_workspace_symbols")
-    nmap("<leader>lr", exec_cmd "Telescope lsp_references")
-    nmap("<leader>ld", exec_cmd "Telescope lsp_definitions")
-    nmap({ "<leader>la" }, exec_cmd "Telescope lsp_code_actions theme=cursor")
-    nmap(fn_key(3), exec_cmd "NvimTreeToggle")
+    nmap({ "<C-\\>", "<leader><leader>" }, exec_cmd "NvimTreeToggle")
     nmap("<M-q>", exec_cmd "TroubleToggle document_diagnostics")
 
     -- Toggle between C source file and H header files
-    nimap(fn_key(12), exec_cmd "ClangdSwitchSourceHeader")
+    -- nimap(fn_key(12), exec_cmd "ClangdSwitchSourceHeader")
     nmap(fn_key(5), exec_cmd "UndotreeToggle")
     -- Move lines up and down
     vmap("<M-S-Up>", "<Plug>MoveBlockUp", remappable_opts)
@@ -386,7 +382,7 @@ local function setup_plugins()
 
     -- Trouble plugin
 
-    nmap("<leader>xx", exec_cmd "TroubleToggle")
+    nmap({ "<leader>xx", "<leader>lx"}, exec_cmd "TroubleToggle")
     nmap("<leader>xw", exec_cmd "TroubleToggle lsp_workspace_diagnostics")
     nmap("<leader>xd", exec_cmd "TroubleToggle lsp_document_diagnostics")
     nmap("<leader>xq", exec_cmd "TroubleToggle quickfix")

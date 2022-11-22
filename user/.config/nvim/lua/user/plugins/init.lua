@@ -363,6 +363,10 @@ local generic = {
                     enable = false,
                     auto_open = false,
                 },
+                view = {
+                    adaptive_size = true,
+                    width = 40,
+                },
             }
         end,
     },

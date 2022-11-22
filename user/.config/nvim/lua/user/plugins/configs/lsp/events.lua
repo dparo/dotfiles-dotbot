@@ -12,18 +12,26 @@ function M.on_attach(client, bufnr)
 
     -- Mappings.
     local opts = { noremap = true, silent = true }
+
+    buf_set_keymap(bufnr, "n", "<C-t>", "<Cmd>Telescope lsp_workspace_symbols<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>ls", "<Cmd>Telescope lsp_workspace_symbols<CR>", opts)
     buf_set_keymap(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap(bufnr, "n", "gd", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>ld", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "gt", "<Cmd>Telescope lsp_type_definitions theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lt", "<Cmd>Telescope lsp_type_definitions theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "gi", "<cmd>Telescope lsp_implementations theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>li", "<cmd>Telescope lsp_implementations theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lr", "<cmd>Telescope lsp_references theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "<C-LeftMouse>", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>D", "<cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "<S-LeftMouse>", "<Cmd>Telescope lsp_references theme=dropdown<CR>", opts)
     buf_set_keymap(bufnr, "n", "<M-CR>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<C-1>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-
+    buf_set_keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>e", "<cmd>lua user.utils.lsp.show_line_diagnostics()<CR>", opts)
     buf_set_keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
