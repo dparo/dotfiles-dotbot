@@ -228,33 +228,19 @@ M.list = {
                 )
             )
 
+            -- See: https://github.com/mfussenegger/nvim-jdtls#nvim-dap-setup
+            config["on_attach"] = function(client, bufnr)
+                -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
+                -- you make during a debug session immediately.
+                -- Remove the option if you do not want that.
+                -- You can use the `JdtHotcodeReplace` command to trigger it manually
+                require("jdtls").setup_dap { hotcodereplace = "auto" }
+            end
+
             -- mute; having progress reports is enough
             if false then
                 config.handlers = config.handlers or {}
                 config.handlers["language/status"] = function() end
-            end
-
-            config.init_options = config.init_options or {}
-            config.init_options.bundles = config.init_options.bundles or {}
-
-            -- Append to bundles if we find the corresponding directory
-
-            -- java-debug: https://github.com/microsoft/java-debug
-            local java_debug_path = path.concat { nvim_data_path, "java-debug", "com.microsoft.java.debug.plugin", "target" }
-            if true or vim.fn.isdirectory(java_debug_path) then
-                local bundles = vim.fn.glob(path.concat { java_debug_path, "com.microsoft.java.debug.plugin-*.jar" })
-                if bundles ~= nil and bundles ~= "" then
-                    vim.list_extend(config.init_options.bundles, vim.fn.split(bundles, "\n"))
-                end
-            end
-
-            -- vscode-java-test: https://github.com/microsoft/vscode-java-test
-            local vscode_java_test_path = path.concat { nvim_data_path, "vscode-java-test", "server" }
-            if true or vim.fn.isdirectory(vscode_java_test_path) then
-                local bundles = vim.fn.glob(path.concat { vscode_java_test_path, "*.jar" })
-                if bundles ~= nil and bundles ~= "" then
-                    vim.list_extend(config.init_options.bundles, vim.fn.split(bundles, "\n"))
-                end
             end
 
             return config
