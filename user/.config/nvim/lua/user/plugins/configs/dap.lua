@@ -9,13 +9,13 @@ require("dapui").setup()
 
 -- Automatically open/close the UI when starting/finishing debugging
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open({nil, true})
+    dapui.open { nil, true }
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close({nil})
+    dapui.close { nil }
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close({nil})
+    dapui.close { nil }
 end
 
 --- Extension for GO/delve
