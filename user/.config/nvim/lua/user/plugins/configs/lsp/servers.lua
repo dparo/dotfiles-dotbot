@@ -14,7 +14,7 @@ local jdtls_root_path = path.concat { nvim_data_path, "mason", "packages", "jdtl
 
 local function deno_root_dir(fname)
     -- If the top level directory __DOES__ contain a file named `deno.proj` determine that this is a Deno project.
-    if (vim.env.DENO_VERSION ~= nil) or (lspconfig.util.root_pattern "deno.proj"(fname) ~= nil) then
+    if (vim.env.DENO_VERSION ~= nil) or (lspconfig.util.root_pattern "deno.proj" (fname) ~= nil) then
         return lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git")(fname)
     end
     return nil
@@ -23,7 +23,9 @@ end
 local function nodejs_root_dir(fname)
     -- If the top level directory __DOES NOT__ contain a file named `deno.proj` determine that this is a Nodejs project
     if deno_root_dir(fname) == nil then
-        return (lspconfig.util.root_pattern "tsconfig.json"(fname) or lspconfig.util.root_pattern("package.json", "jsconfig.json", ".git")(fname))
+        return (
+            lspconfig.util.root_pattern "tsconfig.json" (fname) or
+                lspconfig.util.root_pattern("package.json", "jsconfig.json", ".git")(fname))
     end
     return nil
 end
@@ -160,21 +162,10 @@ M.list = {
                                     name = "JavaSE-17",
                                     path = "/usr/lib/jvm/java-17-openjdk/",
                                 },
-                                {
-                                    name = "JavaSE-default",
-                                    path = "/usr/lib/jvm/default",
-                                },
                             },
                         },
                     },
                 },
-
-                -- You need to extend the `bundles` with paths to jar files
-                -- if you want to use additional eclipse.jdt.ls plugins.
-                --
-                -- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
-                --
-                -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
                 init_options = {
                     extendedClientCapabilities = {
                         progressReportProvider = true,
@@ -190,27 +181,35 @@ M.list = {
                         inferSelectionSupport = { "extractMethod", "extractVariable", "extractConstant" },
                         resolveAdditionalTextEditsSupport = true,
                     },
-                    bundles = {
-                        -- See : https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
-                        vim.fn.glob(
-                            path.concat {
-                                nvim_data_path,
-                                "mason",
-                                "packages",
-                                "java-debug-adapter",
-                                "extension",
-                                "server",
-                                "com.microsoft.java.debug.plugin-*.jar",
-                            },
-                            1
-                        ),
-                    },
                 },
             }
 
+
+            local bundles = {}
+
+            -- See : https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
+            vim.list_extend(
+                bundles,
+                vim.split(
+                    vim.fn.glob(
+                        path.concat {
+                            nvim_data_path,
+                            "mason",
+                            "packages",
+                            "java-debug-adapter",
+                            "extension",
+                            "server",
+                            "com.microsoft.java.debug.plugin-*.jar",
+                        },
+                        1
+                    ),
+                    "\n"
+                )
+            )
+
             -- See: https://github.com/mfussenegger/nvim-jdtls#vscode-java-test-installation
             vim.list_extend(
-                config["init_options"].bundles,
+                bundles,
                 vim.split(
                     vim.fn.glob(
                         path.concat {
@@ -228,14 +227,8 @@ M.list = {
                 )
             )
 
-            -- See: https://github.com/mfussenegger/nvim-jdtls#nvim-dap-setup
-            config["on_attach"] = function(client, bufnr)
-                -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
-                -- you make during a debug session immediately.
-                -- Remove the option if you do not want that.
-                -- You can use the `JdtHotcodeReplace` command to trigger it manually
-                require("jdtls").setup_dap { hotcodereplace = "auto" }
-            end
+            config['init_options'] = config['init_options'] or {}
+            config['init_options'].bundles = bundles
 
             -- mute; having progress reports is enough
             if false then

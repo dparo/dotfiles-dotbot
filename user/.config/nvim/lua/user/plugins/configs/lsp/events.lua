@@ -43,11 +43,15 @@ function M.on_attach(client, bufnr)
     buf_set_keymap(bufnr, "i", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lwr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>lwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
+        opts)
     buf_set_keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
     -- JDTLS specific binds
-    if client.name == "jdt.ls" then
+    if client.name == "jdtls" then
+
+        buf_set_keymap(bufnr, "n", "<leader>ljo", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
+
         buf_set_keymap(bufnr, "n", "<leader>ljo", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
 
         buf_set_keymap(bufnr, "n", "<leader>ljev", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts)
@@ -122,7 +126,7 @@ function M.on_attach(client, bufnr)
             group = augroup,
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.formatting_seq_sync()
+                vim.lsp.buf.format()
             end,
         })
 
@@ -134,7 +138,7 @@ function M.on_attach(client, bufnr)
         -- I've tried to implement my `organize_imports_sync()` function.
         -- It worked, but I needed to hack the `client_id` since there was no clear way
         -- to retrieve it due to the structure of the `nvim-jdlts` source code
-        if false and client.name == "jdt.ls" then
+        if false and client.name == "jdtls" then
             vim.api.nvim_create_autocmd({ "BufWritePre" }, {
                 group = augroup,
                 buffer = bufnr,
@@ -146,7 +150,8 @@ function M.on_attach(client, bufnr)
     end
 
     -- Setup DAP for java code
-    if client.name == "jdt.ls" then
+    -- See: https://github.com/mfussenegger/nvim-jdtls#nvim-dap-setup
+    if client.name == "jdtls" then
         -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
         -- you make during a debug session immediately.
         -- Remove the option if you do not want that.
