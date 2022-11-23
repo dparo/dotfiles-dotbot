@@ -230,15 +230,6 @@ M.list = {
             config['init_options'] = config['init_options'] or {}
             config['init_options'].bundles = bundles
 
-            -- See: https://github.com/mfussenegger/nvim-jdtls#nvim-dap-setup
-            config["on_attach"] = function(client, bufnr)
-                -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
-                -- you make during a debug session immediately.
-                -- Remove the option if you do not want that.
-                -- You can use the `JdtHotcodeReplace` command to trigger it manually
-                require("jdtls").setup_dap { hotcodereplace = "auto" }
-            end
-
             -- mute; having progress reports is enough
             if false then
                 config.handlers = config.handlers or {}

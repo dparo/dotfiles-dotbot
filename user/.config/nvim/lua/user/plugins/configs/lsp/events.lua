@@ -150,6 +150,7 @@ function M.on_attach(client, bufnr)
     end
 
     -- Setup DAP for java code
+    -- See: https://github.com/mfussenegger/nvim-jdtls#nvim-dap-setup
     if client.name == "jdtls" then
         -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
         -- you make during a debug session immediately.
