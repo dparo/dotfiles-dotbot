@@ -137,6 +137,6 @@
         nvim --headless -c "MasonInstall json-lsp yamllint yaml-language-server" -c "qall"
         nvim --headless -c "MasonInstall texlab write-good proselint" -c "qall"
         nvim --headless -c "MasonInstall sqlfluff" -c "qall"
-        nvim --headless -c "MasonInstall jdtls" -c "qall"
+        nvim --headless -c "MasonInstall jdtls java-debug-adapter java-test" -c "qall"
         nvim --headless -c "MasonInstall ltex-ls" -c "qall"
         nvim --headless -c "MasonInstall ansible-language-server" -c "qall"

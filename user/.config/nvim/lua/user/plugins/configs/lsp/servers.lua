@@ -91,7 +91,10 @@ M.list = {
         config = function()
             local config = {
                 cmd = {
-                    "java",
+                    -- NOTE(d.paro): At the time of writing, Wed 23 2022, eclipse.jdt.ls requires Java 17 or higher
+                    --         See https://github.com/mfussenegger/nvim-jdtls#configuration-quickstart
+                    --         If this ever changes in the future
+                    "/usr/lib/jvm/java-17-openjdk/bin/java",
                     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
                     "-Dosgi.bundles.defaultStartLevel=4",
                     "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -145,6 +148,24 @@ M.list = {
                             },
                             useBlocks = true,
                         },
+                        configuration = {
+                            -- Configure the JAVA runtimes available to eclipse.
+                            --    Can switch Java Runtime from neovim after starting with :JdtSetRuntime
+                            runtimes = {
+                                {
+                                    name = "JavaSE-11",
+                                    path = "/usr/lib/jvm/java-11-openjdk/",
+                                },
+                                {
+                                    name = "JavaSE-17",
+                                    path = "/usr/lib/jvm/java-17-openjdk/",
+                                },
+                                {
+                                    name = "JavaSE-default",
+                                    path = "/usr/lib/jvm/default",
+                                },
+                            },
+                        },
                     },
                 },
 
@@ -169,9 +190,43 @@ M.list = {
                         inferSelectionSupport = { "extractMethod", "extractVariable", "extractConstant" },
                         resolveAdditionalTextEditsSupport = true,
                     },
-                    bundles = {},
+                    bundles = {
+                        -- See : https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
+                        vim.fn.glob(
+                            path.concat {
+                                nvim_data_path,
+                                "mason",
+                                "packages",
+                                "java-debug-adapter",
+                                "extension",
+                                "server",
+                                "com.microsoft.java.debug.plugin-*.jar",
+                            },
+                            1
+                        ),
+                    },
                 },
             }
+
+            -- See: https://github.com/mfussenegger/nvim-jdtls#vscode-java-test-installation
+            vim.list_extend(
+                config["init_options"].bundles,
+                vim.split(
+                    vim.fn.glob(
+                        path.concat {
+                            nvim_data_path,
+                            "mason",
+                            "packages",
+                            "java-test",
+                            "extension",
+                            "server",
+                            "*.jar",
+                        },
+                        1
+                    ),
+                    "\n"
+                )
+            )
 
             -- mute; having progress reports is enough
             if false then
