@@ -365,7 +365,15 @@ local generic = {
                 },
                 view = {
                     adaptive_size = true,
-                    width = 40,
+                    width = "40%",
+                },
+                actions = {
+                    open_file = {
+                        window_picker = {
+                            enable = true,
+                            chars = "123456780ABCDEFGHIJKLMNOPQRSTUVWXYXZ"
+                        },
+                    },
                 },
             }
         end,
