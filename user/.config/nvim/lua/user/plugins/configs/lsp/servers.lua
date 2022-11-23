@@ -162,10 +162,6 @@ M.list = {
                                     name = "JavaSE-17",
                                     path = "/usr/lib/jvm/java-17-openjdk/",
                                 },
-                                {
-                                    name = "JavaSE",
-                                    path = "/usr/lib/jvm/default/",
-                                },
                             },
                         },
                     },
@@ -187,6 +183,7 @@ M.list = {
                     },
                 },
             }
+
 
             local bundles = {}
 
