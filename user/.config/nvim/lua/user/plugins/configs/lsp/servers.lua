@@ -163,8 +163,8 @@ M.list = {
                                     path = "/usr/lib/jvm/java-17-openjdk/",
                                 },
                                 {
-                                    name = "JavaSE-default",
-                                    path = "/usr/lib/jvm/default",
+                                    name = "JavaSE",
+                                    path = "/usr/lib/jvm/default/",
                                 },
                             },
                         },
