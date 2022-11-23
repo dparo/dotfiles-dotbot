@@ -371,7 +371,7 @@ local generic = {
                     open_file = {
                         window_picker = {
                             enable = true,
-                            chars = "123456780ABCDEFGHIJKLMNOPQRSTUVWXYXZ"
+                            chars = "123456780ABCDEFGHIJKLMNOPQRSTUVWXYXZ",
                         },
                     },
                 },
@@ -471,7 +471,6 @@ local generic = {
     {
         "mfussenegger/nvim-dap",
         requires = { "rcarriga/nvim-dap-ui", "leoluz/nvim-dap-go" },
-        after = { "neovim/nvim-lspconfig" },
         config = function()
             require "user.plugins.configs.dap"
         end,
