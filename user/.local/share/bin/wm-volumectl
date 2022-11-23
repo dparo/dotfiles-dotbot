@@ -32,8 +32,10 @@ show_notification() {
             icon=audio-volume-low-symbolic
         elif (( vol >= 33 )) && (( vol < 66 )); then
             icon=audio-volume-medium-symbolic
-        else
+        elif (( vol >= 66 )) && (( vol < 100 )); then
             icon=audio-volume-high-symbolic
+        else
+            icon=audio-volume-overamplified-symbolic
         fi
     fi
 
@@ -64,8 +66,6 @@ toggle_mute() {
     pactl set-sink-mute   @DEFAULT_SINK@ toggle
     show_notification
 }
-
-
 
 
 usage() {
