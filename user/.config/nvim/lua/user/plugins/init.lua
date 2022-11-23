@@ -463,8 +463,9 @@ local generic = {
     {
         "mfussenegger/nvim-dap",
         requires = { "rcarriga/nvim-dap-ui", "leoluz/nvim-dap-go" },
+        after = { "neovim/nvim-lspconfig" },
         config = function()
-            -- require "user.plugins.configs.dap"
+            require "user.plugins.configs.dap"
         end,
     },
 }
