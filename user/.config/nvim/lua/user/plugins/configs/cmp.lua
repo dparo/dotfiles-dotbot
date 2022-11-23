@@ -121,8 +121,8 @@ cmp.setup {
             c = abort_and_fallback(),
         },
         ["<C-e>"] = cmp.mapping {
-            i = confirm_and_fallback { behaviour = confirm_behaviour, select = false },
-            c = confirm_and_fallback { behaviour = confirm_behaviour, select = false },
+            i = abort_and_fallback { behaviour = confirm_behaviour, select = false },
+            c = abort_and_fallback { behaviour = confirm_behaviour, select = false },
         },
         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<CR>"] = cmp.mapping.confirm { behaviour = confirm_behaviour, select = false },
@@ -185,7 +185,7 @@ cmp.setup {
         { name = "nvim_lsp_signature_help" },
         { name = "nvim_lua" },
         { name = "luasnip" },
-        { name = "vim-dadbod-completion" }
+        { name = "vim-dadbod-completion" },
     }, {
         { name = "buffer", keyword_length = 4 },
         { name = "path" },
