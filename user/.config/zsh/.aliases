@@ -120,7 +120,7 @@ mkfile() {
 
 alias run='nohup'
 
-alias rm='rm -i'
+alias rm='rm -I'
 alias ln='ln -i -s'
 alias gg='lazygit'
 alias gp='git push origin'
