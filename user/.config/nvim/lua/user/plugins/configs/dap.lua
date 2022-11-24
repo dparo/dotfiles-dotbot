@@ -83,7 +83,7 @@ vim.keymap.set("n", "<F17>", function() dap.terminate(nil, nil, function() dapui
 vim.keymap.set("n", "<F53>", function() dap.run_last() end)
 
 
-vim.keymap.set("n", "<leader>de", function() require('dap.ui.widgets').hover() end)
+vim.keymap.set("n", "<leader>dh", function() require('dap.ui.widgets').hover() end)
 vim.keymap.set("n", "<leader>dp", function() require('dap.ui.widgets').preview() end)
 
 
