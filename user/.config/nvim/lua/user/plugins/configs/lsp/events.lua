@@ -134,15 +134,18 @@ function M.on_attach(client, bufnr)
         })
     end
 
-    vim.api.nvim_create_autocmd({ "CursorHold" }, {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-            if require('dap').status() ~= nil and require('dap').status() ~= "" then
-                pcall(function() require('dap.ui.widgets').preview() end)
-            end
-        end,
-    })
+
+    if false then
+        vim.api.nvim_create_autocmd({ "CursorHold" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                if require('dap').status() ~= nil and require('dap').status() ~= "" then
+                    pcall(function() require('dap.ui.widgets').preview() end)
+                end
+            end,
+        })
+    end
 
 
     -- Enable formatting on save
