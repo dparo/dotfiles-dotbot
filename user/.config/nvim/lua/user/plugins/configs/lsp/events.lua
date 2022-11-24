@@ -17,17 +17,17 @@ function M.on_attach(client, bufnr)
     buf_set_keymap(bufnr, "n", "<leader>ls", "<Cmd>Telescope lsp_workspace_symbols<CR>", opts)
     buf_set_keymap(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    buf_set_keymap(bufnr, "n", "gd", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>ld", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "gt", "<Cmd>Telescope lsp_type_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>lt", "<Cmd>Telescope lsp_type_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "gi", "<cmd>Telescope lsp_implementations theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>li", "<cmd>Telescope lsp_implementations theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>lr", "<cmd>Telescope lsp_references theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<C-LeftMouse>", "<Cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>D", "<cmd>Telescope lsp_definitions theme=dropdown<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<S-LeftMouse>", "<Cmd>Telescope lsp_references theme=dropdown<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gd", "<Cmd>Telescope lsp_definitions theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>ld", "<Cmd>Telescope lsp_definitions theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gt", "<Cmd>Telescope lsp_type_definitions theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lt", "<Cmd>Telescope lsp_type_definitions theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gi", "<cmd>Telescope lsp_implementations theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>li", "<cmd>Telescope lsp_implementations theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lr", "<cmd>Telescope lsp_references theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<C-LeftMouse>", "<Cmd>Telescope lsp_definitions theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>D", "<cmd>Telescope lsp_definitions theme=ivy<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<S-LeftMouse>", "<Cmd>Telescope lsp_references theme=ivy<CR>", opts)
     buf_set_keymap(bufnr, "n", "<M-CR>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<C-1>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
@@ -37,8 +37,8 @@ function M.on_attach(client, bufnr)
     buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
     buf_set_keymap(bufnr, "n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>hh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>hs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lhh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lhs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap(bufnr, "i", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
@@ -65,6 +65,10 @@ function M.on_attach(client, bufnr)
         -- DAP
         buf_set_keymap(bufnr, "n", "<leader>djtc", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
         buf_set_keymap(bufnr, "n", "<leader>djtm", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", opts)
+
+        buf_set_keymap(bufnr, "n", "<leader>djs", "<Cmd>lua require('jdtls.dap').setup_dap_main_class_configs()<CR>",
+            opts)
+
     end
 
     buf_set_keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
@@ -98,27 +102,51 @@ function M.on_attach(client, bufnr)
             group = augroup,
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.document_highlight()
+                pcall(vim.lsp.buf.document_highlight)
             end,
         })
         vim.api.nvim_create_autocmd({ "CursorMoved" }, {
             group = augroup,
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.clear_references()
+                pcall(vim.lsp.buf.clear_references)
             end,
         })
     end
+
+    if false and client.server_capabilities.hoverProvider then
+        vim.api.nvim_create_autocmd({ "CursorHold" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                pcall(vim.lsp.buf.hover)
+            end,
+        })
+    end
+
+    if client.server_capabilities.signatureHelpProvider then
+        vim.api.nvim_create_autocmd({ "CursorHold" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                pcall(vim.lsp.buf.signature_help)
+            end,
+        })
+    end
+
 
     if false then
         vim.api.nvim_create_autocmd({ "CursorHold" }, {
             group = augroup,
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.hover()
+                if require('dap').status() ~= nil and require('dap').status() ~= "" then
+                    pcall(function() require('dap.ui.widgets').preview() end)
+                end
             end,
         })
     end
+
 
     -- Enable formatting on save
     if client.server_capabilities.documentFormattingProvider then

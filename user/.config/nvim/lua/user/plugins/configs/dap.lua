@@ -7,6 +7,14 @@ local nvim_data_path = path.get_nvim_data_path()
 local dapui = require "dapui"
 require("dapui").setup()
 
+require("nvim-dap-virtual-text").setup {
+    enabled = true,
+    commented = false,
+    only_first_definition = false,
+    all_references = true,
+    virt_lines = false,
+}
+
 -- Automatically open/close the UI when starting/finishing debugging
 dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open { nil, true }
@@ -18,13 +26,19 @@ dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close { nil }
 end
 
+dap.listeners.after.event_exited["nvim-dap-virtual-text"] = function()
+    require('nvim-dap-virtual-text/virtual_text').clear_virtual_text()
+end
+
+
 --- Extension for GO/delve
 require("dap-go").setup()
 
 dap.adapters.cppdbg = {
     id = "cppdbg",
     type = "executable",
-    command = path.concat { nvim_data_path, "mason", "packages", "cpptools", "extension", "debugAdapters", "bin", "OpenDebugAD7" },
+    command = path.concat { nvim_data_path, "mason", "packages", "cpptools", "extension", "debugAdapters", "bin",
+        "OpenDebugAD7" },
 }
 
 dap.configurations.cpp = {
@@ -66,9 +80,24 @@ dap.configurations.cpp = {
     },
 }
 
+local function terminate_callback()
+    dapui.close { nil }
+    require('nvim-dap-virtual-text/virtual_text').clear_virtual_text()
+
+end
+
 dap.configurations.c = dap.configurations.cpp
 
 vim.keymap.set("n", "<F5>", dap.continue)
+vim.keymap.set("n", "<S-F5>", function() dap.terminate(nil, nil, terminate_callback) end)
+vim.keymap.set("n", "<F17>", function() dap.terminate(nil, nil, terminate_callback) end)
+vim.keymap.set("n", "<F53>", function() dap.run_last() end) -- M-F5
+
+
+vim.keymap.set("n", "<leader>dh", function() require('dap.ui.widgets').hover() end)
+vim.keymap.set("n", "<leader>dp", function() require('dap.ui.widgets').preview() end)
+
+vim.keymap.set("n", "<F34>", dap.run_to_cursor) -- C-F10
 vim.keymap.set("n", "<leader>dc", dap.continue)
 vim.keymap.set("n", "<F10>", dap.step_over)
 vim.keymap.set("n", "<F11>", dap.step_into)

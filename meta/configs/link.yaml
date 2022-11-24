@@ -79,6 +79,7 @@
     ~/.zshenv: user/.config/zsh/.zshenv
     ~/.vscode: ~/.local/share/vscode
     ~/.local/share/anaconda3/etc/conda/activate.d/env_vars.sh: user/.local/share/anaconda3/etc/conda/activate.d/env_vars.sh
+    ~/.config/alsa/.asoundrc: ~/.config/alsa/asoundrc
 
 
 - create:

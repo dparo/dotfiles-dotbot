@@ -2,6 +2,10 @@
 
 cd "$(dirname "$0")" || exit
 
+export ANSIBLE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/ansible"
+export GALAXY_CACHE_DIR="${ANSIBLE_HOME}/galaxy_cache"
+export ANSIBLE_GALAXY_CACHE_DIR="${GALAXY_CACHE_DIR}"
+
 if [[ -f "$PWD/requirements.yml" ]]; then
     # ansible-galaxy install -r "$PWD/requirements.yml"
     true
