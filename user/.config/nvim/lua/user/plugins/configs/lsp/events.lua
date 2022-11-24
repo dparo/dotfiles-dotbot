@@ -114,6 +114,26 @@ function M.on_attach(client, bufnr)
         })
     end
 
+    if client.server_capabilities.hoverProvider then
+        vim.api.nvim_create_autocmd({ "CursorHold" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                pcall(vim.lsp.buf.hover)
+            end,
+        })
+    end
+
+    if client.server_capabilities.signatureHelpProvider then
+        vim.api.nvim_create_autocmd({ "CursorHold" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                pcall(vim.lsp.buf.signature_help)
+            end,
+        })
+    end
+
     vim.api.nvim_create_autocmd({ "CursorHold" }, {
         group = augroup,
         buffer = bufnr,
