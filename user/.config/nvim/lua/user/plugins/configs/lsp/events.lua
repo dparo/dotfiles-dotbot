@@ -119,7 +119,7 @@ function M.on_attach(client, bufnr)
         buffer = bufnr,
         callback = function()
             vim.lsp.buf.hover()
-            if require('dap').status() ~= nil then
+            if require('dap').status() ~= nil and require('dap').status() ~= "" then
                 require('dap.ui.widgets').preview()
             end
         end,
