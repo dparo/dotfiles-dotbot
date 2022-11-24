@@ -91,13 +91,13 @@ dap.configurations.c = dap.configurations.cpp
 vim.keymap.set("n", "<F5>", dap.continue)
 vim.keymap.set("n", "<S-F5>", function() dap.terminate(nil, nil, terminate_callback) end)
 vim.keymap.set("n", "<F17>", function() dap.terminate(nil, nil, terminate_callback) end)
-vim.keymap.set("n", "<F53>", function() dap.run_last() end)
+vim.keymap.set("n", "<F53>", function() dap.run_last() end) -- M-F5
 
 
 vim.keymap.set("n", "<leader>dh", function() require('dap.ui.widgets').hover() end)
 vim.keymap.set("n", "<leader>dp", function() require('dap.ui.widgets').preview() end)
 
-
+vim.keymap.set("n", "<F34>", dap.run_to_cursor) -- C-F10
 vim.keymap.set("n", "<leader>dc", dap.continue)
 vim.keymap.set("n", "<F10>", dap.step_over)
 vim.keymap.set("n", "<F11>", dap.step_into)
