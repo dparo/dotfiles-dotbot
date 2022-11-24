@@ -37,8 +37,8 @@ function M.on_attach(client, bufnr)
     buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
     buf_set_keymap(bufnr, "n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>hh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>hs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lhh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    buf_set_keymap(bufnr, "n", "<leader>lhs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap(bufnr, "i", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
@@ -102,14 +102,14 @@ function M.on_attach(client, bufnr)
             group = augroup,
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.document_highlight()
+                pcall(vim.lsp.buf.document_highlight)
             end,
         })
         vim.api.nvim_create_autocmd({ "CursorMoved" }, {
             group = augroup,
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.clear_references()
+                pcall(vim.lsp.buf.clear_references)
             end,
         })
     end
@@ -118,9 +118,9 @@ function M.on_attach(client, bufnr)
         group = augroup,
         buffer = bufnr,
         callback = function()
-            vim.lsp.buf.hover()
+            pcall(vim.lsp.buf.hover)
             if require('dap').status() ~= nil and require('dap').status() ~= "" then
-                require('dap.ui.widgets').preview()
+                pcall(function() require('dap.ui.widgets').preview() end)
             end
         end,
     })
