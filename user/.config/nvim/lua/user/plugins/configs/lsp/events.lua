@@ -138,7 +138,6 @@ function M.on_attach(client, bufnr)
         group = augroup,
         buffer = bufnr,
         callback = function()
-            pcall(vim.lsp.buf.hover)
             if require('dap').status() ~= nil and require('dap').status() ~= "" then
                 pcall(function() require('dap.ui.widgets').preview() end)
             end
