@@ -7,6 +7,14 @@ local nvim_data_path = path.get_nvim_data_path()
 local dapui = require "dapui"
 require("dapui").setup()
 
+require("nvim-dap-virtual-text").setup {
+    enabled = true,
+    commented = true,
+    only_first_definition = false,
+    all_references = true,
+    virt_lines = false,
+}
+
 -- Automatically open/close the UI when starting/finishing debugging
 dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open { nil, true }
@@ -73,6 +81,10 @@ vim.keymap.set("n", "<F5>", dap.continue)
 vim.keymap.set("n", "<S-F5>", function() dap.terminate(nil, nil, function() dapui.close { nil } end) end)
 vim.keymap.set("n", "<F17>", function() dap.terminate(nil, nil, function() dapui.close { nil } end) end)
 vim.keymap.set("n", "<F53>", function() dap.run_last() end)
+
+
+vim.keymap.set("n", "<leader>de", function() require('dap.ui.widgets').hover() end)
+vim.keymap.set("n", "<leader>dp", function() require('dap.ui.widgets').preview() end)
 
 
 vim.keymap.set("n", "<leader>dc", dap.continue)
