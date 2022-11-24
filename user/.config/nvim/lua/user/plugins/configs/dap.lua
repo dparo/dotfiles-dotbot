@@ -65,3 +65,22 @@ dap.configurations.cpp = {
         },
     },
 }
+
+vim.keymap.set("n", "<F5>", dap.continue)
+vim.keymap.set("n", "<leader>dc", dap.continue)
+vim.keymap.set("n", "<F10>", dap.step_over)
+vim.keymap.set("n", "<F11>", dap.step_into)
+vim.keymap.set("n", "<S-F11>", dap.step_out)
+vim.keymap.set("n", "<F23>", dap.step_out)
+
+vim.keymap.set("n", "<F9>", dap.toggle_breakpoint)
+vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
+vim.keymap.set("n", "<leader>dB", function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
+
+
+vim.keymap.set("n", "<leader>dx", function() dap.repl.open() end)
+vim.keymap.set("n", "<leader>dc", dap.continue)
+vim.keymap.set("n", "<leader>ds", function() dap.goto_() end)
+
+vim.keymap.set("n", "<leader>deb", function() dap.set_exception_breakpoints() end) -- Break on exception
+vim.keymap.set("n", "<leader>deB", function() dap.set_exception_breakpoints({}) end) -- Clear exception breaks
