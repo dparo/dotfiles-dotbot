@@ -9,7 +9,7 @@ require("dapui").setup()
 
 require("nvim-dap-virtual-text").setup {
     enabled = true,
-    commented = true,
+    commented = false,
     only_first_definition = false,
     all_references = true,
     virt_lines = false,
