@@ -24,7 +24,8 @@ require("dap-go").setup()
 dap.adapters.cppdbg = {
     id = "cppdbg",
     type = "executable",
-    command = path.concat { nvim_data_path, "mason", "packages", "cpptools", "extension", "debugAdapters", "bin", "OpenDebugAD7" },
+    command = path.concat { nvim_data_path, "mason", "packages", "cpptools", "extension", "debugAdapters", "bin",
+        "OpenDebugAD7" },
 }
 
 dap.configurations.cpp = {
@@ -69,8 +70,8 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 
 vim.keymap.set("n", "<F5>", dap.continue)
-vim.keymap.set("n", "<S-F5>", function() dap.terminate() end)
-vim.keymap.set("n", "<F17>", function() dap.terminate() end)
+vim.keymap.set("n", "<S-F5>", function() dap.terminate(nil, nil, function() dapui.close { nil } end) end)
+vim.keymap.set("n", "<F17>", function() dap.terminate(nil, nil, function() dapui.close { nil } end) end)
 vim.keymap.set("n", "<F53>", function() dap.run_last() end)
 
 
