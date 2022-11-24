@@ -26,6 +26,11 @@ dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close { nil }
 end
 
+dap.listeners.after.event_exited["nvim-dap-virtual-text"] = function()
+    require('nvim-dap-virtual-text/virtual_text').clear_virtual_text()
+end
+
+
 --- Extension for GO/delve
 require("dap-go").setup()
 
@@ -75,11 +80,17 @@ dap.configurations.cpp = {
     },
 }
 
+local function terminate_callback()
+    dapui.close { nil }
+    require('nvim-dap-virtual-text/virtual_text').clear_virtual_text()
+
+end
+
 dap.configurations.c = dap.configurations.cpp
 
 vim.keymap.set("n", "<F5>", dap.continue)
-vim.keymap.set("n", "<S-F5>", function() dap.terminate(nil, nil, function() dapui.close { nil } end) end)
-vim.keymap.set("n", "<F17>", function() dap.terminate(nil, nil, function() dapui.close { nil } end) end)
+vim.keymap.set("n", "<S-F5>", function() dap.terminate(nil, nil, terminate_callback) end)
+vim.keymap.set("n", "<F17>", function() dap.terminate(nil, nil, terminate_callback) end)
 vim.keymap.set("n", "<F53>", function() dap.run_last() end)
 
 
