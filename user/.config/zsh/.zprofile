@@ -39,6 +39,8 @@ export USERXSESSIONRC="$XDG_CACHE_HOME/X11/xsessionrc"
 export ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
 export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
 
+export ANSIBLE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/ansible"
+
 
 # Setup programs default config location to avoid cluttering the HOME directory
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
