@@ -65,6 +65,10 @@ function M.on_attach(client, bufnr)
         -- DAP
         buf_set_keymap(bufnr, "n", "<leader>djtc", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
         buf_set_keymap(bufnr, "n", "<leader>djtm", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", opts)
+
+        buf_set_keymap(bufnr, "n", "<leader>djs", "<Cmd>lua require('jdtls.dap').setup_dap_main_class_configs()<CR>",
+            opts)
+
     end
 
     buf_set_keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)

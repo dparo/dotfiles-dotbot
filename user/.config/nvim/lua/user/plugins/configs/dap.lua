@@ -69,6 +69,11 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 
 vim.keymap.set("n", "<F5>", dap.continue)
+vim.keymap.set("n", "<S-F5>", function() dap.terminate() end)
+vim.keymap.set("n", "<F17>", function() dap.terminate() end)
+vim.keymap.set("n", "<F53>", function() dap.run_last() end)
+
+
 vim.keymap.set("n", "<leader>dc", dap.continue)
 vim.keymap.set("n", "<F10>", dap.step_over)
 vim.keymap.set("n", "<F11>", dap.step_into)
