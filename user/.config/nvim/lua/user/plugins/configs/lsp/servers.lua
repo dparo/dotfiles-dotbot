@@ -87,6 +87,7 @@ M.list = {
     { name = "yamlls", config = {} },
     { name = "tsserver", config = { root_dir = nodejs_root_dir } },
     { name = "eslint", config = {} },
+    { name = "rome", config = {} },
     { name = "ansiblels", config = {} },
     {
         name = "jdtls",
