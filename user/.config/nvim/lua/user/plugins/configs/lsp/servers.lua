@@ -113,6 +113,9 @@ M.list = {
     { name = "yamlls", config = {} },
     { name = "tsserver", config = { root_dir = nodejs_root_dir } },
     { name = "eslint", config = {} },
+    { name = "rome", config = {} },
+    { name = "relay_lsp", config = {} }, -- https://github.com/facebook/relay
+    { name = "angularls", config = {} },
     { name = "ansiblels", config = {} },
     {
         name = "jdtls",
