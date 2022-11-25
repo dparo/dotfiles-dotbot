@@ -218,3 +218,6 @@ ins_right {
     color = { fg = colors.blue },
     padding = { left = 1 },
 }
+
+-- Now don't forget to initialize lualine
+lualine.setup(config)
