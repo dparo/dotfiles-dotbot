@@ -43,13 +43,11 @@ function M.on_attach(client, bufnr)
     buf_set_keymap(bufnr, "i", "<C-j>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lwr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    buf_set_keymap(bufnr, "n", "<leader>lwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-        opts)
+    buf_set_keymap(bufnr, "n", "<leader>lwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
     buf_set_keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
     -- JDTLS specific binds
     if client.name == "jdtls" then
-
         buf_set_keymap(bufnr, "n", "<leader>ljo", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
 
         buf_set_keymap(bufnr, "n", "<leader>ljo", "<Cmd>lua require('jdtls').organize_imports()<CR>", opts)
@@ -66,9 +64,7 @@ function M.on_attach(client, bufnr)
         buf_set_keymap(bufnr, "n", "<leader>djtc", "<Cmd>lua require('jdtls').test_class()<CR>", opts)
         buf_set_keymap(bufnr, "n", "<leader>djtm", "<Cmd>lua require('jdtls').test_nearest_method()<CR>", opts)
 
-        buf_set_keymap(bufnr, "n", "<leader>djs", "<Cmd>lua require('jdtls.dap').setup_dap_main_class_configs()<CR>",
-            opts)
-
+        buf_set_keymap(bufnr, "n", "<leader>djs", "<Cmd>lua require('jdtls.dap').setup_dap_main_class_configs()<CR>", opts)
     end
 
     buf_set_keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
@@ -134,22 +130,22 @@ function M.on_attach(client, bufnr)
         })
     end
 
-
     if false then
         vim.api.nvim_create_autocmd({ "CursorHold" }, {
             group = augroup,
             buffer = bufnr,
             callback = function()
-                if require('dap').status() ~= nil and require('dap').status() ~= "" then
-                    pcall(function() require('dap.ui.widgets').preview() end)
+                if require("dap").status() ~= nil and require("dap").status() ~= "" then
+                    pcall(function()
+                        require("dap.ui.widgets").preview()
+                    end)
                 end
             end,
         })
     end
 
-
     -- Enable formatting on save
-    if client.server_capabilities.documentFormattingProvider then
+    if client.server_capabilities.documentFormattingProvider and (vim.env.NVIM_LSP_FORMAT_ON_SAVE == nil or vim.env.NVIM_LSP_FORMAT_ON_SAVE ~= 0) then
         vim.api.nvim_create_autocmd({ "BufWritePre" }, {
             group = augroup,
             buffer = bufnr,
