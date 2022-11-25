@@ -32,14 +32,6 @@ require("mason-lspconfig").setup {
 
 local lspconfig = require "lspconfig"
 
--- Null-ls is meant to fill the gaps for languages where either no language server exists,
--- or where standalone linters,formatters,diagnostics provide better results
--- than the available language server do.
--- NOTE: Null-ls can be essentially conceptualized as an LSP server responding to LSP
---       clients request, but instead of being in a separate process, lives inside neovim.
---       Null-ls then delegates LSP request to external processes interpreting
---       their outputs and providing diagnostics, ormatting and completion candidates.
-local null_ls = require "null-ls"
 
 for _, server in ipairs(require("user.plugins.configs.lsp.servers").list) do
     local name = server.name
@@ -62,6 +54,16 @@ for _, server in ipairs(require("user.plugins.configs.lsp.servers").list) do
         lspconfig[name].setup(config)
     end
 end
+
+
+-- Null-ls is meant to fill the gaps for languages where either no language server exists,
+-- or where standalone linters,formatters,diagnostics provide better results
+-- than the available language server do.
+-- NOTE: Null-ls can be essentially conceptualized as an LSP server responding to LSP
+--       clients request, but instead of being in a separate process, lives inside neovim.
+--       Null-ls then delegates LSP request to external processes interpreting
+--       their outputs and providing diagnostics, ormatting and completion candidates.
+local null_ls = require "null-ls"
 
 null_ls.setup {
     on_attach = require("user.plugins.configs.lsp.events").on_attach,
