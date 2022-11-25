@@ -59,7 +59,33 @@ M.list = {
             },
         },
     },
-    { name = "rust_analyzer", config = {} },
+    {
+        name = "rust_analyzer",
+        config = {
+            settings = {
+                ["rust-analyzer"] = {
+                    -- enable clippy on save
+                    checkOnSave = {
+                        command = "clippy",
+                    },
+                    imports = {
+                        granularity = {
+                            group = "module",
+                        },
+                        prefix = "self",
+                    },
+                    cargo = {
+                        buildScripts = {
+                            enable = true,
+                        },
+                    },
+                    procMacro = {
+                        enable = true,
+                    },
+                },
+            },
+        },
+    },
     { name = "cmake", config = {} },
     {
         name = "bashls",
@@ -184,7 +210,6 @@ M.list = {
                 },
             }
 
-
             local bundles = {}
 
             -- See : https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
@@ -227,8 +252,8 @@ M.list = {
                 )
             )
 
-            config['init_options'] = config['init_options'] or {}
-            config['init_options'].bundles = bundles
+            config["init_options"] = config["init_options"] or {}
+            config["init_options"].bundles = bundles
 
             -- mute; having progress reports is enough
             if false then

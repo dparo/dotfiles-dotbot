@@ -54,6 +54,17 @@ for _, server in ipairs(require("user.plugins.configs.lsp.servers").list) do
         -- @param server:  all the opts to send to nvim-lspconfig
         -- these override the defaults set by rust-tools.nvim
         require("rust-tools").setup {
+            tools = {
+                runnables = {
+                    use_telescope = true,
+                },
+                inlay_hints = {
+                    auto = true,
+                    show_parameter_hints = false,
+                    parameter_hints_prefix = "",
+                    other_hints_prefix = "",
+                },
+            },
             server = config,
         }
     elseif name == "jdtls" then
@@ -70,9 +81,9 @@ null_ls.setup {
         null_ls.builtins.diagnostics.gitlint,
         null_ls.builtins.diagnostics.write_good,
         null_ls.builtins.diagnostics.proselint,
-        null_ls.builtins.diagnostics.sqlfluff.with({
+        null_ls.builtins.diagnostics.sqlfluff.with {
             extra_args = { "--dialect", "oracle" },
-        }),
+        },
 
         null_ls.builtins.code_actions.proselint,
 
@@ -92,7 +103,6 @@ null_ls.setup {
         --
 
         null_ls.builtins.formatting.google_java_format,
-
 
         null_ls.builtins.formatting.prettier.with {
             filetypes = {
@@ -121,9 +131,9 @@ null_ls.setup {
         null_ls.builtins.formatting.cmake_format,
         null_ls.builtins.diagnostics.cppcheck,
         null_ls.builtins.formatting.zigfmt,
-        null_ls.builtins.formatting.sqlfluff.with({
-            extra_args = { "--dialect", "oracle" }
-        }),
+        null_ls.builtins.formatting.sqlfluff.with {
+            extra_args = { "--dialect", "oracle" },
+        },
 
         -- null_ls.builtins.formatting.autopep8,
         -- null_ls.builtins.diagnostics.pydocstyle,

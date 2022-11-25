@@ -179,19 +179,7 @@ local generic = {
         "hoob3rt/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons" },
         config = function()
-            require("lualine").setup {
-                options = {
-                    globalstatus = true,
-                    icons_enabled = true,
-                    theme = "tokyonight",
-                    component_separators = { left = "", right = "" },
-                    section_separators = { left = "", right = "" },
-                },
-                sections = {
-                    -- path=1 means print the relative filepath in the status bar instead of just the filename
-                    lualine_c = { { "filename", file_status = true, path = 0 } },
-                },
-            }
+            require "user.plugins.configs.lualine"
         end,
     },
 
