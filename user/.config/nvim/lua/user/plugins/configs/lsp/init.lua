@@ -90,6 +90,13 @@ null_ls.setup {
         -- A flexible JSON/YAML linter for creating automated style guides, with baked in support for OpenAPI v3.1, v3.0, and v2.0 as well as AsyncAPI v2.x.
         -- null_ls.builtins.diagnostics.spectral,
         --
+        --
+
+        -- Linting for css, scss, less, sass
+        null_ls.builtins.stylelint.with {
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        },
+
 
         null_ls.builtins.formatting.google_java_format,
 
