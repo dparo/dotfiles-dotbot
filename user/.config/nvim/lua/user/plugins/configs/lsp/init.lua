@@ -93,7 +93,7 @@ null_ls.setup {
         --
 
         -- Linting for css, scss, less, sass
-        null_ls.builtins.stylelint.with {
+        null_ls.builtins.diagnostics.stylelint.with {
             method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
         },
 
