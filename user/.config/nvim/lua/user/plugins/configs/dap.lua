@@ -78,6 +78,26 @@ dap.configurations.cpp = {
             },
         },
     },
+    {
+        name = "Attach to process",
+        type = 'cpp',
+        request = 'attach',
+        pid = require('dap.utils').pick_process,
+        args = {},
+    }
+}
+
+dap.configurations.c = dap.configurations.cpp
+
+
+dap.configurations.java = {
+    {
+        type = 'java',
+        request = 'attach',
+        name = 'Java - Attach localhost:5005',
+        hostname = '127.0.0.1',
+        port = 5005,
+    }
 }
 
 local function terminate_callback()
@@ -85,8 +105,6 @@ local function terminate_callback()
     require('nvim-dap-virtual-text/virtual_text').clear_virtual_text()
 
 end
-
-dap.configurations.c = dap.configurations.cpp
 
 vim.keymap.set("n", "<F5>", dap.continue)
 vim.keymap.set("n", "<S-F5>", function() dap.terminate(nil, nil, terminate_callback) end)
