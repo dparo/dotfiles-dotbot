@@ -17,6 +17,6 @@
 
 - name: install rust/cargo
   when: cargo_exists is failed
-  shell: /tmp/sh.rustup.rs -y
+  shell: /tmp/sh.rustup.rs -y --no-modify-path --profile default --component rustc,cargo,rust-src,rustfmt,clippy
   tags:
     - rust

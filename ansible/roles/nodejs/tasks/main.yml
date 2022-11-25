@@ -1,0 +1,18 @@
+---
+- name: "Download and unpack Node {{ node_version }}"
+  ansible.builtin.unarchive:
+    src: https://nodejs.org/dist/v{{ node_version }}/node-v{{ node_version }}-linux-x64.tar.xz
+    dest: "{{ node_install_dir }}"
+    remote_src: yes
+  register: unpack
+
+- name: Symlink binaries
+  ansible.builtin.file:
+    src: "{{ node_install_dir }}/node-v{{ node_version }}-linux-x64/bin/{{ item }}"
+    dest: "{{ lookup('env','HOME') }}/.local/bin/{{ item }}"
+    state: link
+  loop:
+    - node
+    - npm
+    - npx
+  when: unpack.changed
