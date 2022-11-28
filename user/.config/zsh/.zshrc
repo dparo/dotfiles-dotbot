@@ -63,13 +63,10 @@ if command -v direnv 1> /dev/null 2> /dev/null; then
     eval "$(direnv export zsh)"
 fi
 
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if command -v starship 1> /dev/null 2> /dev/null; then
+    eval "$(starship init zsh)"
 fi
+
 
 # This export makes sure that direnv does not output any stdout
 # export DIRENV_LOG_FORMAT=""
@@ -132,10 +129,6 @@ source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/key-bindings.zsh"
 source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
 
 source "$USER_DOTFILES_LOCATION/core/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$USER_DOTFILES_LOCATION/core/vendor/powerlevel10k/powerlevel10k.zsh-theme"
-
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 ZSH_HIGHLIGHT_STYLES[comment]=fg=cyan,bold
 
