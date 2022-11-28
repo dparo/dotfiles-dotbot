@@ -130,7 +130,7 @@ source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
 
 source "$USER_DOTFILES_LOCATION/core/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-ZSH_HIGHLIGHT_STYLES[comment]=fg=cyan,bold
+ZSH_HIGHLIGHT_STYLES[comment]=fg=yellow,bold
 
 ## Fish like greyed out autosuggestions as you type based on history
 source "$USER_DOTFILES_LOCATION/core/vendor/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
