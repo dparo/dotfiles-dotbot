@@ -247,16 +247,6 @@ local function setup_basic_functionalities()
     -- Pressing leader 2 times enters insert mode
     nmap("<leader><leader>", "i")
 
-    if true then
-        -- Enter visual mode when pressing C-space
-        -- NOTE:
-        --    You can use the CTRL-O command in insert mode to execute a single ex
-        --    command and return back to insert mode without moving the cursor column
-
-        imap("<C-Space>", "<C-O>v")
-        nmap("<C-Space>", "v")
-    end
-
     -- Join lines
     vmap("<C-j>", "gq")
 
@@ -382,7 +372,7 @@ local function setup_plugins()
 
     -- Trouble plugin
 
-    nmap({ "<leader>xx", "<leader>lx"}, exec_cmd "TroubleToggle")
+    nmap({ "<leader>xx", "<leader>lx" }, exec_cmd "TroubleToggle")
     nmap("<leader>xw", exec_cmd "TroubleToggle lsp_workspace_diagnostics")
     nmap("<leader>xd", exec_cmd "TroubleToggle lsp_document_diagnostics")
     nmap("<leader>xq", exec_cmd "TroubleToggle quickfix")

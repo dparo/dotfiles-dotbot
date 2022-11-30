@@ -124,6 +124,9 @@ cmp.setup {
             i = abort_and_fallback { behaviour = confirm_behaviour, select = false },
             c = abort_and_fallback { behaviour = confirm_behaviour, select = false },
         },
+
+        ["<C-Space>"] = cmp.mapping.complete(),
+
         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<CR>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -196,8 +199,8 @@ cmp.setup {
 
     -- IMPORTANT: The order of the sources is important. It establishes priority between source candidates
     sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "nvim_lsp_signature_help" },
+        { name = "nvim_lsp", keyword_length = 2 },
+        -- { name = "nvim_lsp_signature_help" },
         { name = "nvim_lua" },
         { name = "luasnip" },
         { name = "vim-dadbod-completion" },
