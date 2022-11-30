@@ -120,7 +120,7 @@ function M.on_attach(client, bufnr)
         })
     end
 
-    if client.server_capabilities.signatureHelpProvider then
+    if false and client.server_capabilities.signatureHelpProvider then
         vim.api.nvim_create_autocmd({ "CursorHold" }, {
             group = augroup,
             buffer = bufnr,
