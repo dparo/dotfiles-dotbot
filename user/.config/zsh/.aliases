@@ -17,9 +17,6 @@ function valid_shell_command {
 	builtin type "$1" 1>/dev/null 2>/dev/null
 }
 
-# Better time command
-alias time='/usr/bin/time -f "\n\nTiming info:\n------------\n\t%x\tExit status\n\t%E\tElapsed wall clock real time [[hh:]mm:ss.ss]\n\n\t%U\tUser CPU time [s]\n\t%S\tKernel CPU time [s]\n\t%M\tMaximum resident set size [Kbytes]\n\t%t\tAverage resident set size [Kbytes]\n\t%D\tAverage size of process unshared data [Kbytes]\n\t%K\tAverage total memory use (data+stack+text) [Kbytes]\n\t%F\tNumber of major page faults\n\t%R\tNumber of minor page faults\n\t%c\tNumber of context switches forced by kernel\n\t%w\tNumber of waits (voluntary context switches: eg waiting for IO)\n\t%I\tNumber of filesystem inputs\n\t%O\tNumber of filesystem outputs\n\t%k\tNumber of signals processes received\n"'
-
 if valid_shell_command fdfind; then
 	alias fd=fdfind
 fi
