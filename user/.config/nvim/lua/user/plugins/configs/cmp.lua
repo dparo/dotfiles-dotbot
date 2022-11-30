@@ -15,7 +15,7 @@ end
 
 local function abort_and_fallback(...)
     return function(fallback)
-        cmp.abort(arg)
+        cmp.abort()
         fallback()
     end
 end
@@ -125,7 +125,20 @@ cmp.setup {
             c = abort_and_fallback { behaviour = confirm_behaviour, select = false },
         },
         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<CR>"] = cmp.mapping.confirm { behaviour = confirm_behaviour, select = false },
+        ["<CR>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                local entry = cmp.get_selected_entry()
+                if not entry then
+                    fallback()
+                    cmp.abort()
+                else
+                    cmp.confirm()
+                end
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+        -- cmp.mapping.confirm { behaviour = confirm_behaviour, select = false },
 
         -- Setup super tab
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -157,6 +170,7 @@ cmp.setup {
                 local entry = cmp.get_selected_entry()
                 if not entry then
                     fallback()
+                    cmp.abort()
                 else
                     cmp.select_prev_item(select_opts)
                 end
@@ -170,6 +184,7 @@ cmp.setup {
                 local entry = cmp.get_selected_entry()
                 if not entry then
                     fallback()
+                    cmp.abort()
                 else
                     cmp.select_next_item(select_opts)
                 end
