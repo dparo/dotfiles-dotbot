@@ -15,6 +15,7 @@ vim.o.listchars = "tab:› ,eol:¬,trail:⋅"
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undofile = true
+vim.writebackup = false
 
 vim.o.showmode = false
 vim.o.cursorline = true
