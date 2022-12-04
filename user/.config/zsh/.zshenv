@@ -28,9 +28,7 @@ pathadd() {
     # Forward iteration of function's args
     local p
     for p in "$@"; do
-        if [ -d "$p" ] && [[ ":$PATH:" != *":$p:"* ]]; then
-            PATH="${PATH:+"$PATH:"}$p"
-        fi
+        PATH="${PATH:+"$PATH:"}$p"
     done
     export PATH
 }
@@ -42,9 +40,7 @@ pathprepend() {
     for ((i = $#; i > 0; i--)); do
         # Expands to p=$i where is the current parameter index
         eval local p="\${$i}"
-        if [ -d "$p" ] && [[ ":$PATH:" != *":$p:"* ]]; then
-            PATH="$p${PATH:+":$PATH"}"
-        fi
+        PATH="$p${PATH:+":$PATH"}"
     done
     export PATH
 }
