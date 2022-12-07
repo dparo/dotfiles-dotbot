@@ -1,10 +1,23 @@
 ---
+
+- name: Create dir {{ node_install_dir }}
+  ansible.builtin.file:
+    path: "{{ node_install_dir }}"
+    state: directory
+    mode: "0755"
+  tags:
+    - node
+    - npm
+
 - name: "Download and unpack Node {{ node_version }}"
   ansible.builtin.unarchive:
     src: https://nodejs.org/dist/v{{ node_version }}/node-v{{ node_version }}-linux-x64.tar.xz
     dest: "{{ node_install_dir }}"
     remote_src: yes
   register: unpack
+  tags:
+    - node
+    - npm
 
 - name: Symlink binaries
   ansible.builtin.file:
@@ -16,3 +29,6 @@
     - npm
     - npx
   when: unpack.changed
+  tags:
+    - node
+    - npm

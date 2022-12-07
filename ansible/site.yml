@@ -3,8 +3,10 @@
   connection: local
   roles:
     - core-pkgs
-    - neovim
-    - rust
+    - setup-home-dirs
     - sudo
     - zsh
+    - nodejs
     - maven
+    - rust
+    - neovim

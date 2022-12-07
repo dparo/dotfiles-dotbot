@@ -19,7 +19,7 @@ echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
 
 run() {
     set -x
-    exec ansible-playbook --extra-vars "@$PWD/values.yml" "$PWD/site.yml" "$@"
+    exec ansible-playbook "$PWD/site.yml" "$@"
 }
 
 if test -z "$RUNNING_INSIDE_DOCKER"; then
