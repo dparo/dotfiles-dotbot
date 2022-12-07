@@ -11,4 +11,8 @@ if [[ -f "$PWD/requirements.yml" ]]; then
     true
 fi
 
+echo "ANSIBLE_HOME: $ANSIBLE_HOME"
+echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
+echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
+
 exec ansible-playbook --diff --extra-vars "@$PWD/values.yml" --ask-become-pass "$PWD/site.yml" "$@"
