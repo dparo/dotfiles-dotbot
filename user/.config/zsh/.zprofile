@@ -40,8 +40,8 @@ export ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
 export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
 
 export ANSIBLE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/ansible"
-export GALAXY_CACHE_DIR="${ANSIBLE_HOME}/galaxy_cache"
-export ANSIBLE_GALAXY_CACHE_DIR="${GALAXY_CACHE_DIR}"
+export ANSIBLE_GALAXY_CACHE_DIR="${ANSIBLE_HOME}/galaxy_cache"
+export ANSIBLE_LOCAL_TEMP="$ANSIBLE_HOME/tmp"
 
 
 # Setup programs default config location to avoid cluttering the HOME directory
