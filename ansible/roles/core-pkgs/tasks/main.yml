@@ -2,12 +2,12 @@
 - name: Installs necessary core packages
   ansible.builtin.apt:
     pkg:
-    - git
-    - wget
-    - curl
-    - p7zip-full
-    - build-essential
-    - python3-pip
+      - git
+      - wget
+      - curl
+      - p7zip-full
+      - build-essential
+      - python3-pip
   become: true
   tags:
     - core-pkgs
