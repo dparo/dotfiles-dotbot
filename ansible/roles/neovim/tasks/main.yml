@@ -1,5 +1,4 @@
 ---
-
 # - name: Dependencies
 #   ansible.builtin.package:
 #     name:
@@ -13,25 +12,25 @@
 #   become: true
 #
 
-
-- name: Install xclip
+- name: "Install build dependencies (See: https://github.com/neovim/neovim/wiki/Building-Neovim#ubuntu--debian)"
   ansible.builtin.apt:
-    name: xclip
-    state: present
+    pkg:
+      - ninja-build
+      - gettext
+      - libtool
+      - libtool-bin
+      - autoconf
+      - automake
+      - cmake
+      - g++
+      - pkg-config
+      - unzip
+      - curl
+      - doxygen
   become: true
   tags:
     - neovim
     - apt
-
-- name: Install xsel
-  ansible.builtin.apt:
-    name: xsel
-    state: present
-  become: true
-  tags:
-    - neovim
-    - apt
-
 
 - name: Clone NEOVIM {{ neovim_version }}
   ansible.builtin.git:
@@ -73,6 +72,24 @@
   tags:
     - neovim
 
+- name: Install xclip
+  ansible.builtin.apt:
+    name: xclip
+    state: present
+  become: true
+  tags:
+    - neovim
+    - apt
+
+- name: Install xsel
+  ansible.builtin.apt:
+    name: xsel
+    state: present
+  become: true
+  tags:
+    - neovim
+    - apt
+
 - name: Install required providers - npm neovim
   community.general.npm:
     name: neovim
@@ -87,7 +104,6 @@
     state: latest
   tags:
     - neovim
-
 
 - name: Refresh packer
   ansible.builtin.shell: |
@@ -120,8 +136,6 @@
     nvim --headless -c "MasonInstall ansible-language-server" -c "qall"
   tags:
     - neovim
-
-
 # - name: Config folder
 #   ansible.builtin.file:
 #     mode: "0755"

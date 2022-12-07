@@ -2,6 +2,9 @@
 
 cd "$(dirname "$0")" || exit
 
+set -e
+set -x
+
 export ANSIBLE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/ansible"
 export ANSIBLE_GALAXY_CACHE_DIR="$GALAXY_CACHE_DIR"
 export ANSIBLE_LOCAL_TEMP="$ANSIBLE_HOME/tmp"
@@ -15,4 +18,12 @@ echo "ANSIBLE_HOME: $ANSIBLE_HOME"
 echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
 echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
 
-exec ansible-playbook --diff --extra-vars "@$PWD/values.yml" --ask-become-pass "$PWD/site.yml" "$@"
+run() {
+    exec ansible-playbook --extra-vars "@$PWD/values.yml" "$PWD/site.yml" "$@"
+}
+
+if test -z "$RUNNING_INSIDE_DOCKER"; then
+    run --ask-become-pass "$@"
+else
+    run "$@"
+fi
