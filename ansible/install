@@ -3,7 +3,6 @@
 cd "$(dirname "$0")" || exit
 
 set -e
-set -x
 
 export ANSIBLE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/ansible"
 export ANSIBLE_GALAXY_CACHE_DIR="$GALAXY_CACHE_DIR"
@@ -19,6 +18,7 @@ echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
 echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
 
 run() {
+    set -x
     exec ansible-playbook --extra-vars "@$PWD/values.yml" "$PWD/site.yml" "$@"
 }
 
