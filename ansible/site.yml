@@ -4,5 +4,6 @@
   roles:
     - neovim
     - rust
+    - sudo
     - zsh
     - maven

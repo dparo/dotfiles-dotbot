@@ -1,0 +1,10 @@
+---
+- name: Disable .sudo_as_admin_successful in HOME dir
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/disable_admin_file_in_home
+    line: Defaults !admin_flag
+    regexp: '^Defaults'
+    create: true
+  become: true
+  tags:
+    - sudo
