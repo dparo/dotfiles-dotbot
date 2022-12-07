@@ -3,6 +3,7 @@
   ansible.builtin.lineinfile:
     path: /etc/zsh/zshenv
     line: export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+    regexp: '^export ZDOTDIR='
     create: true
   become: true
   tags:
