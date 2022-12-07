@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -x
+set -e
+
+source /etc/os-release
+
+if ! test -x "$(command -v ansible)"; then
+    case $ID in
+    ubuntu)
+        sudo apt install git ansible-core
+        ;;
+
+    arch)
+        sudo pacman -S git ansible-core
+        ;;
+    esac
+fi
+
+DOTFILES_LOCATION="${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles"
+if ! test -d "$DOTFILES_LOCATION"; then
+    mkdir -p "$DOTFILES_LOCATION"
+    git clone --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
+fi
+
+pushd "$DOTFILES_LOCATION" || exit 1
+exec ./install
