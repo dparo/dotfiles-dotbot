@@ -25,7 +25,7 @@ if ! test -d "$DOTFILES_LOCATION"; then
 fi
 
 pushd "$DOTFILES_LOCATION" || exit 1
-./ansible/install "$@"
+./ansible/scripts/install.sh "$@"
 
 if test "$?" -eq 0; then
     while true; do
@@ -35,9 +35,9 @@ if test "$?" -eq 0; then
         echo "It is recommended to logout after installing the dotfiles for the first time."
         read -p -r "Do you want to logout now? [yn]" yn
         case $yn in
-            [Yy]* ) systemctl logout;;
-            [Nn]* ) ;;
-            * ) echo "Please answer yes or no.";;
+        [Yy]*) systemctl logout ;;
+        [Nn]*) ;;
+        *) echo "Please answer yes or no." ;;
         esac
     done
 fi

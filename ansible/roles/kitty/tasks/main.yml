@@ -1,0 +1,23 @@
+---
+
+
+- name: Install / Update
+  ansible.builtin.command: |
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest="$HOME/opt" launch=n
+  tags:
+    - kitty
+
+- name: Desktop integration
+  ansible.builtin.command: |
+    cp -f ~/opt/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+    cp -f ~/opt/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+    sed -i "s|Icon=kitty|Icon=/home/$USER/opt/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+    sed -i "s|Exec=kitty|Exec=/home/$USER/opt/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+  tags:
+    - kitty
+
+- name: Symlink binary
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/opt/kitty.app/bin/kitty"
+    dest: "{{ ansible_user_dir }}/.local/bin/kitty"
+    state: link

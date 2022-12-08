@@ -8,8 +8,11 @@
     - zsh
     - systemd
     - docker
+    - git
     - nodejs
-    - maven
     - rust
+    - java
+    - maven
+    - kitty
     - neovim
     - pipewire

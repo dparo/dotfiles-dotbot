@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "$0")" || exit
+cd "$(dirname "$0")/../" || exit
 
 set -e
-
 
 source ./roles/zsh/files/.zshenv
 source ./roles/zsh/files/.zprofile
@@ -16,7 +15,6 @@ fi
 echo "ANSIBLE_HOME: $ANSIBLE_HOME"
 echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
 echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
-
 
 show_all_facts() {
     # Dumps all the ansible facts / variables available
