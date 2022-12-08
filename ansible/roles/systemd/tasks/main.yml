@@ -1,12 +1,13 @@
 ---
-- name: Disable services
-  ansible.builtin.systemd:
-    name: "{{item}}"
-    enabled: false
-  become: true
-  loop:
-    - "gdm"
-    - "gdm3"
-  tags:
-    - systemd
-  when: running_inside_docker == false
+
+# - name: Disable services
+#   ansible.builtin.systemd:
+#     name: "{{item}}"
+#     enabled: false
+#   become: true
+#   loop:
+#     - "gdm"
+#     - "gdm3"
+#   tags:
+#     - systemd
+#   when: running_inside_docker == false
