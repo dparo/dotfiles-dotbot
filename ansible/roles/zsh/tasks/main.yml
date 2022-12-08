@@ -1,4 +1,12 @@
 ---
+- name: Install
+  ansible.builtin.apt:
+    name: zsh
+    state: present
+  become: true
+  tags:
+    - docker
+
 - name: Setup ZDOTDIR to point to the user XDG config location
   ansible.builtin.lineinfile:
     path: /etc/zsh/zshenv
