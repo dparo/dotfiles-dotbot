@@ -13,6 +13,7 @@
     - dns
     - network-manager
     - display-manager
+    - fonts
     - git
     - python
     - cpp

@@ -1,0 +1,47 @@
+---
+
+- name: Download fonts
+  ansible.builtin.unarchive:
+    src: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ item }}.zip"
+    dest: "/usr/local/share/fonts/{{ item }}"
+    remote_src: yes
+  become: true
+  loop:
+    - Hack
+    - JetBrainsMono
+    - CascadiaCode
+    - IBMPlexMono
+    - LiberationMono
+    - Meslo
+    - Noto
+    - Ubuntu
+    - UbuntuMono
+  register: fonts_download
+  tags:
+    - fonts
+
+- name: Find Windows compatible fonts
+  ansible.builtin.find:
+    paths: /usr/local/share/fonts
+    patterns: "\bWindows Compatible.ttf$"
+    use_regex: yes
+  when: fonts_download.changed
+  register: windows_compatible_fonts
+  tags:
+    - fonts
+
+
+- name: Remove Windows compatible fonts
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  when: fonts_download.changed
+  loop: "{{ windows_compatible_fonts.files | flatten(levels=1) }}"
+  tags:
+    - fonts
+
+- name: Reload font cache
+  ansible.builtin.command: fc-cache -fvr
+  when: fonts_download.changed
+  tags:
+    - fonts
