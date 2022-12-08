@@ -3,10 +3,12 @@
   connection: local
   roles:
     - core-pkgs
-    - xdg
     - sudo
     - zsh
+    - xdg
+    - systemd
     - nodejs
     - maven
     - rust
     - neovim
+    - pipewire

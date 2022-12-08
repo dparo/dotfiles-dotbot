@@ -1,0 +1,16 @@
+- name: Enable user service
+  ansible.builtin.systemd:
+    name: pipewire
+    enabled: true
+    scope: user
+  tags:
+    - pipewire
+
+- name: Restart service
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: yes
+    name: pipewire
+    scope: user
+  tags:
+    - pipewire

@@ -63,12 +63,6 @@
     ~/.local/share/backgrounds:
       path: user/.local/share/backgrounds
       force: true
-    ~/.bash_profile:
-      path: user/.config/bash/bash_profile
-      force: true
-    ~/.bashrc:
-      path: user/.config/bash/bashrc
-      force: true
 
     ~/.config/yt-dlp: user/.config/youtube-dl
     ~/.local/share/bin: user/.local/share/bin

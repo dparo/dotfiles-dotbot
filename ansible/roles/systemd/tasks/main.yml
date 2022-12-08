@@ -1,0 +1,9 @@
+- name: Disable services
+  ansible.builtin.systemd:
+    name: "{{item}}"
+    enabled: false
+  loop:
+    - "gdm"
+    - "gdm3"
+  tags:
+    - systemd
