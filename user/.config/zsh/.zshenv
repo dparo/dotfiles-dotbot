@@ -59,7 +59,8 @@ pathprepend \
     "${DENO_DIR:-$XDG_DATA_HOME/deno}/bin" \
     "${BUN_INSTALL:-$XDG_DATA_HOME/bun}/bin" \
     "$XDG_DATA_HOME/zig" \
-    "${NIMBLE_DIR:-$XDG_DATA_HOME/nimble}/bin"
+    "${NIMBLE_DIR:-$XDG_DATA_HOME/nimble}/bin" \
+    "/usr/local/bin"
 
 
 if [ -f "$ZDOTDIR/.localenv" ]; then
