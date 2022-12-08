@@ -4,21 +4,22 @@
     state: directory
     mode: "0755"
   loop:
-    - "{{ lookup('env','HOME') }}/opt"
-    - "{{ lookup('env','HOME') }}/.local/bin"
-    - "{{ lookup('env','HOME') }}/.local/share/bin"
-    - "{{ lookup('env','HOME') }}/.local/share/fonts"
-    - "{{ lookup('env','HOME') }}/.local/share/sounds"
-    - "{{ lookup('env','HOME') }}/.local/share/applications"
-    - "{{ lookup('env','HOME') }}/.local/share/keyrings"
-    - "{{ lookup('env','HOME') }}/.local/share/pki"
-    - "{{ lookup('env','HOME') }}/.local/share/gnupg"
-    - "{{ lookup('env','HOME') }}/.local/share/vscode"
-    - "{{ lookup('env','HOME') }}/.cache"
-    - "{{ lookup('env','HOME') }}/.cache/bash"
-    - "{{ lookup('env','HOME') }}/.cache/zsh"
-    - "{{ lookup('env','HOME') }}/.cache/mpd"
-    - "{{ lookup('env','HOME') }}/.config/systemd/user/default.target.wants"
+    - "{{ ansible_user_dir }}/opt"
+    - "{{ ansible_user_dir }}/.local/bin"
+    - "{{ ansible_user_dir }}/.local/share/bin"
+    - "{{ ansible_user_dir }}/.local/share/fonts"
+    - "{{ ansible_user_dir }}/.local/share/sounds"
+    - "{{ ansible_user_dir }}/.local/share/applications"
+    - "{{ ansible_user_dir }}/.local/share/keyrings"
+    - "{{ ansible_user_dir }}/.local/share/pki"
+    - "{{ ansible_user_dir }}/.local/share/gnupg"
+    - "{{ ansible_user_dir }}/.local/share/vscode"
+    - "{{ ansible_user_dir }}/.cache"
+    - "{{ ansible_user_dir }}/.cache/bash"
+    - "{{ ansible_user_dir }}/.cache/zsh"
+    - "{{ ansible_user_dir }}/.cache/mpd"
+    - "{{ ansible_user_dir }}/.config"
+    - "{{ ansible_user_dir }}/.config/systemd/user/default.target.wants"
   tags:
     - xdg
 
@@ -27,24 +28,24 @@
     path: "{{item}}"
     state: absent
   loop:
-    - "{{ lookup('env','HOME') }}/.bash_history"
-    - "{{ lookup('env','HOME') }}/.bash_logout"
-    - "{{ lookup('env','HOME') }}/.bash_logout"
-    - "{{ lookup('env','HOME') }}/.bash_logout"
-    - "{{ lookup('env','HOME') }}/.profile"
-    - "{{ lookup('env','HOME') }}/.python_history"
-    - "{{ lookup('env','HOME') }}/.lesshst"
-    - "{{ lookup('env','HOME') }}/.python_history"
-    - "{{ lookup('env','HOME') }}/.sudo_as_admin_successful"
-    - "{{ lookup('env','HOME') }}/Templates"
+    - "{{ ansible_user_dir }}/.bash_history"
+    - "{{ ansible_user_dir }}/.bash_logout"
+    - "{{ ansible_user_dir }}/.bash_logout"
+    - "{{ ansible_user_dir }}/.bash_logout"
+    - "{{ ansible_user_dir }}/.profile"
+    - "{{ ansible_user_dir }}/.python_history"
+    - "{{ ansible_user_dir }}/.lesshst"
+    - "{{ ansible_user_dir }}/.python_history"
+    - "{{ ansible_user_dir }}/.sudo_as_admin_successful"
+    - "{{ ansible_user_dir }}/Templates"
   tags:
     - xdg
 
 - name: Remove broken symlinks
   ansible.builtin.command: find -L "{{item}}" -maxdepth 1 -type l -delete
   loop:
-    - "{{ lookup('env','HOME') }}"
-    - "{{ lookup('env','HOME') }}/.config"
-    - "{{ lookup('env','HOME') }}/.local/share/applications"
+    - "{{ ansible_user_dir }}"
+    - "{{ ansible_user_dir }}/.config"
+    - "{{ ansible_user_dir }}/.local/share/applications"
   tags:
     - xdg

@@ -20,7 +20,7 @@
 - name: Symlink binaries
   ansible.builtin.file:
     src: "{{ node_install_dir }}/node-v{{ node_version }}-linux-x64/bin/{{ item }}"
-    dest: "{{ lookup('env','HOME') }}/.local/bin/{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/bin/{{ item }}"
     state: link
   loop:
     - node

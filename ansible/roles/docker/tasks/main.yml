@@ -16,8 +16,8 @@
     - docker
   when: running_inside_docker == false
 
-- name: "Add the user {{ lookup('env', 'USER') }} to the docker group"
+- name: "Add the user {{ ansible_env.USER }} to the docker group"
   ansible.builtin.user:
-    name: "{{ lookup('env', 'USER') }}"
+    name: "{{ ansible_env.USER }}"
     group: docker
   become: true

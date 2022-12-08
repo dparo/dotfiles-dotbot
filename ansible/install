@@ -4,9 +4,9 @@ cd "$(dirname "$0")" || exit
 
 set -e
 
-export ANSIBLE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/ansible"
-export ANSIBLE_GALAXY_CACHE_DIR="$ANSIBLE_HOME/galaxy_cache"
-export ANSIBLE_LOCAL_TEMP="$ANSIBLE_HOME/tmp"
+
+source ./roles/zsh/files/.zshenv
+source ./roles/zsh/files/.zprofile
 
 if [[ -f "$PWD/requirements.yml" ]]; then
     # ansible-galaxy install -r "$PWD/requirements.yml"
@@ -16,6 +16,12 @@ fi
 echo "ANSIBLE_HOME: $ANSIBLE_HOME"
 echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
 echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
+
+
+show_all_facts() {
+    # Dumps all the ansible facts / variables available
+    ansible localhost -m ansible.builtin.setup
+}
 
 run() {
     set -x

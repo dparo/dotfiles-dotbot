@@ -17,10 +17,17 @@
   tags:
     - zsh
 
-- name: "Sets the user {{ lookup('env', 'USER') }} shell to zsh"
+- name: "Sets the user {{ ansible_env.USER }} shell to zsh"
   ansible.builtin.user:
-    name: "{{ lookup('env', 'USER') }}"
+    name: "{{ ansible_env.USER }}"
     shell: /bin/zsh
   become: true
   tags:
     - zsh
+
+
+- name: Symlink
+  ansible.builtin.file:
+    src: .
+    dest: "{{ ansible_user_dir }}/.config/zsh"
+    state: link

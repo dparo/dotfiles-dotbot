@@ -4,8 +4,8 @@
   roles:
     - core-pkgs
     - sudo
-    - zsh
     - xdg
+    - zsh
     - systemd
     - docker
     - nodejs

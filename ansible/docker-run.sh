@@ -3,5 +3,6 @@
 
 cd "$(dirname "$0")" || exit 1
 
-
-docker build -t dotfiles . && exec docker run --interactive -t dotfiles
+# Remove previous images
+docker rmi --force "$(docker images | grep dparo-dotfiles | tr -s ' ' | cut -d ' ' -f 3)"
+docker build -t dparo-dotfiles . && exec docker run -it dparo-dotfiles
