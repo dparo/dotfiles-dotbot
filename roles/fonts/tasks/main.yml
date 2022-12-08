@@ -4,6 +4,7 @@
     path: "/usr/local/share/fonts/{{ item }}"
     state: directory
     mode: "0755"
+  become: true
   loop: "{{ fonts }}"
   tags:
     - fonts
@@ -24,6 +25,7 @@
     paths: /usr/local/share/fonts
     patterns: "\bWindows Compatible.ttf$"
     use_regex: yes
+  become: true
   when: fonts_download.changed
   register: windows_compatible_fonts
   tags:
@@ -33,6 +35,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: absent
+  become: true
   when: fonts_download.changed
   loop: "{{ windows_compatible_fonts.files | flatten(levels=1) }}"
   tags:
