@@ -35,17 +35,17 @@
     - "{{ ansible_user_dir }}/.profile"
     - "{{ ansible_user_dir }}/.python_history"
     - "{{ ansible_user_dir }}/.lesshst"
-    - "{{ ansible_user_dir }}/.python_history"
     - "{{ ansible_user_dir }}/.sudo_as_admin_successful"
     - "{{ ansible_user_dir }}/Templates"
   tags:
     - xdg
 
-- name: Remove broken symlinks
+- name: Remove broken symlinks in directories
   ansible.builtin.command: find -L "{{item}}" -maxdepth 1 -type l -delete
   loop:
     - "{{ ansible_user_dir }}"
     - "{{ ansible_user_dir }}/.config"
+    - "{{ ansible_user_dir }}/.local/bin"
     - "{{ ansible_user_dir }}/.local/share/applications"
   tags:
     - xdg
