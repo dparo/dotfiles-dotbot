@@ -9,8 +9,9 @@
     - systemd
     - docker
     - git
-    - nodejs
+    - cpp
     - rust
+    - nodejs
     - java
     - maven
     - kitty

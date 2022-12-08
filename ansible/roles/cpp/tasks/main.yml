@@ -1,0 +1,19 @@
+---
+
+
+- name: Install
+  ansible.builtin.apt:
+    pkg:
+      - gcc
+      - g++
+      - gdb
+      - cmake
+      - ninja-build
+      - meson
+      - clangd
+      - clang-tidy
+  become: true
+  tags:
+    - apt
+    - cpp
+    - gcc
