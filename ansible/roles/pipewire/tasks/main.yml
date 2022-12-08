@@ -5,6 +5,7 @@
     scope: user
   tags:
     - pipewire
+  when: running_inside_docker == false
 
 - name: Restart service
   ansible.builtin.systemd:
@@ -14,3 +15,4 @@
     scope: user
   tags:
     - pipewire
+  when: running_inside_docker == false

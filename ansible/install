@@ -24,7 +24,7 @@ run() {
 }
 
 if test "$RUNNING_INSIDE_DOCKER" = ""; then
-    run --ask-become-pass "$@"
+    run --ask-become-pass --extra-vars "running_inside_docker=false" "$@"
 else
-    run "$@"
+    run --extra-vars "running_inside_docker=true" "$@"
 fi

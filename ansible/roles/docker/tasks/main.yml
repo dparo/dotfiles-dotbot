@@ -14,7 +14,7 @@
   become: true
   tags:
     - docker
-
+  when: running_inside_docker == false
 
 - name: "Add the user {{ lookup('env', 'USER') }} to the docker group"
   ansible.builtin.user:
