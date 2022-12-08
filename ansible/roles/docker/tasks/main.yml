@@ -1,7 +1,7 @@
 ---
 - name: Install
   ansible.builtin.apt:
-    name: docker
+    name: docker.io
     state: present
   become: true
   tags:

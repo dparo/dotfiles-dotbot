@@ -1,5 +1,4 @@
 ---
-
 - name: Create dir {{ node_install_dir }}
   ansible.builtin.file:
     path: "{{ node_install_dir }}"
@@ -14,7 +13,6 @@
     src: https://nodejs.org/dist/v{{ node_version }}/node-v{{ node_version }}-linux-x64.tar.xz
     dest: "{{ node_install_dir }}"
     remote_src: yes
-  register: unpack
   tags:
     - node
     - npm
@@ -28,7 +26,6 @@
     - node
     - npm
     - npx
-  when: unpack.changed
   tags:
     - node
     - npm

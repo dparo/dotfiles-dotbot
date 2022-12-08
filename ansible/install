@@ -5,7 +5,7 @@ cd "$(dirname "$0")" || exit
 set -e
 
 export ANSIBLE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/ansible"
-export ANSIBLE_GALAXY_CACHE_DIR="$GALAXY_CACHE_DIR"
+export ANSIBLE_GALAXY_CACHE_DIR="$ANSIBLE_HOME/galaxy_cache"
 export ANSIBLE_LOCAL_TEMP="$ANSIBLE_HOME/tmp"
 
 if [[ -f "$PWD/requirements.yml" ]]; then
@@ -19,10 +19,11 @@ echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
 
 run() {
     set -x
-    exec ansible-playbook "$PWD/site.yml" "$@"
+    ansible-playbook "$PWD/site.yml" "$@"
+    rm -rf "$HOME/.ansible"
 }
 
-if test -z "$RUNNING_INSIDE_DOCKER"; then
+if test "$RUNNING_INSIDE_DOCKER" = ""; then
     run --ask-become-pass "$@"
 else
     run "$@"

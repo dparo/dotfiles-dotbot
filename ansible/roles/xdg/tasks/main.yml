@@ -1,4 +1,4 @@
-- name: Create {{item}}
+- name: Create items
   ansible.builtin.file:
     path: "{{item}}"
     state: directory
@@ -22,8 +22,7 @@
   tags:
     - xdg
 
-
-- name: Delete {{item}}
+- name: Delete items
   ansible.builtin.file:
     path: "{{item}}"
     state: absent
@@ -37,6 +36,7 @@
     - "{{ lookup('env','HOME') }}/.lesshst"
     - "{{ lookup('env','HOME') }}/.python_history"
     - "{{ lookup('env','HOME') }}/.sudo_as_admin_successful"
+    - "{{ lookup('env','HOME') }}/Templates"
   tags:
     - xdg
 
