@@ -124,9 +124,14 @@
   tags:
     - neovim
 
-- name: Install plugins
+- name: packer.nvim install plugins
   ansible.builtin.shell: |
     nvim --headless -c 'autocmd User PackerComplete quitall!' -c 'PackerSync'
+  tags:
+    - neovim
+
+- name: Update remote plugins
+  ansible.builtin.shell: |
     nvim --headless -c 'UpdateRemotePlugins' -c qall
   tags:
     - neovim
