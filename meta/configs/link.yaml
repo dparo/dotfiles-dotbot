@@ -83,4 +83,4 @@
 
 
 - create:
-    - ~/.config/systemd/user/systemd/user/default.target.wants
+    - ~/.config/systemd/user/default.target.wants

@@ -3,7 +3,7 @@
   connection: local
   roles:
     - core-pkgs
-    - setup-home-dirs
+    - xdg
     - sudo
     - zsh
     - nodejs

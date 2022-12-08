@@ -1,0 +1,50 @@
+- name: Create {{item}}
+  ansible.builtin.file:
+    path: "{{item}}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ lookup('env','HOME') }}/opt"
+    - "{{ lookup('env','HOME') }}/.local/bin"
+    - "{{ lookup('env','HOME') }}/.local/share/bin"
+    - "{{ lookup('env','HOME') }}/.local/share/fonts"
+    - "{{ lookup('env','HOME') }}/.local/share/sounds"
+    - "{{ lookup('env','HOME') }}/.local/share/applications"
+    - "{{ lookup('env','HOME') }}/.local/share/keyrings"
+    - "{{ lookup('env','HOME') }}/.local/share/pki"
+    - "{{ lookup('env','HOME') }}/.local/share/gnupg"
+    - "{{ lookup('env','HOME') }}/.local/share/vscode"
+    - "{{ lookup('env','HOME') }}/.cache"
+    - "{{ lookup('env','HOME') }}/.cache/bash"
+    - "{{ lookup('env','HOME') }}/.cache/zsh"
+    - "{{ lookup('env','HOME') }}/.cache/mpd"
+    - "{{ lookup('env','HOME') }}/.config/systemd/user/default.target.wants"
+  tags:
+    - xdg
+
+
+- name: Delete {{item}}
+  ansible.builtin.file:
+    path: "{{item}}"
+    state: absent
+  loop:
+    - "{{ lookup('env','HOME') }}/.bash_history"
+    - "{{ lookup('env','HOME') }}/.bash_logout"
+    - "{{ lookup('env','HOME') }}/.bash_logout"
+    - "{{ lookup('env','HOME') }}/.bash_logout"
+    - "{{ lookup('env','HOME') }}/.profile"
+    - "{{ lookup('env','HOME') }}/.python_history"
+    - "{{ lookup('env','HOME') }}/.lesshst"
+    - "{{ lookup('env','HOME') }}/.python_history"
+    - "{{ lookup('env','HOME') }}/.sudo_as_admin_successful"
+  tags:
+    - xdg
+
+- name: Remove broken symlinks
+  ansible.builtin.command: find -L "{{item}}" -maxdepth 1 -type l -delete
+  loop:
+    - "{{ lookup('env','HOME') }}"
+    - "{{ lookup('env','HOME') }}/.config"
+    - "{{ lookup('env','HOME') }}/.local/share/applications"
+  tags:
+    - xdg
