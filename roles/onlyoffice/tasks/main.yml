@@ -2,6 +2,8 @@
 
 
 - name: Install
-  community.general.snap:
-    name:
-      - onlyoffice-desktopeditors
+  ansible.builtin.command: snap install onlyoffice-desktopeditors
+  become: true
+  tags:
+    - snap
+    - onlyoffice
