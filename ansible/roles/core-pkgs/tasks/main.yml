@@ -1,5 +1,5 @@
 ---
-- name: Installs necessary core packages
+- name: Install
   ansible.builtin.apt:
     pkg:
       - git
