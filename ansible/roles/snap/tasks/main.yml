@@ -13,5 +13,6 @@
 - name: Disable background updating
   ansible.builtin.shell: snap refresh --hold
   become: true
+  ignore_errors: true
   tags:
     - snap

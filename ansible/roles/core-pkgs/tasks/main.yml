@@ -10,6 +10,7 @@
       - python3-pip
       - bat
       - exa
+      - firefox
   become: true
   tags:
     - core-pkgs
