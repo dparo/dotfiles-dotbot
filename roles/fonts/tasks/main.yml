@@ -1,4 +1,11 @@
 ---
+- name: Create target dirs for installation
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  tags:
+    - fonts
 
 - name: Download fonts
   ansible.builtin.unarchive:
@@ -6,16 +13,7 @@
     dest: "/usr/local/share/fonts/{{ item }}"
     remote_src: yes
   become: true
-  loop:
-    - Hack
-    - JetBrainsMono
-    - CascadiaCode
-    - IBMPlexMono
-    - LiberationMono
-    - Meslo
-    - Noto
-    - Ubuntu
-    - UbuntuMono
+  loop: "{{ fonts }}"
   register: fonts_download
   tags:
     - fonts
@@ -29,7 +27,6 @@
   register: windows_compatible_fonts
   tags:
     - fonts
-
 
 - name: Remove Windows compatible fonts
   ansible.builtin.file:
