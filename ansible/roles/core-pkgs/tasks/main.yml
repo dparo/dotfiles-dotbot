@@ -22,6 +22,7 @@
     src: /usr/bin/batcat
     dest: /usr/local/bin/bat
     state: link
+  become: true
   tags:
     - core-pkgs
     - bat
