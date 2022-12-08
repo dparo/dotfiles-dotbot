@@ -1,10 +1,16 @@
 ---
-- name: Setup ZDOTDIR to point to user config location
+- name: Setup ZDOTDIR to point to the user XDG config location
   ansible.builtin.lineinfile:
     path: /etc/zsh/zshenv
     line: export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-    regexp: '^export ZDOTDIR='
+    regexp: "^export ZDOTDIR="
     create: true
   become: true
   tags:
     - zsh
+
+- name: "Sets the user {{ lookup('env', 'USER') }} shell to zsh"
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    shell: /bin/zsh
+  become: true

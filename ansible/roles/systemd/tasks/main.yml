@@ -2,6 +2,7 @@
   ansible.builtin.systemd:
     name: "{{item}}"
     enabled: false
+  become: true
   loop:
     - "gdm"
     - "gdm3"
