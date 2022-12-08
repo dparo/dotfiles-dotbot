@@ -72,6 +72,18 @@
   tags:
     - neovim
 
+- name: Install runtime deps
+  ansible.builtin.apt:
+    pkg:
+      - xsel
+      - xclip
+      - ripgrep
+      - silversearcher-ag
+  become: true
+  tags:
+    - neovim
+    - apt
+
 - name: Install xclip
   ansible.builtin.apt:
     name: xclip
