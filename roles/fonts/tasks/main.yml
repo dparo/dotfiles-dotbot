@@ -1,7 +1,7 @@
 ---
 - name: Create target dirs for installation
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "/usr/local/share/fonts/{{ item }}"
     state: directory
     mode: "0755"
   loop: "{{ fonts }}"
