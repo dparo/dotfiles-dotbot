@@ -1,0 +1,17 @@
+---
+
+- name: Install
+  ansible.builtin.apt:
+    name: snapd
+    state: present
+  become: true
+  tags:
+    - apt
+    - snap
+
+
+- name: Disable background updating
+  ansible.builtin.shell: snap refresh --hold
+  become: true
+  tags:
+    - snap

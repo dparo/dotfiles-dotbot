@@ -2,18 +2,35 @@
 - hosts: localhost
   connection: local
   roles:
+    - wget
     - core-pkgs
+    - snap
     - sudo
     - xdg
     - zsh
     - systemd
     - docker
+    - dns
+    - network-manager
+    - display-manager
     - git
+    - python
     - cpp
     - rust
     - nodejs
     - java
     - maven
-    - kitty
-    - neovim
+    - latex
+    - alsa
+    - pulseaudio
     - pipewire
+    - x11
+    - kitty
+    - tmux
+    - neovim
+    - dunst
+    - wm-basics
+    - i3
+    - gtk
+    - misc
+    - onlyoffice

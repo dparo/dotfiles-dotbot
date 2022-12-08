@@ -123,48 +123,33 @@
     update: yes
   tags:
     - neovim
-
-- name: packer.nvim install plugins
-  ansible.builtin.shell: |
-    nvim --headless -c 'autocmd User PackerComplete quitall!' -c 'PackerSync'
-  tags:
-    - neovim
-
-- name: Update remote plugins
-  ansible.builtin.shell: |
-    nvim --headless -c 'UpdateRemotePlugins' -c qall
-  tags:
-    - neovim
-
-- name: Install lsp-servers, formatters, diagnostics tools
-  ansible.builtin.shell: |
-    nvim --headless -c "MasonInstall vim-language-server stylua lua-language-server" -c "qall"
-    nvim --headless -c "MasonInstall bash-language-server" -c "qall"
-    nvim --headless -c "MasonInstall pyright" -c "qall"
-    nvim --headless -c "MasonInstall rust-analyzer" -c "qall"
-    nvim --headless -c "MasonInstall shellcheck shellharden shfmt" -c "qall"
-    nvim --headless -c "MasonInstall typescript-language-server" -c "qall"
-    nvim --headless -c "MasonInstall eslint-lsp prettier" -c "qall"
-    nvim --headless -c "MasonInstall json-lsp yamllint yaml-language-server" -c "qall"
-    nvim --headless -c "MasonInstall texlab write-good proselint" -c "qall"
-    nvim --headless -c "MasonInstall sqlfluff" -c "qall"
-    nvim --headless -c "MasonInstall jdtls" -c "qall"
-    nvim --headless -c "MasonInstall ltex-ls" -c "qall"
-    nvim --headless -c "MasonInstall ansible-language-server" -c "qall"
-  tags:
-    - neovim
-# - name: Config folder
-#   ansible.builtin.file:
-#     mode: "0755"
-#     path: "{{ ansible_user_dir }}/.config/nvim"
-#     state: directory
 #
-# - name: Copy init.lua
-#   ansible.builtin.copy:
-#     dest: "{{ ansible_user_dir }}/.config/nvim/init.lua"
-#     src: "init.lua"
+# - name: packer.nvim install plugins
+#   ansible.builtin.shell: |
+#     nvim --headless -c 'autocmd User PackerComplete quitall!' -c 'PackerSync'
+#   tags:
+#     - neovim
 #
-# - name: Copy modules
-#   ansible.builtin.copy:
-#     dest: "{{ ansible_user_dir }}/.config/nvim/lua"
-#     src: "lua/"
+# - name: Update remote plugins
+#   ansible.builtin.shell: |
+#     nvim --headless -c 'UpdateRemotePlugins' -c qall
+#   tags:
+#     - neovim
+#
+# - name: Install lsp-servers, formatters, diagnostics tools
+#   ansible.builtin.shell: |
+#     nvim --headless -c "MasonInstall vim-language-server stylua lua-language-server" -c "qall"
+#     nvim --headless -c "MasonInstall bash-language-server" -c "qall"
+#     nvim --headless -c "MasonInstall pyright" -c "qall"
+#     nvim --headless -c "MasonInstall rust-analyzer" -c "qall"
+#     nvim --headless -c "MasonInstall shellcheck shellharden shfmt" -c "qall"
+#     nvim --headless -c "MasonInstall typescript-language-server" -c "qall"
+#     nvim --headless -c "MasonInstall eslint-lsp prettier" -c "qall"
+#     nvim --headless -c "MasonInstall json-lsp yamllint yaml-language-server" -c "qall"
+#     nvim --headless -c "MasonInstall texlab write-good proselint" -c "qall"
+#     nvim --headless -c "MasonInstall sqlfluff" -c "qall"
+#     nvim --headless -c "MasonInstall jdtls" -c "qall"
+#     nvim --headless -c "MasonInstall ltex-ls" -c "qall"
+#     nvim --headless -c "MasonInstall ansible-language-server" -c "qall"
+#   tags:
+#     - neovim

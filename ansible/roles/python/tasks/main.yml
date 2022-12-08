@@ -1,0 +1,10 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    pkg:
+      - python3
+      - python3-pip
+  become: true
+  tags:
+    - apt
+    - python

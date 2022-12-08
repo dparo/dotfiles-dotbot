@@ -1,0 +1,14 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    pkg:
+      - feh
+      - nitrogen
+      - scrot
+      - flameshot
+      - zathura
+      - copyq
+  become: true
+  tags:
+    - apt
+    - wm-basics

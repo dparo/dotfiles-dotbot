@@ -8,7 +8,19 @@
       - p7zip-full
       - build-essential
       - python3-pip
+      - bat
+      - exa
   become: true
   tags:
     - core-pkgs
     - apt
+
+
+- name: Symlink batcat
+  ansible.builtin.file:
+    src: /usr/bin/batcat
+    dest: /usr/local/bin/bat
+    state: link
+  tags:
+    - core-pkgs
+    - bat
