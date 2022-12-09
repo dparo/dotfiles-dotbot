@@ -13,7 +13,7 @@ touchpad_setup() {
 	xinput --set-prop "Elan Touchpad" "libinput Natural Scrolling Enabled" 1 # Reverse scrolling
 }
 
-touchpad_setup
+touchpad_setup 1> /dev/null 2> /dev/null
 
 
 xset -b # disable bell
