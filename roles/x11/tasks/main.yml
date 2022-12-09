@@ -1,0 +1,12 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    pkg:
+      - xsettingsd
+      - xss-lock
+      - xsecurelock
+      - wmctrl
+  become: true
+  tags:
+    - x11
+    - apt

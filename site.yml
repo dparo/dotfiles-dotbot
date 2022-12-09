@@ -8,12 +8,15 @@
     - sudo
     - xdg
     - zsh
+    - user
     - systemd
     - docker
     - dns
     - network-manager
+    - bluetooth-manager
     - display-manager
-    - fonts
+    - keyring
+    - gpg
     - git
     - python
     - cpp
@@ -35,5 +38,7 @@
     - i3
     - gtk
     - misc
+    - fonts
     - firefox
+    - obsidian
     - onlyoffice

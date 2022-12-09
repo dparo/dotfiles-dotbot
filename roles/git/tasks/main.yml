@@ -18,15 +18,6 @@
     - git
     - git-delta
 
-- name: Print return information from the previous task
-  ansible.builtin.debug:
-    var: gitdelta_latest
-    verbosity: 2
-  tags:
-    - apt
-    - git
-    - git-delta
-
 - name: Install latest git-delta
   ansible.builtin.apt:
     deb: "https://github.com/dandavison/delta/releases/download/{{ gitdelta_latest['json']['tag_name'] }}/git-delta_{{ gitdelta_latest['json']['tag_name'] }}_amd64.deb"

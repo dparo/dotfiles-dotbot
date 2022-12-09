@@ -1,13 +1,13 @@
 ---
 
-# - name: Disable services
-#   ansible.builtin.systemd:
-#     name: "{{item}}"
-#     enabled: false
-#   become: true
-#   loop:
-#     - "gdm"
-#     - "gdm3"
-#   tags:
-#     - systemd
-#   when: running_inside_docker == false
+
+# TODO: Symlink
+
+
+- name: Reload user services
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+  tags:
+    - systemd
+  when: running_inside_docker == false

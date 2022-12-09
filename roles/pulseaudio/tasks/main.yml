@@ -1,0 +1,10 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    pkg:
+      - pipewire-pulse
+  become: true
+  tags:
+    - pulseaudio
+    - pipewire
+    - apt

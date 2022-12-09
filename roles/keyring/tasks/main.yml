@@ -1,0 +1,18 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    name: gnome-keyring
+    state: present
+  become: true
+  tags:
+    - apt
+    - gnome-keyring
+
+- name: Enable keyring service
+  ansible.builtin.systemd:
+    name: gnome-keyring
+    enabled: true
+    scope: user
+  tags:
+    - keyring
+  when: running_inside_docker == false

@@ -1,3 +1,14 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    pkg:
+      - pipewire
+      - wireplumber
+  become: true
+  tags:
+    - pipewire
+    - apt
+
 - name: Enable user service
   ansible.builtin.systemd:
     name: pipewire

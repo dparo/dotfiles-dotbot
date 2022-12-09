@@ -5,7 +5,8 @@
     state: present
   become: true
   tags:
-    - docker
+    - zsh
+    - apt
 
 - name: Setup ZDOTDIR to point to the user XDG config location
   ansible.builtin.lineinfile:
