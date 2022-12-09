@@ -32,7 +32,6 @@ require("mason-lspconfig").setup {
 
 local lspconfig = require "lspconfig"
 
-
 for _, server in ipairs(require("user.plugins.configs.lsp.servers").list) do
     local name = server.name
     local config = require("user.plugins.configs.lsp.utils").update_server_config(server.config)
@@ -65,7 +64,6 @@ for _, server in ipairs(require("user.plugins.configs.lsp.servers").list) do
         lspconfig[name].setup(config)
     end
 end
-
 
 -- Null-ls is meant to fill the gaps for languages where either no language server exists,
 -- or where standalone linters,formatters,diagnostics provide better results
@@ -109,7 +107,6 @@ null_ls.setup {
         null_ls.builtins.diagnostics.stylelint.with {
             method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
         },
-
 
         null_ls.builtins.formatting.google_java_format,
 

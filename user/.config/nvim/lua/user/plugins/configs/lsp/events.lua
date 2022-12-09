@@ -1,5 +1,7 @@
 local M = {}
 
+local navic = require "nvim-navic"
+
 function M.on_attach(client, bufnr)
     local buf_set_keymap = vim.api.nvim_buf_set_keymap
     local buf_set_option = vim.api.nvim_buf_set_option
@@ -183,6 +185,10 @@ function M.on_attach(client, bufnr)
         -- you make during a debug session immediately.
         -- Remove the option if you do not want that.
         require("jdtls").setup_dap { hotcodereplace = "auto" }
+    end
+
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
     end
 end
 

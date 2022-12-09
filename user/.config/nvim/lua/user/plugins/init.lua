@@ -374,7 +374,7 @@ local generic = {
         "nvim-treesitter/nvim-treesitter",
         branch = "master",
         run = ":TSUpdateSync all",
-        requires = { "nvim-treesitter/playground", "p00f/nvim-ts-rainbow" },
+        requires = { "nvim-treesitter/playground", "p00f/nvim-ts-rainbow", "nvim-treesitter/nvim-treesitter-context" },
         config = function()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = "all", -- "all" or a list of languages
@@ -389,7 +389,7 @@ local generic = {
                 rainbow = {
                     -- Default colors seems to suck, and the major colorschemes that I use do not
                     -- seem to support it yet, disable the rainbow for now
-                    enable = false,
+                    enable = true,
                     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
                     extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
                     max_file_lines = nil, -- Do not enable for files with more than n lines, int
@@ -400,6 +400,11 @@ local generic = {
                 playground = {
                     enable = true,
                 },
+            }
+            require("treesitter-context").setup {
+                enabled = true,
+                max_lines = 8,
+                trim_scope = "outer",
             }
         end,
     },
@@ -450,6 +455,7 @@ local generic = {
             "nvim-lua/plenary.nvim",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "SmiteshP/nvim-navic",
         },
         config = function()
             require "user.plugins.configs.lsp"
