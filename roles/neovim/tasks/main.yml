@@ -77,26 +77,12 @@
     pkg:
       - xsel
       - xclip
+      - fd-find
       - ripgrep
       - silversearcher-ag
-  become: true
-  tags:
-    - neovim
-    - apt
-
-- name: Install xclip
-  ansible.builtin.apt:
-    name: xclip
-    state: present
-  become: true
-  tags:
-    - neovim
-    - apt
-
-- name: Install xsel
-  ansible.builtin.apt:
-    name: xsel
-    state: present
+      - editorconfig
+      - tokei
+      - jq
   become: true
   tags:
     - neovim

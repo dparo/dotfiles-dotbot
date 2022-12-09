@@ -1,0 +1,9 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    pkg:
+      - firefox
+  become: true
+  tags:
+    - firefox
+    - apt

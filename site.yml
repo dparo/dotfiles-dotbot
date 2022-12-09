@@ -18,6 +18,7 @@
     - python
     - cpp
     - rust
+    - golang
     - nodejs
     - java
     - maven
@@ -34,4 +35,5 @@
     - i3
     - gtk
     - misc
+    - firefox
     - onlyoffice

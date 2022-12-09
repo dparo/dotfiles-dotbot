@@ -1,9 +1,8 @@
 ---
-
-
 - name: Install
   ansible.builtin.apt:
     pkg:
+      - build-essential
       - gcc
       - g++
       - gdb
@@ -12,6 +11,15 @@
       - meson
       - clangd
       - clang-tidy
+      - clang-tools
+      - cppcheck
+      - bear # Generate compilation database for clangtooling
+      - valgrind
+      - gperf
+      - hyperfine
+      # - flamegraph
+      # - hotspot
+      # - heaptrack
   become: true
   tags:
     - apt

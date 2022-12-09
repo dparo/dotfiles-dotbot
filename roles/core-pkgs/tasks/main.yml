@@ -5,22 +5,35 @@
       - git
       - wget
       - curl
+      - jq
+      - rsync
       - p7zip-full
+      - unrar
       - build-essential
       - python3-pip
       - bat
       - exa
-      - firefox
+      - net-tools
+      - lm_sensors
   become: true
   tags:
     - core-pkgs
     - apt
 
-
 - name: Symlink batcat
   ansible.builtin.file:
     src: /usr/bin/batcat
     dest: /usr/local/bin/bat
+    state: link
+  become: true
+  tags:
+    - core-pkgs
+    - bat
+
+- name: Symlink fd-find
+  ansible.builtin.file:
+    src: /usr/bin/fd-find
+    dest: /usr/local/bin/fd
     state: link
   become: true
   tags:
