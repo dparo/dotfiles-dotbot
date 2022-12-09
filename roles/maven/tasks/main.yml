@@ -4,9 +4,16 @@
     path: "{{ maven_install_dir }}"
     state: directory
     mode: "0755"
+  register: maven_target_dir
+  tags:
+    - maven
+
 
 - name: Download and unpack
   ansible.builtin.unarchive:
     src: "https://dlcdn.apache.org/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz"
     dest: "{{ maven_install_dir }}"
     remote_src: yes
+  when: maven_target_dir.changed
+  tags:
+    - maven

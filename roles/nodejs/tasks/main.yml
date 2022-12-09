@@ -4,6 +4,7 @@
     path: "{{ node_install_dir }}"
     state: directory
     mode: "0755"
+  register: node_target_dir
   tags:
     - node
     - npm
@@ -13,6 +14,7 @@
     src: https://nodejs.org/dist/v{{ node_version }}/node-v{{ node_version }}-linux-x64.tar.xz
     dest: "{{ node_install_dir }}"
     remote_src: yes
+  when: node_target_dir.changed
   tags:
     - node
     - npm

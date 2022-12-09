@@ -1,0 +1,50 @@
+---
+- name: Create target dirs for installation
+  ansible.builtin.file:
+    path: "/usr/local/share/fonts/{{ item }}"
+    state: directory
+    mode: "0755"
+  become: true
+  register: fonts_target_dirs
+  loop: "{{ fonts }}"
+  tags:
+    - fonts
+
+- name: Download fonts
+  ansible.builtin.unarchive:
+    src: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ item }}.zip"
+    dest: "/usr/local/share/fonts/{{ item }}"
+    remote_src: yes
+  become: true
+  when: fonts_target_dirs.changed
+  loop: "{{ fonts }}"
+  register: fonts_download
+  tags:
+    - fonts
+
+- name: Find Windows compatible fonts
+  ansible.builtin.find:
+    paths: /usr/local/share/fonts
+    patterns: "Windows Compatible.ttf$"
+    use_regex: yes
+  become: true
+  when: fonts_download.changed
+  register: windows_compatible_fonts
+  tags:
+    - fonts
+
+- name: Remove Windows compatible fonts
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  become: true
+  when: fonts_download.changed
+  loop: "{{ windows_compatible_fonts.files | flatten(levels=1) }}"
+  tags:
+    - fonts
+
+- name: Reload font cache
+  ansible.builtin.command: fc-cache -fvr
+  when: fonts_download.changed
+  tags:
+    - fonts
