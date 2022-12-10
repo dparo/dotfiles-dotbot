@@ -1,9 +1,10 @@
 ---
 - name: Install
   ansible.builtin.apt:
-    pkg:
+    name:
       - pipewire
       - wireplumber
+    state: present
   become: true
   tags:
     - pipewire

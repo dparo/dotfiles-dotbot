@@ -14,7 +14,7 @@
 
 - name: "Install build dependencies (See: https://github.com/neovim/neovim/wiki/Building-Neovim#ubuntu--debian)"
   ansible.builtin.apt:
-    pkg:
+    name:
       - ninja-build
       - gettext
       - libtool
@@ -27,6 +27,7 @@
       - unzip
       - curl
       - doxygen
+    state: present
   become: true
   tags:
     - neovim
@@ -74,7 +75,7 @@
 
 - name: Install runtime deps (APT)
   ansible.builtin.apt:
-    pkg:
+    name:
       - xsel
       - xclip
       - fd-find
@@ -82,12 +83,12 @@
       - silversearcher-ag
       - editorconfig
       - jq
+    state: present
   become: true
   tags:
     - neovim
     - neovim-runtime
     - apt
-
 
 - name: Install runtime deps (CARGO)
   community.general.cargo:

@@ -1,13 +1,14 @@
 ---
 - name: Install
   ansible.builtin.apt:
-    pkg:
+    name:
       - openjdk-11-jdk
       - openjdk-11-source
       - openjdk-17-jdk
       - openjdk-17-source
       - openjdk-18-jdk
       - openjdk-18-source
+    state: present
   become: true
   tags:
     - apt

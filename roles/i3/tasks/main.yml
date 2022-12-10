@@ -1,10 +1,11 @@
 ---
 - name: Install
   ansible.builtin.apt:
-    pkg:
+    name:
       - i3-wm
       - i3status
       - i3lock
+    state: present
   become: true
   tags:
     - apt

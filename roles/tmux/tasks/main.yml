@@ -1,8 +1,9 @@
 ---
 - name: Install
   ansible.builtin.apt:
-    pkg:
+    name:
       - tmux
+    state: present
   become: true
   tags:
     - apt

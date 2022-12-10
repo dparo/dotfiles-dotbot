@@ -1,7 +1,7 @@
 ---
 - name: Install
   ansible.builtin.apt:
-    pkg:
+    name:
       - build-essential
       - gcc
       - g++
@@ -20,6 +20,7 @@
       # - flamegraph
       # - hotspot
       # - heaptrack
+    state: present
   become: true
   tags:
     - apt

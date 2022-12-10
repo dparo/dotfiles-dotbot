@@ -1,13 +1,14 @@
 ---
 - name: Install
   ansible.builtin.apt:
-    pkg:
+    name:
       - feh
       - nitrogen
       - scrot
       - flameshot
       - zathura
       - copyq
+    state: present
   become: true
   tags:
     - apt

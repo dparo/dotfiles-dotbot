@@ -1,7 +1,7 @@
 ---
 - name: Install texlive fundamental packages
   ansible.builtin.apt:
-    pkg:
+    name:
       - texlive-latex-base
       - texlive-fonts-recommended
       - texlive-latex-recommended
@@ -13,6 +13,7 @@
       - biber
       - latexmk
       - ghostscript
+    state: present
     install_recommends: false
   become: true
   tags:

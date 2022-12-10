@@ -1,8 +1,7 @@
 ---
-
 - name: Install
   ansible.builtin.apt:
-    pkg:
+    name:
       - network-manager
       - openvpn
       - openvpn-systemd-resolved
@@ -10,6 +9,7 @@
       - openconnect
       - network-manager-openvpn
       - network-manager-openconnect
+    state: present
   become: true
   tags:
     - apt
