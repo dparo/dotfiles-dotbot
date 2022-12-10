@@ -34,7 +34,7 @@ fi
 if test "$RUNNING_INSIDE_DOCKER" -eq 1; then
     run --extra-vars "running_inside_docker=true" "$@"
 elif test "$RUNNING_INSIDE_VM" -eq 1; then
-    run --ask-become-pass --extra-vars --extra-vars "running_inside_vm=true" "$@"
+    run --ask-become-pass --extra-vars "running_inside_vm=true" "$@"
 else
     run --ask-become-pass --extra-vars "running_inside_docker=false" --extra-vars "running_inside_vm=false" "$@"
 fi
