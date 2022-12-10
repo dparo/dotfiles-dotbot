@@ -2,11 +2,11 @@
 - name: Install
   ansible.builtin.apt:
     pkg:
+      - x11-xserver-utils
       - xsettingsd
       - xss-lock
       - xsecurelock
       - wmctrl
-      - xrandr
       - arandr
   become: true
   tags:
