@@ -6,6 +6,8 @@
       - xss-lock
       - xsecurelock
       - wmctrl
+      - xrandr
+      - arandr
   become: true
   tags:
     - x11
