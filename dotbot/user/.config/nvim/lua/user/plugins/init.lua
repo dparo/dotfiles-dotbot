@@ -456,6 +456,7 @@ local generic = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "SmiteshP/nvim-navic",
+            "b0o/SchemaStore.nvim",
         },
         config = function()
             require "user.plugins.configs.lsp"
