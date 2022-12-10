@@ -24,7 +24,7 @@
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item | basename }}"
     state: link
-  with_fileglob: "{{ go_install_dir }}/v{{ go_version }}/bin/*"
+  with_fileglob: "{{ go_install_dir }}/v{{ go_version }}/go/bin/*"
   when: go_target_dir.changed
   become: true
   tags:
