@@ -13,5 +13,6 @@
   ansible.builtin.unarchive:
     src: "https://github.com/starship/starship/releases/download/{{ starship_latest['json']['tag_name'] }}/ starship-x86_64-unknown-linux-gnu.tar.gz"
     dest: "{{ ansible_user_dir }}/.local/bin"
+    remote_src: true
   tags:
     - starship
