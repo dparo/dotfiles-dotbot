@@ -89,14 +89,16 @@
     - neovim-runtime
     - apt
 
-- name: Install tree-sitter-cli runtime
+
+- name: Install runtime deps (CARGO)
   community.general.cargo:
-    name: tree-sitter-cli
+    name:
+      - tokei
+      - tree-sitter-cli
     state: latest
   tags:
     - neovim
     - neovim-runtime
-
 
 - name: Install required providers - npm neovim
   community.general.npm:
