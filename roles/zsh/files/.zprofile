@@ -21,7 +21,7 @@ fi
 # From gnoome-keyring-daemon which is automatically started (enabled) freom systemd at login
 export GNOME_KEYRING_CONTROL="/run/user/$UID/keyring"
 export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
-export GNUPGHOME="${HOME}/gnupg"
+export GNUPGHOME="${HOME}/.gnupg"
 
 # User specific environment and startup programs
 export LANGUAGE="en_US"
