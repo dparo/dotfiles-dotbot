@@ -95,11 +95,6 @@ local generic = {
         end,
     },
 
-    {
-        "stsewd/fzf-checkout.vim",
-        requires = { "junegunn/fzf.vim" },
-    },
-
     -- Utils functions for common Unix like utilities such as mkdir, touch, mv inside of vim
     { "tpope/vim-eunuch" },
     { "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } },
