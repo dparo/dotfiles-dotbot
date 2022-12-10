@@ -10,14 +10,13 @@
     - xdg
     - zsh
     - user
-    - systemd
-    - docker
-    - dns
     - gpg
+    - systemd
     - keyring
     - bluetooth-manager
     - display-manager
     - network-manager
+    - dns
     - git
     - python
     - cpp
@@ -44,3 +43,4 @@
     - firefox
     - obsidian
     - onlyoffice
+    - docker
