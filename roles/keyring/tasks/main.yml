@@ -10,7 +10,7 @@
 
 - name: Enable keyring service
   ansible.builtin.systemd:
-    name: gnome-keyring
+    name: gnome-keyring-daemon
     enabled: true
     scope: user
   tags:
