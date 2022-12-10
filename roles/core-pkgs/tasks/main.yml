@@ -13,6 +13,7 @@
       - python3-pip
       - bat
       - exa
+      - tree
       - fd-find
       - net-tools
       - lm-sensors
