@@ -7,9 +7,10 @@
   become: true
   tags:
     - pipewire
+    - wireplumber
     - apt
 
-- name: Enable user service
+- name: Enable pipewire user service
   ansible.builtin.systemd:
     name: pipewire
     enabled: true
@@ -18,7 +19,17 @@
     - pipewire
   when: running_inside_docker == false
 
-- name: Restart service
+- name: Enable wireplumber user service
+  ansible.builtin.systemd:
+    name: wireplumber
+    enabled: true
+    scope: user
+  tags:
+    - pipewire
+    - wireplumber
+  when: running_inside_docker == false
+
+- name: Restart pipewire service
   ansible.builtin.systemd:
     state: restarted
     daemon_reload: yes
@@ -26,4 +37,15 @@
     scope: user
   tags:
     - pipewire
+  when: running_inside_docker == false
+
+- name: Restart wireplumber service
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: yes
+    name: wireplumber
+    scope: user
+  tags:
+    - pipewire
+    - wireplumber
   when: running_inside_docker == false
