@@ -6,7 +6,7 @@
 
 # Debian and derivatives: https://launchpad.net/ubuntu/+source/command-not-found
 if [[ -x /usr/lib/command-not-found || -x /usr/share/command-not-found/command-not-found ]]; then
-    command_not_found_handler() {
+    function command_not_found_handler {
         if [[ -x /usr/lib/command-not-found ]]; then
             /usr/lib/command-not-found -- "$1"
             return $?
@@ -28,7 +28,7 @@ fi
 
 # Fedora command-not-found support
 if [[ -x /usr/libexec/pk-command-not-found ]]; then
-    command_not_found_handler() {
+    function command_not_found_handler {
         if [[ -S /var/run/dbus/system_bus_socket && -x /usr/libexec/packagekitd ]]; then
             /usr/libexec/pk-command-not-found "$@"
             return $?
@@ -41,7 +41,7 @@ fi
 
 # NixOS: https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/programs/command-not-found
 if [[ -x /run/current-system/sw/bin/command-not-found ]]; then
-    command_not_found_handler() {
+    function command_not_found_handler {
         /run/current-system/sw/bin/command-not-found "$@"
         return $?
     }
@@ -50,7 +50,7 @@ fi
 
 # SUSE and derivates: https://www.unix.com/man-page/suse/1/command-not-found/
 if [[ -x /usr/bin/command-not-found ]]; then
-    command_not_found_handler() {
+    function command_not_found_handler {
         /usr/bin/command-not-found "$1"
         return $?
     }
