@@ -107,7 +107,17 @@ M.list = {
         },
     },
     { name = "ltex", config = {} }, --- LateX language server: LSP language server for LanguageTool (requires ltex-ls binary in path)
-    { name = "jsonls", config = {} },
+    {
+        name = "jsonls",
+        config = {
+            settings = {
+                json = {
+                    schemas = require("schemastore").json.schemas(),
+                    validate = { enable = true },
+                },
+            },
+        },
+    },
     { name = "yamlls", config = {} },
     { name = "tsserver", config = { root_dir = nodejs_root_dir } },
     { name = "eslint", config = {} },
