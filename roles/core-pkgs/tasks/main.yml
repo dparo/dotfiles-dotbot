@@ -32,7 +32,7 @@
     - core-pkgs
     - bat
 
-- name: Symlink fd-find
+- name: Symlink fdfind
   ansible.builtin.file:
     src: /usr/bin/fdfind
     dest: /usr/local/bin/fd
