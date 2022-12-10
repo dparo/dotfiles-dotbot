@@ -153,7 +153,7 @@ fi
 source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/key-bindings.zsh"
 
 
-source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
+source "/etc/zsh_command_not_found" 1> /dev/null 2> /dev/null || source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
 
 
 ## Fish like greyed out autosuggestions as you type based on history
