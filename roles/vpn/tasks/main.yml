@@ -1,0 +1,11 @@
+---
+- name: Install VPN software
+  ansible.builtin.apt:
+    pkg:
+      - openvpn
+      - openconnect
+      - openfortivpn
+  become: true
+  tags:
+    - apt
+    - vpn

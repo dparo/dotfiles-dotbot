@@ -13,11 +13,12 @@
     - systemd
     - docker
     - dns
-    - network-manager
+    - gpg
+    - keyring
     - bluetooth-manager
     - display-manager
-    - keyring
-    - gpg
+    - network-manager
+    - vpn
     - git
     - python
     - cpp
