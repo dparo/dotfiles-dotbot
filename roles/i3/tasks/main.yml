@@ -1,1 +1,25 @@
 ---
+- name: Install
+  ansible.builtin.apt:
+    pkg:
+      - i3-wm
+      - i3status
+      - i3lock
+  become: true
+  tags:
+    - apt
+    - i3
+
+- name: Install latest i3 from Debian Testing
+  ansible.builtin.apt:
+    deb: "http://ftp.de.debian.org/debian/pool/main/i/i3-wm/i3-wm_4.21.1-1_amd64.deb"
+  become: true
+  tags:
+    - obsidian
+
+- name: Install latest i3 status from Debian Testing
+  ansible.builtin.apt:
+    deb: "http://ftp.de.debian.org/debian/pool/main/i/i3status/i3status_2.14-1_amd64.deb"
+  become: true
+  tags:
+    - obsidian
