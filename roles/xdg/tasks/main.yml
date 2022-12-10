@@ -36,9 +36,8 @@
     state: absent
   loop:
     - "{{ ansible_user_dir }}/.bash_history"
-    - "{{ ansible_user_dir }}/.bash_logout"
-    - "{{ ansible_user_dir }}/.bash_logout"
-    - "{{ ansible_user_dir }}/.bash_logout"
+    - "{{ ansible_user_dir }}/.bash_profile"
+    - "{{ ansible_user_dir }}/.bashrc"
     - "{{ ansible_user_dir }}/.profile"
     - "{{ ansible_user_dir }}/.python_history"
     - "{{ ansible_user_dir }}/.lesshst"
