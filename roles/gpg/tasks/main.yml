@@ -1,8 +1,9 @@
 ---
 
 - name: Import gpg private key
-  ansible.builtin.command: gpg2 --batch --passphrase {{ gpg_passphrase }} --pinentry-mode loopback --import {{ item }}
-  loop:
-    - "{{ role_path }}/files/private.key"
+  ansible.builtin.shell:
+    cmd: gpg --batch --passphrase {{ gpg_passphrase }} --pinentry-mode loopback --import
+    stdin: {{ gpg_private_key }}
+  ignore_errors: true
   tags:
     - gpg

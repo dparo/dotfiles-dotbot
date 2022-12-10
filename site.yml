@@ -13,7 +13,7 @@
     - systemd
     - docker
     - dns
-  # - gpg
+    - gpg
     - keyring
     - bluetooth-manager
     - display-manager
