@@ -1,7 +1,7 @@
 ---
 - name: Create dir {{ node_install_dir }}
   ansible.builtin.file:
-    path: "{{ node_install_dir }}"
+    path: "{{ node_install_dir }}/node-v{{ node_version }}-linux-x64"
     state: directory
     mode: "0755"
   register: node_target_dir
