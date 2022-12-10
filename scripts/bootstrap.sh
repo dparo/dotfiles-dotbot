@@ -24,21 +24,26 @@ if ! test -d "$DOTFILES_LOCATION"; then
     git clone --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
 fi
 
-pushd "$DOTFILES_LOCATION" || exit 1
-git config core.excludesFile "$PWD/vault_pass.txt"
-./ansible/scripts/install.sh "$@"
+main() {
+    source "$PWD/scripts/lib.sh"
+    git_exclude_vault_pass
 
-if test "$?" -eq 0; then
-    while true; do
-        echo ""
-        echo ""
-        echo ""
-        echo "It is recommended to reboot after installing the dotfiles for the first time."
-        read -p -r "Do you want to reboot now? [yn]" yn
-        case $yn in
-        [Yy]*) systemctl reboot ;;
-        [Nn]*) ;;
-        *) echo "Please answer yes or no." ;;
-        esac
-    done
-fi
+    ./ansible/scripts/install.sh "$@"
+    if test "$?" -eq 0; then
+        while true; do
+            echo ""
+            echo ""
+            echo ""
+            echo "It is recommended to reboot after installing the dotfiles for the first time."
+            read -p -r "Do you want to reboot now? [yn]" yn
+            case $yn in
+            [Yy]*) systemctl reboot ;;
+            [Nn]*) ;;
+            *) echo "Please answer yes or no." ;;
+            esac
+        done
+    fi
+}
+
+pushd "$DOTFILES_LOCATION" || exit 1
+main "$@"
