@@ -16,7 +16,15 @@ run() {
     fi
 
     set -x
-    ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" "$@"
+
+    if test -f "$PWD/vault_pass.txt"; then
+        ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --vault-password-file "$PWD/vault_pass.txt" "$@"
+    elif test -f "$XDG_CONFIG_HOME/ansible/vault_pass.txt"; then
+        ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --vault-password-file "$XDG_CONFIG_HOME/ansible/vault_pass.txt" "$@"
+    else
+        ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --ask-vault-pass "$@"
+    fi
+
     rm -rf "$HOME/.ansible"
 }
 
@@ -24,7 +32,7 @@ source ./roles/zsh/files/.zshenv
 source ./roles/zsh/files/.zprofile
 
 mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/ansible"
-echo "/vault_pass.txt" > "${XDG_CONFIG_HOME:-$HOME/.config}/ansible/.gitignore"
+echo "vault_pass.txt" > "${XDG_CONFIG_HOME:-$HOME/.config}/ansible/.gitignore"
 
 echo "ANSIBLE_HOME: $ANSIBLE_HOME"
 echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
