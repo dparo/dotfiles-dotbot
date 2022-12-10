@@ -15,6 +15,7 @@
       - exa
       - tree
       - fd-find
+      - htop
       - net-tools
       - lm-sensors
   become: true
