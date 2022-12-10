@@ -1,6 +1,7 @@
 ---
 - name: Create swap file of {{ swapfile_size }} MiB
   ansible.builtin.shell: |
+    set -e
     if ! test -f /swapfile && test {{ swapfile_size }} -gt 0; then
       dd if=/dev/zero of=/swapfile bs=1M count={{ swapfile_size }} status=progress
       chmod 0600 /swapfile
