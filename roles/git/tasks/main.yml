@@ -14,7 +14,6 @@
     return_content: true
   register: gitdelta_latest
   tags:
-    - apt
     - git
     - git-delta
 
@@ -23,6 +22,5 @@
     deb: "https://github.com/dandavison/delta/releases/download/{{ gitdelta_latest['json']['tag_name'] }}/git-delta_{{ gitdelta_latest['json']['tag_name'] }}_amd64.deb"
   become: true
   tags:
-    - apt
     - git
     - git-delta

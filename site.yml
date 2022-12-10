@@ -32,6 +32,7 @@
     - pipewire
     - x11
     - kitty
+    - starship
     - tmux
     - neovim
     - dunst
