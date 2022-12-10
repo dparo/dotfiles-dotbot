@@ -10,6 +10,7 @@
     - xdg
     - zsh
     - user
+    - ssh
     - gpg
     - systemd
     - keyring

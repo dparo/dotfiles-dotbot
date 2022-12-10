@@ -5,6 +5,7 @@
     cmd: gpg --batch --passphrase {{ gpg_passphrase }} --pinentry-mode loopback --import
     stdin: "{{ gpg_private_key }}"
   ignore_errors: true
+  no_log: true
   when: running_inside_docker == false
   tags:
     - gpg
