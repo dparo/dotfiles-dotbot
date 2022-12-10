@@ -27,8 +27,14 @@ run() {
     rm -rf "$HOME/.ansible"
 }
 
-if test "$RUNNING_INSIDE_DOCKER" = ""; then
-    run --ask-become-pass --extra-vars "running_inside_docker=false" "$@"
-else
+if grep -qE 'hypervisor' /proc/cpuinfo; then
+    export RUNNING_INSIDE_VM=1
+fi
+
+if test "$RUNNING_INSIDE_DOCKER" -eq 1; then
     run --extra-vars "running_inside_docker=true" "$@"
+elif test "$RUNNING_INSIDE_VM" -eq 1; then
+    run --ask-become-pass --extra-vars --extra-vars "running_inside_vm=true" "$@"
+else
+    run --ask-become-pass --extra-vars "running_inside_docker=false" --extra-vars "running_inside_vm=false" "$@"
 fi
