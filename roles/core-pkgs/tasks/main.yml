@@ -14,7 +14,7 @@
       - bat
       - exa
       - net-tools
-      - lm_sensors
+      - lm-sensors
   become: true
   tags:
     - core-pkgs
