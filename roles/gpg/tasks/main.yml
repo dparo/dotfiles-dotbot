@@ -3,7 +3,7 @@
 - name: Import gpg private key
   ansible.builtin.shell:
     cmd: gpg --batch --passphrase {{ gpg_passphrase }} --pinentry-mode loopback --import
-    stdin: {{ gpg_private_key }}
+    stdin: "{{ gpg_private_key }}"
   ignore_errors: true
   tags:
     - gpg
