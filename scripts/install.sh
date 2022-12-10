@@ -41,6 +41,10 @@ echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
 
 git_exclude_vault_pass
 
+set +x
+ask_vault_pass
+set -x
+
 if grep -qE 'hypervisor' /proc/cpuinfo; then
     export RUNNING_INSIDE_VM=1
 fi
