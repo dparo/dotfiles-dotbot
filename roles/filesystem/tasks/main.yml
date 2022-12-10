@@ -1,16 +1,15 @@
 ---
-
-- name: Create swap file of 32GiB
+- name: Create swap file of {{ swapfile_size }} MiB
   ansible.builtin.shell: |
-    if ! test -f /swapfile; then
-      dd if=/dev/zero of=/swapfile bs=1M count=32768 status=progress
+    if ! test -f /swapfile && test {{ swapfile_size }} -gt 0; then
+      dd if=/dev/zero of=/swapfile bs=1M count={{ swapfile_size }} status=progress
       chmod 0600 /swapfile
       mkswap -U clear /swapfile
       swapon /swapfile
       grep -qxE '/swapfile\s+none\s+swap\s+defaults\s+0\s+0' /etc/fstab || echo '/swapfile none swap defaults 0 0' >> /etc/fstab
     fi
   become: true
-  when: running_inside_docker == false
+  when: running_inside_docker == false and modify_filesystem == true
   tags:
     - swapfile
     - filesystem

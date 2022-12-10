@@ -4,7 +4,7 @@
   roles:
     - wget
     - core-pkgs
-    - swapfile
+    - filesystem
     - snap
     - sudo
     - xdg
