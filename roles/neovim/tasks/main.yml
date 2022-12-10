@@ -72,7 +72,7 @@
   tags:
     - neovim
 
-- name: Install runtime deps
+- name: Install runtime deps (APT)
   ansible.builtin.apt:
     pkg:
       - xsel
@@ -86,7 +86,17 @@
   become: true
   tags:
     - neovim
+    - neovim-runtime
     - apt
+
+- name: Install tree-sitter-cli runtime
+  community.general.cargo:
+    name: tree-sitter-cli
+    state: latest
+  tags:
+    - neovim
+    - neovim-runtime
+
 
 - name: Install required providers - npm neovim
   community.general.npm:
@@ -127,27 +137,48 @@
 #     nvim --headless -c 'autocmd User PackerComplete quitall!' -c 'PackerSync'
 #   tags:
 #     - neovim
+#     - neovim-plugins
 #
 # - name: Update remote plugins
 #   ansible.builtin.shell: |
 #     nvim --headless -c 'UpdateRemotePlugins' -c qall
 #   tags:
 #     - neovim
+#     - neovim-plugins
 #
 # - name: Install lsp-servers, formatters, diagnostics tools
 #   ansible.builtin.shell: |
-#     nvim --headless -c "MasonInstall vim-language-server stylua lua-language-server" -c "qall"
-#     nvim --headless -c "MasonInstall bash-language-server" -c "qall"
-#     nvim --headless -c "MasonInstall pyright" -c "qall"
-#     nvim --headless -c "MasonInstall rust-analyzer" -c "qall"
-#     nvim --headless -c "MasonInstall shellcheck shellharden shfmt" -c "qall"
-#     nvim --headless -c "MasonInstall typescript-language-server" -c "qall"
-#     nvim --headless -c "MasonInstall eslint-lsp prettier" -c "qall"
-#     nvim --headless -c "MasonInstall json-lsp yamllint yaml-language-server" -c "qall"
-#     nvim --headless -c "MasonInstall texlab write-good proselint" -c "qall"
-#     nvim --headless -c "MasonInstall sqlfluff" -c "qall"
-#     nvim --headless -c "MasonInstall jdtls" -c "qall"
-#     nvim --headless -c "MasonInstall ltex-ls" -c "qall"
-#     nvim --headless -c "MasonInstall ansible-language-server" -c "qall"
+#     nvim --headless -c "MasonInstall {{ item }}" -c "qall"
+#   loop:
+#     - vim-language-server
+#     - stylua
+#     - lua-language-server
+#     - bash-language-server
+#     - pyright
+#     - clangd
+#     - clang-format
+#     - cmakelang
+#     - cmake-language-server
+#     - rust-analyzer
+#     - shellcheck
+#     - shellharden
+#     - shfmt
+#     - typescript-language-server
+#     - eslint-lsp
+#     - prettier
+#     - json-lsp
+#     - yamllint
+#     - yaml-language-server
+#     - texlab
+#     - write-good
+#     - proselint
+#     - codespell
+#     - ltex-ls
+#     - ansible-language-server
+#     - sqlfluff
+#     - jdtls
+#     - java-test
+#     - java-debug-adapter
 #   tags:
 #     - neovim
+#     - lsp
