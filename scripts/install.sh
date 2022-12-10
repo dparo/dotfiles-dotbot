@@ -19,8 +19,6 @@ run() {
 
     if test -f "$PWD/vault_pass.txt"; then
         ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --vault-password-file "$PWD/vault_pass.txt" "$@"
-    elif test -f "$XDG_CONFIG_HOME/ansible/vault_pass.txt"; then
-        ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --vault-password-file "$XDG_CONFIG_HOME/ansible/vault_pass.txt" "$@"
     else
         ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --ask-vault-pass "$@"
     fi
@@ -38,6 +36,7 @@ echo "ANSIBLE_HOME: $ANSIBLE_HOME"
 echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
 echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
 
+git config core.excludesFile "$PWD/vault_pass.txt"
 
 if grep -qE 'hypervisor' /proc/cpuinfo; then
     export RUNNING_INSIDE_VM=1

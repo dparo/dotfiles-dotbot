@@ -25,6 +25,7 @@ if ! test -d "$DOTFILES_LOCATION"; then
 fi
 
 pushd "$DOTFILES_LOCATION" || exit 1
+git config core.excludesFile "$PWD/vault_pass.txt"
 ./ansible/scripts/install.sh "$@"
 
 if test "$?" -eq 0; then
