@@ -81,7 +81,6 @@
       - ripgrep
       - silversearcher-ag
       - editorconfig
-      - tokei
       - jq
   become: true
   tags:
