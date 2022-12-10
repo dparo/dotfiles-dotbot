@@ -24,8 +24,19 @@ if ! test -d "$DOTFILES_LOCATION"; then
     git clone --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
 fi
 
+ask_vault_pass() {
+    set +x
+    read -r -s -p "ANSIBLE VAULT PASS: " vault_password
+    echo "$vault_password" > "$PWD/vault_pass.txt"
+}
+
 main() {
     source "$PWD/scripts/lib.sh"
+
+    set +x
+    ask_vault_pass
+    set -x
+
     git_exclude_vault_pass
 
     ./ansible/scripts/install.sh "$@"
