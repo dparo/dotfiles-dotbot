@@ -33,7 +33,7 @@
 
 - name: Symlink fd-find
   ansible.builtin.file:
-    src: /usr/bin/fd-find
+    src: /usr/bin/fdfind
     dest: /usr/local/bin/fd
     state: link
   become: true
