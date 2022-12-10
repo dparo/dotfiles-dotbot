@@ -32,10 +32,10 @@ if test "$?" -eq 0; then
         echo ""
         echo ""
         echo ""
-        echo "It is recommended to logout after installing the dotfiles for the first time."
-        read -p -r "Do you want to logout now? [yn]" yn
+        echo "It is recommended to reboot after installing the dotfiles for the first time."
+        read -p -r "Do you want to reboot now? [yn]" yn
         case $yn in
-        [Yy]*) systemctl logout ;;
+        [Yy]*) systemctl reboot ;;
         [Nn]*) ;;
         *) echo "Please answer yes or no." ;;
         esac
