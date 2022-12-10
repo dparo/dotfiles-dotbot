@@ -13,6 +13,7 @@
       - python3-pip
       - bat
       - exa
+      - fd-find
       - net-tools
       - lm-sensors
   become: true
