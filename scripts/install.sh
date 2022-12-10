@@ -16,13 +16,15 @@ run() {
     fi
 
     set -x
-    ansible-playbook "$PWD/site.yml" "$@"
+    ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" "$@"
     rm -rf "$HOME/.ansible"
 }
 
 source ./roles/zsh/files/.zshenv
 source ./roles/zsh/files/.zprofile
 
+mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/ansible"
+echo "/vault_pass.txt" > "${XDG_CONFIG_HOME:-$HOME/.config}/ansible/.gitignore"
 
 echo "ANSIBLE_HOME: $ANSIBLE_HOME"
 echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
