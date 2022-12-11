@@ -120,21 +120,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 
-# FZF Auto-completion and keybinds
-# ---------------
-[[ $- == *i* ]] && source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/completion.zsh" 2> /dev/null  # Ebabke cinoketuib ibky uf shell is interactive
-source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/key-bindings.zsh"
-
-
-source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
-
-source "$USER_DOTFILES_LOCATION/core/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-ZSH_HIGHLIGHT_STYLES[comment]=fg=yellow,bold
-
-## Fish like greyed out autosuggestions as you type based on history
-source "$USER_DOTFILES_LOCATION/core/vendor/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-
 ## Conda initialization
 if [ -d "$XDG_DATA_HOME/anaconda3/bin" ]; then
     # >>> conda initialize >>>
@@ -160,3 +145,20 @@ source "$ZDOTDIR/.aliases"
 if [ -f "$ZDOTDIR/.localrc" ]; then
     source "$ZDOTDIR/.localrc"
 fi
+
+
+# FZF Auto-completion and keybinds
+# ---------------
+[[ $- == *i* ]] && source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/completion.zsh" 2> /dev/null  # Ebabke cinoketuib ibky uf shell is interactive
+source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/key-bindings.zsh"
+
+
+source "/etc/zsh_command_not_found" 1> /dev/null 2> /dev/null || source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
+
+
+## Fish like greyed out autosuggestions as you type based on history
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 1> /dev/null 2> /dev/null || source "$USER_DOTFILES_LOCATION/core/vendor/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 1> /dev/null 2> /dev/null || source "$USER_DOTFILES_LOCATION/core/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+ZSH_HIGHLIGHT_STYLES[comment]=fg=yellow,bold
