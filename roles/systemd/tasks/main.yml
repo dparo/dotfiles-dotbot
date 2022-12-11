@@ -1,8 +1,5 @@
 ---
-
-
 # TODO: Symlink
-
 
 - name: Reload user services
   ansible.builtin.systemd:
@@ -10,4 +7,4 @@
     scope: user
   tags:
     - systemd
-  when: not running_inside_docker
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined

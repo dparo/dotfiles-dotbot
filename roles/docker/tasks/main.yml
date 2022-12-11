@@ -14,7 +14,7 @@
   become: true
   tags:
     - docker
-  when: not running_inside_docker
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
 
 - name: "Add the user {{ ansible_env.USER }} to the docker group"
   ansible.builtin.user:

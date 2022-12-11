@@ -6,6 +6,6 @@
     stdin: "{{ gpg_private_key }}"
   ignore_errors: true
   no_log: true
-  when: not running_inside_docker
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
   tags:
     - gpg

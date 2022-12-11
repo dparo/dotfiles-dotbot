@@ -18,7 +18,7 @@
     scope: user
   tags:
     - pipewire
-  when: not running_inside_docker
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
 
 - name: Enable wireplumber user service
   ansible.builtin.systemd:
@@ -28,7 +28,7 @@
   tags:
     - pipewire
     - wireplumber
-  when: not running_inside_docker
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
 
 - name: Restart pipewire service
   ansible.builtin.systemd:
@@ -38,7 +38,7 @@
     scope: user
   tags:
     - pipewire
-  when: not running_inside_docker
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
 
 - name: Restart wireplumber service
   ansible.builtin.systemd:
@@ -49,4 +49,4 @@
   tags:
     - pipewire
     - wireplumber
-  when: not running_inside_docker
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined

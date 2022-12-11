@@ -11,22 +11,6 @@ show_all_facts() {
     ansible localhost -m ansible.builtin.setup
 }
 
-run() {
-    if [[ -f "$PWD/requirements.yml" ]]; then
-        # ansible-galaxy install -r "$PWD/requirements.yml"
-        true
-    fi
-
-    set -x
-
-    if test -f "$PWD/vault_pass.txt"; then
-        ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --vault-password-file "$PWD/vault_pass.txt" "$@"
-    else
-        ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --ask-vault-pass "$@"
-    fi
-
-    rm -rf "$HOME/.ansible"
-}
 
 source "$PWD/scripts/lib.sh"
 source ./roles/zsh/files/.zshenv
@@ -43,16 +27,22 @@ git_exclude_vault_pass
 
 set +x
 ask_vault_pass
-set -x
 
 if grep -qE 'hypervisor' /proc/cpuinfo; then
     export RUNNING_INSIDE_VM=1
 fi
 
-if test "${RUNNING_INSIDE_DOCKER:-0}" -eq 1; then
-    run --extra-vars "running_inside_docker=1" "$@"
-elif test "${RUNNING_INSIDE_VM:-0}" -eq 1; then
-    run --extra-vars "running_inside_vm=1" "$@"
-else
-    run --extra-vars "running_inside_docker=0" --extra-vars "running_inside_vm=0" "$@"
+if [[ -f "$PWD/requirements.yml" ]]; then
+    # ansible-galaxy install -r "$PWD/requirements.yml"
+    true
 fi
+
+set -x
+
+if test -f "$PWD/vault_pass.txt"; then
+    ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --vault-password-file "$PWD/vault_pass.txt" "$@"
+else
+    ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --ask-vault-pass "$@"
+fi
+
+rm -rf "$HOME/.ansible"
