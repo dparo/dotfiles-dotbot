@@ -17,6 +17,8 @@
     src: "https://github.com/werman/noise-suppression-for-voice/releases/latest/download/linux-rnnoise.zip"
     dest: /usr/lib
     remote_src: yes
+    extra_opts:
+      - --strip-components=1
   become: true
   tags:
     - pipewire
