@@ -31,7 +31,7 @@ main() {
     ask_vault_pass
     set -x
 
-    git_exclude_vault_pass
+    git_exclude
 
     ./ansible/scripts/install.sh "$@"
     if test "$?" -eq 0; then

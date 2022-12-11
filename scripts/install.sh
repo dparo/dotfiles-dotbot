@@ -11,7 +11,6 @@ show_all_facts() {
     ansible localhost -m ansible.builtin.setup
 }
 
-
 source "$PWD/scripts/lib.sh"
 source ./roles/zsh/files/.zshenv
 source ./roles/zsh/files/.zprofile
@@ -23,7 +22,7 @@ echo "ANSIBLE_HOME: $ANSIBLE_HOME"
 echo "ANSIBLE_GALAXY_CACHE_DIR: $ANSIBLE_GALAXY_CACHE_DIR"
 echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
 
-git_exclude_vault_pass
+git_exclude
 
 set +x
 ask_vault_pass
