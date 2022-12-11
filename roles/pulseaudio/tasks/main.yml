@@ -3,6 +3,7 @@
   ansible.builtin.apt:
     name:
       - pipewire-pulse
+      - pulseaudio-utils
     state: present
   become: true
   tags:
