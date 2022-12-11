@@ -25,7 +25,10 @@ echo "ANSIBLE_LOCAL_TEMP: $ANSIBLE_LOCAL_TEMP"
 git_exclude
 
 set +x
-ask_vault_pass
+
+if ! "$RUNNING_INSIDE_DOCKER" -ne 1; then
+    ask_vault_pass
+fi
 
 if grep -qE 'hypervisor' /proc/cpuinfo; then
     export RUNNING_INSIDE_VM=1
@@ -41,7 +44,9 @@ set -x
 git remote set-url origin 'git@github.com:dparo/dotfiles.git'
 git remote add origin-https 'https://github.com:dparo/dotfiles' || true
 
-if test -f "$PWD/vault_pass.txt"; then
+if "$RUNNING_INSIDE_DOCKER" -eq 1; then
+    ansible-playbook "$PWD/site.yml" "$@"
+elif test -f "$PWD/vault_pass.txt"; then
     ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --vault-password-file "$PWD/vault_pass.txt" "$@"
 else
     ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --ask-vault-pass "$@"
