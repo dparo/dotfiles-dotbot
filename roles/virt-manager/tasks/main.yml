@@ -1,11 +1,11 @@
 ---
-- name: "Sets the user {{ ansible_env.USER }} additional groups"
-  ansible.builtin.user:
-    name: "{{ ansible_env.USER }}"
-    append: true
-    groups:
-      - kvm
-      - libvirt
-  become: true
-  tags:
-    - user
+# - name: "Sets the user {{ ansible_env.USER }} additional groups"
+#   ansible.builtin.user:
+#     name: "{{ ansible_env.USER }}"
+#     append: true
+#     groups:
+#       - kvm
+#       - libvirt
+#   become: true
+#   tags:
+#     - user

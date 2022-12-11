@@ -5,19 +5,20 @@
     - debug
     - ssh
     - gnupg
+    - systemd
+    - sudo
     - wget
     - core-pkgs
     - filesystem
     - snap
-    - sudo
     - xdg
     - zsh
     - user
-    - systemd
     - keyring
     - bluetooth-manager
     - display-manager
     - network-manager
+    - virt-manager
     - dns
     - git
     - python
