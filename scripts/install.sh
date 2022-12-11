@@ -39,6 +39,9 @@ fi
 
 set -x
 
+git remote set-url origin 'git@github.com:dparo/dotfiles.git'
+git remote add origin-https 'https://github.com:dparo/dotfiles' || true
+
 if test -f "$PWD/vault_pass.txt"; then
     ansible-playbook "$PWD/site.yml" -e "@$PWD/secrets_file.enc" --vault-password-file "$PWD/vault_pass.txt" "$@"
 else
