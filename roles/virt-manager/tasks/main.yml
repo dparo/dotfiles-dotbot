@@ -4,9 +4,8 @@
     name: "{{ ansible_env.USER }}"
     append: true
     groups:
-      - sudo
-      - video
-      - input
+      - kvm
+      - libvirt
   become: true
   tags:
     - user
