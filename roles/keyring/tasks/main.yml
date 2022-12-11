@@ -15,4 +15,4 @@
     scope: user
   tags:
     - keyring
-  when: running_inside_docker == false
+  when: not running_inside_docker

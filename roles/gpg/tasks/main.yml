@@ -6,6 +6,6 @@
     stdin: "{{ gpg_private_key }}"
   ignore_errors: true
   no_log: true
-  when: running_inside_docker == false
+  when: not running_inside_docker
   tags:
     - gpg

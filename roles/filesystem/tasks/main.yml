@@ -11,7 +11,7 @@
 
     grep -qxE '/swapfile\s+none\s+swap\s+defaults\s+0\s+0' /etc/fstab || echo '/swapfile none swap defaults 0 0' >> /etc/fstab
   become: true
-  when: running_inside_docker == false and running_inside_vm == false and modify_filesystem == true
+  when: not running_inside_docker and not running_inside_vm and modify_filesystem
   tags:
     - swapfile
     - filesystem

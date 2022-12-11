@@ -50,9 +50,9 @@ if grep -qE 'hypervisor' /proc/cpuinfo; then
 fi
 
 if test "${RUNNING_INSIDE_DOCKER:-0}" -eq 1; then
-    run --extra-vars "running_inside_docker=true" "$@"
+    run --extra-vars "running_inside_docker=1" "$@"
 elif test "${RUNNING_INSIDE_VM:-0}" -eq 1; then
-    run --extra-vars "running_inside_vm=true" "$@"
+    run --extra-vars "running_inside_vm=1" "$@"
 else
-    run --extra-vars "running_inside_docker=false" --extra-vars "running_inside_vm=false" "$@"
+    run --extra-vars "running_inside_docker=0" --extra-vars "running_inside_vm=0" "$@"
 fi

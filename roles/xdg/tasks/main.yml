@@ -28,7 +28,7 @@
     - "{{ ansible_user_dir }}/.config"
     - "{{ ansible_user_dir }}/.config/systemd/user/default.target.wants"
     - "{{ ansible_user_dir }}/.ssh"
-    - "{{ ansible_user_dir }}/.gpg"
+    - "{{ ansible_user_dir }}/.gnupg"
   tags:
     - xdg
 
