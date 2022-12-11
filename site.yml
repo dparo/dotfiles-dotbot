@@ -3,6 +3,8 @@
   connection: local
   roles:
     - debug
+    - ssh
+    - gnupg
     - wget
     - core-pkgs
     - filesystem
@@ -11,8 +13,6 @@
     - xdg
     - zsh
     - user
-    - ssh
-    - gnupg
     - systemd
     - keyring
     - bluetooth-manager

@@ -26,7 +26,6 @@
     - "{{ ansible_user_dir }}/.cache/zsh"
     - "{{ ansible_user_dir }}/.cache/mpd"
     - "{{ ansible_user_dir }}/.config"
-    - "{{ ansible_user_dir }}/.config/systemd/user/default.target.wants"
     - "{{ ansible_user_dir }}/.ssh"
     - "{{ ansible_user_dir }}/.gnupg"
   tags:
