@@ -1,5 +1,23 @@
 ---
-# TODO: Symlink
+
+- name: Symlink user config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/systemd"
+    dest: "{{ ansible_user_dir }}/.config/systemd"
+    state: link
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
+  tags:
+    - systemd
+
+- name: Symlink environment.d config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/environment.d"
+    dest: "{{ ansible_user_dir }}/.config/environment.d"
+    state: link
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
+  tags:
+    - systemd
+
 
 - name: Reload user services
   ansible.builtin.systemd:
@@ -8,3 +26,14 @@
   tags:
     - systemd
   when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
+
+- name: Enable user services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+    scope: user
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
+  loop:
+    - systemd-dump-env-at-login.service
+  tags:
+    - systemd

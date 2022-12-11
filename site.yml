@@ -12,7 +12,7 @@
     - zsh
     - user
     - ssh
-    - gpg
+    - gnupg
     - systemd
     - keyring
     - bluetooth-manager
