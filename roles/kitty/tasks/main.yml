@@ -21,3 +21,11 @@
     src: "{{ ansible_user_dir }}/opt/kitty.app/bin/kitty"
     dest: "{{ ansible_user_dir }}/.local/bin/kitty"
     state: link
+
+- name: Symlink config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_user_dir }}/.config/kitty"
+    state: link
+  tags:
+    - kitty

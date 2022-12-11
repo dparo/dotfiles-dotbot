@@ -8,3 +8,11 @@
   tags:
     - apt
     - tmux
+
+- name: Symlink config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_user_dir }}/.config/tmux"
+    state: link
+  tags:
+    - tmux

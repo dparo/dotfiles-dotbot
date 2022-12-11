@@ -24,3 +24,19 @@
   become: true
   tags:
     - obsidian
+
+- name: Symlink i3 config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/i3"
+    dest: "{{ ansible_user_dir }}/.config/i3"
+    state: link
+  tags:
+    - i3
+
+- name: Symlink i3status config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/i3status"
+    dest: "{{ ansible_user_dir }}/.config/i3status"
+    state: link
+  tags:
+    - i3
