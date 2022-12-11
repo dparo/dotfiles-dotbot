@@ -38,11 +38,13 @@
   loop:
     - "{{ ansible_user_dir }}/.bash_history"
     - "{{ ansible_user_dir }}/.bash_profile"
+    - "{{ ansible_user_dir }}/.bash_logout"
     - "{{ ansible_user_dir }}/.bashrc"
     - "{{ ansible_user_dir }}/.profile"
     - "{{ ansible_user_dir }}/.python_history"
     - "{{ ansible_user_dir }}/.lesshst"
     - "{{ ansible_user_dir }}/.sudo_as_admin_successful"
+    - "{{ ansible_user_dir }}/.xsession-errors"
     - "{{ ansible_user_dir }}/Templates"
   tags:
     - xdg
