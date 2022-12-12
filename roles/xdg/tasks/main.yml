@@ -1,6 +1,6 @@
 - name: Create items
   ansible.builtin.file:
-    path: "{{item}}"
+    path: "{{ item }}"
     state: directory
     mode: "0755"
   loop:
@@ -48,7 +48,6 @@
   tags:
     - xdg
 
-
 - name: Symlink items
   ansible.builtin.file:
     src: "{{ item.src }}"
@@ -64,10 +63,10 @@
         dest: "{{ ansible_user_dir }}/.vscode",
       }
   tags:
-    - i3
+    - xdg
 
 - name: Remove broken symlinks in directories
-  ansible.builtin.command: find -L "{{item}}" -maxdepth 1 -type l -delete
+  ansible.builtin.command: find -L "{{ item }}" -maxdepth 1 -type l -delete
   loop:
     - "{{ ansible_user_dir }}"
     - "{{ ansible_user_dir }}/.config"

@@ -29,3 +29,34 @@
     - "{{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvnyjp"
   tags:
     - maven
+
+
+- name: Symlink config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_user_dir }}/.config/maven"
+    state: link
+  tags:
+    - maven
+
+
+- name: Symlink items
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - {
+        src: "{{ ansible_user_dir }}/.config/maven/settings_global.xml",
+        dest: "{{ maven_install_dir }}/apache-maven-{{ maven_version }}/conf/settings.xml",
+      }
+    - {
+        src: "{{ ansible_user_dir }}/.cache/maven/repository",
+        dest: "{{ ansible_user_dir }}/.local/share/java/.m2/repository",
+      }
+    - {
+        src: "{{ ansible_user_dir }}/.config/maven/settings_local.xml",
+        dest: "{{ ansible_user_dir }}/.local/share/java/.m2/settings.xml",
+      }
+  tags:
+    - maven
