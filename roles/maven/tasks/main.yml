@@ -17,3 +17,15 @@
   when: maven_target_dir.changed
   tags:
     - maven
+
+- name: Symlink maven binaries
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_home }}/.local/bin"
+    state: link
+  loop:
+    - "{{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvn"
+    - "{{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvnDebug"
+    - "{{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvnyjp"
+  tags:
+    - maven
