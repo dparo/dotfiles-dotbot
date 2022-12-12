@@ -1,0 +1,11 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    name:
+      - adwaita-icon-theme-full
+    state: present
+  become: true
+  tags:
+    - apt
+    - gtk
+    - gtk-theme
