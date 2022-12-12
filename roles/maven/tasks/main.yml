@@ -45,6 +45,7 @@
     mode: "0755"
   loop:
     - "{{ ansible_user_dir }}/.cache/maven/repository"
+    - "{{ ansible_user_dir }}/.local/share/java/.m2"
   tags:
     - maven
 
