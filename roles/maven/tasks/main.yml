@@ -19,7 +19,7 @@
 - name: Symlink maven binaries
   ansible.builtin.file:
     src: "{{ item }}"
-    dest: "{{ ansible_user_dir }}/.local/bin"
+    dest: "{{ ansible_user_dir }}/.local/bin/{{ item | basename }}"
     state: link
   loop:
     - "{{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvn"
