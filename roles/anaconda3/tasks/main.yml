@@ -1,7 +1,7 @@
 ---
 - name: Create target dir
   ansible.builtin.file:
-    path: "{{ ansible_user_home }}/.local/share/anaconda3/etc/conda/activate.d"
+    path: "{{ ansible_user_dir }}/.local/share/anaconda3/etc/conda/activate.d"
     state: directory
     mode: "0755"
   tags:
@@ -10,7 +10,7 @@
 - name: Symlink activate.d ENV
   ansible.builtin.file:
     src: "{{ item }}"
-    dest: "{{ ansible_user_home }}/.local/share/anaconda3/etc/conda/activate.d/{{ item | basename }}"
+    dest: "{{ ansible_user_dir }}/.local/share/anaconda3/etc/conda/activate.d/{{ item | basename }}"
     state: link
   with_fileglob: "{{ role_path }}/files/activate.d"
   tags:
