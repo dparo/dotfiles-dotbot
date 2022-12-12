@@ -22,6 +22,7 @@
     - dns
     - git
     - python
+    - anaconda3
     - cpp
     - rust
     - golang
