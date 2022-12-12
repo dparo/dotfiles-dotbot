@@ -42,6 +42,7 @@
     - wm-basics
     - i3
     - gtk
+    - xsettingsd
     - misc
     - fonts
     - docker
