@@ -42,3 +42,10 @@
   tags:
     - gtk
     - gtk-theme
+
+- name: gtk-4.0 Prefer dark mode
+  ansible.builtin.shell: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+  ignore_errors: true
+  tags:
+    - gtk
+    - gtk-theme

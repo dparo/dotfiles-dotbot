@@ -48,3 +48,9 @@
   when: fonts_download.changed
   tags:
     - fonts
+
+- name: Refresh X11 font cache
+  ansible.builtin.command: xset fp rehash
+  when: fonts_download.changed
+  tags:
+    - fonts
