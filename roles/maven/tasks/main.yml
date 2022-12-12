@@ -38,6 +38,16 @@
     - maven
 
 
+- name: Create items
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ ansible_user_dir }}/.cache/maven/repository"
+  tags:
+    - maven
+
 - name: Symlink items
   ansible.builtin.file:
     src: "{{ item.src }}"
