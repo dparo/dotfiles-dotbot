@@ -37,6 +37,7 @@
     - kitty
     - starship
     - tmux
+    - fzf
     - neovim
     - lazygit
     - dunst
