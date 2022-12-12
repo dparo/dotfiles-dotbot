@@ -1,7 +1,9 @@
 ---
 - name: Install
   ansible.builtin.apt:
-    name: gnome-keyring
+    name:
+      - gnome-keyring
+      - seahorse
     state: present
   become: true
   tags:

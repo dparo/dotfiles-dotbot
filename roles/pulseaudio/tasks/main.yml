@@ -4,6 +4,7 @@
     name:
       - pipewire-pulse
       - pulseaudio-utils
+      - pavucontrol
     state: present
   become: true
   tags:
