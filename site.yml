@@ -44,7 +44,7 @@
     - gtk
     - misc
     - fonts
+    - docker
     - firefox
     - obsidian
     - onlyoffice
-    - docker
