@@ -55,7 +55,7 @@ local generic = {
     {
         "junegunn/fzf.vim",
         requires = {
-            vim.env.USER_DOTFILES_LOCATION .. "/core/vendor/fzf",
+            vim.env.HOME .. "/opt/fzf",
         },
         config = function()
             vim.g.fzf_buffers_jump = 1

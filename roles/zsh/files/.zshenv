@@ -48,13 +48,11 @@ pathprepend() {
 
 # pathprepend: Inserts higher precedence paths
 pathprepend \
-    "$USER_DOTFILES_LOCATION/core/vendor/fzf/bin" \
     "$XDG_DATA_HOME/bin" \
     "$HOME/.local/bin" \
     "${PYTHONUSERBASE:-$XDG_DATA_HOME/python}/bin" \
     "${GOPATH:-$XDG_DATA_HOME/go}/bin" \
     "${CARGO_HOME:-$XDG_DATA_HOME/cargo}/bin" \
-    "${MAVEN_HOME}/bin" \
     "${NPM_CONFIG_PREFIX:-$XDG_DATA_HOME/npm}/bin" \
     "${DENO_DIR:-$XDG_DATA_HOME/deno}/bin" \
     "${BUN_INSTALL:-$XDG_DATA_HOME/bun}/bin" \
