@@ -8,6 +8,7 @@
       - flameshot
       - zathura
       - copyq
+      - brightnessctl
     state: present
   become: true
   tags:
