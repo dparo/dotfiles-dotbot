@@ -58,3 +58,4 @@ if test "$rc" -eq 0; then
 fi
 
 rm -rf "$HOME/.ansible"
+rm -rf "$HOME/.bash_history"
