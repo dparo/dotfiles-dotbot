@@ -22,3 +22,14 @@
     state: link
   tags:
     - xorg
+
+
+- name: Symlink startx script
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/bin/{{ item | basename }}"
+    state: link
+  loop:
+    - "{{ role_path }}/files/startx"
+  tags:
+    - xorg
