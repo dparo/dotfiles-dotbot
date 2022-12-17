@@ -8,12 +8,12 @@
       - xsecurelock
       - wmctrl
       - arandr
+      - autorandr
     state: present
   become: true
   tags:
     - xorg
     - apt
-
 
 - name: Symlink config
   ansible.builtin.file:
@@ -22,7 +22,6 @@
     state: link
   tags:
     - xorg
-
 
 - name: Symlink startx script
   ansible.builtin.file:

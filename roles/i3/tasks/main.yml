@@ -22,6 +22,15 @@
     - i3
     - apt
 
+- name: Install i3ipc
+  ansible.builtin.pip:
+    name:
+      - i3ipc
+    state: latest
+  tags:
+    - i3
+
+
 - name: Symlink config
   ansible.builtin.file:
     src: "{{ item.src }}"
@@ -38,6 +47,7 @@
       }
   tags:
     - i3
+
 
 - name: Reload i3
   ansible.builtin.command: i3-msg reload
