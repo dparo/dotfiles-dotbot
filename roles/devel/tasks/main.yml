@@ -61,23 +61,25 @@
 
 - name: Install JavaScript / TypeScript development packages
   community.general.npm:
-    name:
-      - typescript
-      - "@types/node"
-      - ts-node
-      - eslint
-      - prettier
+    name: '{{ item }}'
     global: true
     state: latest
+  loop:
+    - typescript
+    - "@types/node"
+    - ts-node
+    - eslint
+    - prettier
   tags: devel
 
 - name: Install additional NPM tools
   community.general.npm:
-    name:
-      - gramma # Command line grammar checker: Checks markdown files against the `https://languagetool.org/` api, or by hosting languagetool locally
-      - "@marp-team/marp-cli" # Presentation mode for markdown files. Support conversions to HTML interactive presentations (through electron) or native static PDF presentations.
+    name: '{{ item }}'
     global: true
     state: latest
+    loop:
+      - gramma # Command line grammar checker: Checks markdown files against the `https://languagetool.org/` api, or by hosting languagetool locally
+      - "@marp-team/marp-cli" # Presentation mode for markdown files. Support conversions to HTML interactive presentations (through electron) or native static PDF presentations.
   tags: devel
 
 - name: Install additional GO tools
