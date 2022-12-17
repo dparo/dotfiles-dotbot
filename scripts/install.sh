@@ -26,7 +26,7 @@ git_exclude
 
 set +x
 
-if ! "$RUNNING_INSIDE_DOCKER" -ne 1; then
+if ! "${RUNNING_INSIDE_DOCKER:-0}" -ne 1; then
     ask_vault_pass
 fi
 
