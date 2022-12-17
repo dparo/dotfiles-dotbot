@@ -2,6 +2,7 @@
 - name: Install
   ansible.builtin.apt:
     name:
+      - nano
       - git
       - gnupg2
       - ca-certificates
