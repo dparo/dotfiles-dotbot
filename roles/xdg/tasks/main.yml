@@ -27,6 +27,7 @@
     - "{{ ansible_user_dir }}/.local/share/bin"
     - "{{ ansible_user_dir }}/.local/share/fonts"
     - "{{ ansible_user_dir }}/.local/share/sounds"
+    - "{{ ansible_user_dir }}/.local/share/backgrounds"
     - "{{ ansible_user_dir }}/.local/share/applications"
     - "{{ ansible_user_dir }}/.local/share/keyrings"
     - "{{ ansible_user_dir }}/.local/share/pki"
