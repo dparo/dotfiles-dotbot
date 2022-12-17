@@ -6,6 +6,7 @@
       - gnupg2
       - ca-certificates
       - openssh-client
+      - polkitd
       - sqlite
       - wget
       - curl
