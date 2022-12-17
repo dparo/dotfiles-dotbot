@@ -100,7 +100,7 @@ local generic = {
     { "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } },
 
     -- Automatically detect shiftwidth and tabstop heuristically from file
-    { "tpope/vim-sleuth " },
+    { "tpope/vim-sleuth" },
     { "nvim-lua/plenary.nvim" },
     {
         "rcarriga/nvim-notify",
