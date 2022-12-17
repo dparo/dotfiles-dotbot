@@ -40,6 +40,7 @@ vim.o.smarttab = true
 vim.o.smartindent = true
 vim.o.smartcase = true
 vim.o.cindent = true
+vim.o.breakindent = true
 -- Show live results of search and replace.
 vim.o.inccommand = "nosplit"
 
@@ -100,7 +101,7 @@ vim.o.ttimeout = true
 vim.o.ttimeoutlen = 20
 
 -- Number of milliseconds before triggering a cursorhold autocommand
-vim.o.updatetime = 1000
+vim.o.updatetime = 250
 
 -- Winbar support nvim version 0.8 and above
 if vim.fn.has "nvim-0.8" == 1 then
