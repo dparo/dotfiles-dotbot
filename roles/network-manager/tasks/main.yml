@@ -16,6 +16,15 @@
     - network-manager
     - vpn
 
+- name: Enable service
+  ansible.builtin.systemd:
+    name: NetworkManager
+    enabled: false
+  become: true
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
+  tags:
+    - network-manager
+
 - name: Ensure NetworkManager config dirs exists
   ansible.builtin.file:
     path: "{{ item }}"
