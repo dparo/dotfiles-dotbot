@@ -30,6 +30,8 @@ require("mason-lspconfig").setup {
     automatic_installation = true,
 }
 
+require("fidget").setup {}
+
 local lspconfig = require "lspconfig"
 
 for _, server in ipairs(require("user.plugins.configs.lsp.servers").list) do
