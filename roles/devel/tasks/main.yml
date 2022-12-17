@@ -67,6 +67,7 @@
       - ts-node
       - eslint
       - prettier
+    global: true
     state: latest
   tags: devel
 
@@ -75,6 +76,7 @@
     name:
       - gramma # Command line grammar checker: Checks markdown files against the `https://languagetool.org/` api, or by hosting languagetool locally
       - "@marp-team/marp-cli" # Presentation mode for markdown files. Support conversions to HTML interactive presentations (through electron) or native static PDF presentations.
+    global: true
     state: latest
   tags: devel
 
