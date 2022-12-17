@@ -55,6 +55,7 @@
         gsettings set org.gnome.desktop.default-applications.terminal exec-arg '--'
         gsettings set org.cinnamon.desktop.default-applications.terminal exec kitty
         gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg '--'
+        true
   ignore_errors: true
   tags:
     - kitty
