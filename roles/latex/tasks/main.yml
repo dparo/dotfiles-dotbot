@@ -12,6 +12,7 @@
       - lmodern
       - biber
       - latexmk
+      - chktex         # latex semantic linter: https://www.nongnu.org/chktex/
       - ghostscript
     state: present
     install_recommends: false

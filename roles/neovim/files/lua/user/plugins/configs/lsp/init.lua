@@ -80,6 +80,7 @@ null_ls.setup {
     on_attach = require("user.plugins.configs.lsp.events").on_attach,
     sources = {
         null_ls.builtins.diagnostics.codespell,
+        null_ls.builtins.diagnostics.misspell,
         null_ls.builtins.diagnostics.gitlint,
         null_ls.builtins.diagnostics.write_good,
         null_ls.builtins.diagnostics.proselint,
@@ -137,6 +138,7 @@ null_ls.setup {
         null_ls.builtins.formatting.stylua,
 
         null_ls.builtins.diagnostics.hadolint,
+        null_ls.builtins.diagnostics.chktex,
 
         null_ls.builtins.formatting.cmake_format,
         null_ls.builtins.diagnostics.cppcheck,

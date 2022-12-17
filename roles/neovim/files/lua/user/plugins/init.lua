@@ -550,6 +550,7 @@ local generic = {
                 MasonInstall write-good
                 MasonInstall proselint
                 MasonInstall codespell
+                MasonInstall misspell
                 MasonInstall ltex-ls
                 MasonInstall ansible-language-server
                 MasonInstall sqlfluff

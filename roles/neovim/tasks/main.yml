@@ -195,6 +195,7 @@
 #     - write-good
 #     - proselint
 #     - codespell
+#     - misspell
 #     - ltex-ls
 #     - ansible-language-server
 #     - sqlfluff
