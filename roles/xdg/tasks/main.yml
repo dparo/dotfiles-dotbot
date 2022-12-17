@@ -19,7 +19,6 @@
     - "{{ ansible_user_dir }}/.local/share/applications"
     - "{{ ansible_user_dir }}/.local/share/keyrings"
     - "{{ ansible_user_dir }}/.local/share/pki"
-    - "{{ ansible_user_dir }}/.local/share/vscode"
     - "{{ ansible_user_dir }}/.cache"
     - "{{ ansible_user_dir }}/.cache/bash"
     - "{{ ansible_user_dir }}/.cache/zsh"
@@ -57,10 +56,6 @@
     - {
         src: "{{ ansible_user_dir }}/.local/share/pki",
         dest: "{{ ansible_user_dir }}/.pki",
-      }
-    - {
-        src: "{{ ansible_user_dir }}/.local/share/vscode",
-        dest: "{{ ansible_user_dir }}/.vscode",
       }
   tags:
     - xdg
