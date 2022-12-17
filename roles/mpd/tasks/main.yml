@@ -21,6 +21,8 @@
     - mpd
     - spotdl
 
+# TODO: https://github.com/eworm-de/mpd-notification
+
 - name: Create items
   ansible.builtin.file:
     path: "{{ item }}"
