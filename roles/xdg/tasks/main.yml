@@ -1,3 +1,15 @@
+---
+- name: Install
+  ansible.builtin.apt:
+    name:
+      - xdg-desktop-portal
+    state: present
+  become: true
+  tags:
+    - apt
+    - xdg
+
+
 - name: Create items
   ansible.builtin.file:
     path: "{{ item }}"

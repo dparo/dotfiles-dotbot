@@ -31,7 +31,7 @@
 
 - name: Unlock keyring on login
   ansible.builtin.lineinfile:
-    path: /etc/pam.d/common-unlock-gnome-keyring
+    path: /etc/pam.d/login
     line: "{{ item.line }}"
     regexp: "{{ item.regexp }}"
     create: false
