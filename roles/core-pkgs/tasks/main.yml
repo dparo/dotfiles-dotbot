@@ -5,6 +5,7 @@
       - nano
       - git
       - gnupg2
+      - direnv
       - ca-certificates
       - openssh-client
       - polkitd
