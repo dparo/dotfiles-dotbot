@@ -13,6 +13,7 @@ text/x-markdown=nvim.desktop;
 text/markdown=nvim.desktop;
 audio/aac=mpv.desktop;
 text/x-bibtex=nvim.desktop;
+x-scheme-handler/terminal=kitty.desktop
 
 [Default Applications]
 application/ppdf=zathura.desktop
@@ -45,3 +46,4 @@ x-scheme-handler/https=firefox.desktop
 image/bmp=nomacs.desktop;feh.desktop;
 application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
 text/x-bibtex=nvim.desktop
+x-scheme-handler/terminal=kitty.desktop
