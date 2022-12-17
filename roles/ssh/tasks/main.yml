@@ -1,4 +1,14 @@
 ---
+- name: Create items
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0700"
+  loop:
+    - "{{ ansible_user_dir }}/.ssh"
+  tags:
+    - ssh
+
 - name: Copy SSH keys
   copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"

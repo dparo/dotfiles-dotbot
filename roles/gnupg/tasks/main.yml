@@ -1,4 +1,15 @@
 ---
+
+- name: Create items
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0700"
+  loop:
+    - "{{ ansible_user_dir }}/.gnupg"
+  tags:
+    - gnupg
+
 - name: Symlink gpg-agent config
   ansible.builtin.file:
     src: "{{ role_path }}/files/gpg-agent.conf"
