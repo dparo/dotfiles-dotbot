@@ -37,17 +37,6 @@
   tags:
     - network-manager
 
-- name: Setup GOOGLE dns servers
-  ansible.builtin.copy:
-    dest: /etc/NetworkManager/conf.d/dns-servers.conf
-    content: |
-      [global-dns-domain-*]
-      servers=8.8.8.8,8.8.4.4,2001:4860:4860::8888,2001:4860:4860::8844
-  become: true
-  tags:
-    - network-manager
-
-
 - name: Setup mutually exclusive wifi / ethernet script dns servers
   ansible.builtin.copy:
     dest: /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
