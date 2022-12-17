@@ -27,7 +27,7 @@ require("mason").setup {
 -- Plugin to automatically install language servers registered to nvim-lspconfig
 require("mason-lspconfig").setup {
     ensure_installed = { "sumneko_lua", "rust_analyzer" },
-    automatic_installation = false,
+    automatic_installation = true,
 }
 
 local lspconfig = require "lspconfig"
