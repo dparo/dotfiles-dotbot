@@ -4,6 +4,7 @@
     name:
       - git
       - gnupg2
+      - ca-certificates
       - wget
       - curl
       - jq

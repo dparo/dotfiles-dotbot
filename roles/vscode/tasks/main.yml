@@ -1,0 +1,7 @@
+---
+- name: Install latest vscode
+  ansible.builtin.apt:
+    deb: "https://go.microsoft.com/fwlink/?LinkID=760868"
+  become: true
+  tags:
+    - vscode
