@@ -86,7 +86,6 @@
   tags:
     - xdg
 
-
 - name: Symlink desktop applications
   ansible.builtin.file:
     src: "{{ item }}"
@@ -94,6 +93,13 @@
     state: link
   with_fileglob: "{{ role_path }}/files/applications/*"
   tags:
-    - mpv
-    - yt-dlp
-    - streamlink
+    - xdg
+
+- name: Symlink scripts
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/share/bin/{{ item | basename }}"
+    state: link
+  with_fileglob: "{{ role_path }}/files/bin/*"
+  tags:
+    - xdg
