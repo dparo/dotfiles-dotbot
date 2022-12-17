@@ -27,13 +27,15 @@
     - qemu
     - virt-manager
 
-
-- name: Enable virtd service
-  ansible.builtin.systemd:
-    name: libvirt.service
-    enabled: true
-  become: true
-  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
-  tags:
-    - qemu
-    - virt-manager
+####
+#### Required only for ARCH linux
+####
+# - name: Enable virtd service
+#   ansible.builtin.systemd:
+#     name: libvirt.service
+#     enabled: true
+#   become: true
+#   when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
+#   tags:
+#     - qemu
+#     - virt-manager
