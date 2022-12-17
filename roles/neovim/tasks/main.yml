@@ -83,6 +83,8 @@
       - silversearcher-ag
       - editorconfig
       - jq
+      - highlight
+      - python3-pygments
     state: present
   become: true
   tags:
@@ -95,6 +97,16 @@
     name:
       - tokei
       - tree-sitter-cli
+    state: latest
+  tags:
+    - neovim
+    - neovim-runtime
+
+
+- name: Install runtime deps (PIP)
+  ansible.builtin.pip:
+    name:
+      - httpie
     state: latest
   tags:
     - neovim

@@ -1,7 +1,9 @@
 ---
 - name: Install git
   ansible.builtin.apt:
-    name: git
+    name:
+      - git
+      - git-crypt
     state: present
   become: true
   tags:

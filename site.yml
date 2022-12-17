@@ -40,11 +40,18 @@
     - fzf
     - neovim
     - lazygit
+    - ranger
     - dunst
     - wm-basics
     - i3
+    - picom
     - gtk
     - xsettingsd
+    - mpd
+    - mpv
+    - rofi
+    - zathura
+    - picom
     - misc
     - fonts
     - docker

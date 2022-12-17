@@ -5,12 +5,14 @@
       - git
       - gnupg2
       - ca-certificates
+      - sqlite
       - wget
       - curl
       - jq
       - rsync
       - p7zip-full
       - unrar
+      - atool # atool is a script for managing file archives of various types (tar,tar+gzip, zip etc)
       - build-essential
       - python3-pip
       - bat
@@ -18,8 +20,10 @@
       - tree
       - fd-find
       - htop
+      - btop
       - net-tools
       - lm-sensors
+      - ffmpeg
     state: present
   become: true
   tags:

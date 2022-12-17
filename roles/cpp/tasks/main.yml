@@ -1,4 +1,12 @@
 ---
+# List of additional commands that didn't make it:
+# - coz-profiler: https://github.com/plasma-umass/coz
+# - valgrind + kcachegrind
+# - gperf
+# - doxygen
+# - flamegraph (cargo)   profiling tool
+# - hyperfine (cargo)    benchmarking tool
+
 - name: Install
   ansible.builtin.apt:
     name:
