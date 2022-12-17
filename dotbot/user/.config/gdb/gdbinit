@@ -40,9 +40,6 @@ set backtrace limit 64
 set filename-display relative
 
 
-
-
-
 # Disable leak sanitizer when running inside the debugger
 set environment ASAN_OPTIONS=detect_leaks=0:abort_on_error=1
 
@@ -56,9 +53,3 @@ break __assert_fail
 break UnityFail
 break __asan_on_error@plt
 break __asan_report_error
-
-
-
-
-############################################################
-echo GDBinit sourced sucessfully!!!\n
