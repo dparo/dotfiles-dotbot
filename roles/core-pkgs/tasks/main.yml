@@ -5,6 +5,7 @@
       - git
       - gnupg2
       - ca-certificates
+      - openssh-client
       - sqlite
       - wget
       - curl
@@ -12,6 +13,7 @@
       - rsync
       - p7zip-full
       - unrar
+      - unzip
       - atool # atool is a script for managing file archives of various types (tar,tar+gzip, zip etc)
       - build-essential
       - python3-pip
