@@ -17,17 +17,8 @@
 
 - name: Symlink config
   ansible.builtin.file:
-    src: "{{ role_path }}/files/config"
-    dest: "{{ ansible_user_dir }}/.config/x11"
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_user_dir }}/.config/xorg"
     state: link
-  tags:
-    - xorg
-
-- name: Symlink scripts
-  ansible.builtin.file:
-    src: "{{ item }}"
-    dest: "{{ ansible_user_dir }}/.local/share/bin/{{ item | basename }}"
-    state: link
-  with_fileglob: "{{ role_path }}/files/scripts/*"
   tags:
     - xorg
