@@ -180,7 +180,7 @@ function update_themes {
 	ICON_THEME="${ICON_THEME:-Adwaita}"
 
 	local xsettingsd_config="${XDG_CONFIG_HOME:-$HOME/.config}/xsettingsd/xsettingsd.conf"
-	local xresources_config="${XDG_CONFIG_HOME:-$HOME/.config}/X11/.Xresources"
+	local xresources_config="${XDG_CONFIG_HOME:-$HOME/.config}/xorg/.Xresources"
 	local gtk4_config="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-4.0/settings.ini"
 	local gtk3_config="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"
 	local gtk2_config="${GTK2_RC_FILES:-$HOME/.gtkrc-2.0}"

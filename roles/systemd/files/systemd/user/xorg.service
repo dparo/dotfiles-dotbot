@@ -1,5 +1,5 @@
 [Unit]
-Description=X11 session
+Description=Xorg session
 ; PartOf=graphical-session.target
 ; After=graphical.target systemd-user-sessions.service
 
@@ -15,6 +15,6 @@ Environment=XDG_SESSION_TYPE=x11
 ; UtmpMode=user
 
 
-ExecStart=/usr/bin/startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- -verbose 3 -logfile /dev/null
+ExecStart=/usr/bin/startx "${XDG_CONFIG_HOME:-$HOME/.config}/xorg/xinitrc" -- -verbose 3 -logfile /dev/null
 Restart=on-failure
 RestartSec=3

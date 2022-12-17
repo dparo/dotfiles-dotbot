@@ -37,12 +37,12 @@ if [ "$HOST" = "dparo-pc" ]; then
 fi
 
 [[ -f "/etc/X11/xinit/.Xresources" ]] && xrdb -merge "/etc/X11/xinit/.Xresources"
-[[ -f "$XDG_CONFIG_HOME/X11/.Xresources" ]] && xrdb -merge "$XDG_CONFIG_HOME/X11/.Xresources"
+[[ -f "$XDG_CONFIG_HOME/xorg/.Xresources" ]] && xrdb -merge "$XDG_CONFIG_HOME/xorg/.Xresources"
 [[ -f "/etc/X11/xinit/.Xmodmap" ]] && xmodmap "/etc/X11/xinit/.Xmodmap"
-[[ -f "$XDG_CONFIG_HOME/X11/.Xmodmap" ]] && xmodmap "$XDG_CONFIG_HOME/X11/.Xmodmap"
+[[ -f "$XDG_CONFIG_HOME/xorg/.Xmodmap" ]] && xmodmap "$XDG_CONFIG_HOME/xorg/.Xmodmap"
 
 
-"${XDG_CONFIG_HOME:-$HOME/.config}/X11/refresh-devices-settings.sh"
+"${XDG_CONFIG_HOME:-$HOME/.config}/xorg/refresh-devices-settings.sh"
 
 xset s off # Disables screen saver
 xset -dpms # Disables DPMS (Display Power Management Signaling)

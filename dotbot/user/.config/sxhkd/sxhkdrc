@@ -32,7 +32,7 @@ super + alt + q
 # Reload bspwm and configs
 super + shift + r
     systemctl --user reload sxhkd.service; \
-    "${XDG_CONFIG_HOME:-$HOME/.config}/X11/refresh-devices-settings.sh" ;\
+    "${XDG_CONFIG_HOME:-$HOME/.config}/xorg/refresh-devices-settings.sh" ;\
     bspwm wm -r
 
 # close and kill window

@@ -4,4 +4,4 @@ PartOf=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=%h/.config/X11/setup_background.sh
+ExecStart=%h/.config/xorg/setup_background.sh

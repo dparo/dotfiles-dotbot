@@ -34,10 +34,10 @@ export LC_CTYPE="en_US.UTF-8"
 
 
 # NOTE(d.paro): Are these environment variables necessary??
-export USERXSESSION="$XDG_CACHE_HOME/X11/xsession"
-export USERXSESSIONRC="$XDG_CACHE_HOME/X11/xsessionrc"
-export ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
-export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
+export USERXSESSION="$XDG_CACHE_HOME/xorg/xsession"
+export USERXSESSIONRC="$XDG_CACHE_HOME/xorg/xsessionrc"
+export ALTUSERXSESSION="$XDG_CACHE_HOME/xorg/Xsession"
+export ERRFILE="$XDG_CACHE_HOME/xorg/xsession-errors"
 
 export ANSIBLE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/ansible"
 export ANSIBLE_GALAXY_CACHE_DIR="${ANSIBLE_HOME}/galaxy_cache"
@@ -45,8 +45,8 @@ export ANSIBLE_LOCAL_TEMP="$ANSIBLE_HOME/tmp"
 
 
 # Setup programs default config location to avoid cluttering the HOME directory
-export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
-export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
+export XINITRC="$XDG_CONFIG_HOME/xorg/xinitrc"
+export XSERVERRC="$XDG_CONFIG_HOME/xorg/xserverrc"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"

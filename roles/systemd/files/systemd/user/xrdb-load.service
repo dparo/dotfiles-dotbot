@@ -4,4 +4,4 @@ PartOf=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=xrdb -load "$XDG_CONFIG_HOME/X11/.Xresources"
+ExecStart=xrdb -load "$XDG_CONFIG_HOME/xorg/.Xresources"

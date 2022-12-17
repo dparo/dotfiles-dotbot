@@ -33,7 +33,7 @@
     - alsa
     - pulseaudio
     - pipewire
-    - x11
+    - xorg
     - kitty
     - starship
     - tmux

@@ -34,7 +34,7 @@ if ! timeout 1s xset q 1> /dev/null 2> /dev/null; then
     #           Xsecurity(7) manual pages.`
 
     # See manpages for command line: Xorg(1), Xserver(1)
-    exec /usr/bin/startx "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc" -- \
+    exec /usr/bin/startx "${XDG_CONFIG_HOME:-$HOME/.config}/xorg/xinitrc" -- \
         /usr/bin/Xorg "$DISPLAY" vt"$XDG_VTNR" -keeptty -nolisten tcp \
         -ardelay 300 -arinterval 33.333
 else
