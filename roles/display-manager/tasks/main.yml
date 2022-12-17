@@ -35,3 +35,19 @@
   become: true
   tags:
     - display-manager
+
+
+- name: Create desktop entry to allow display managers to execute the user's XINITRC
+  ansible.builtin.copy:
+    dest: /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
+    content: |
+      [Desktop Entry]
+      Name=xinitrc
+      Comment=Executes the .xinitrc script in your home directory
+      Exec=xinitrcsession-run
+      TryExec=xinitrcsession-run
+      Type=Application
+    mode: "0664"
+  become: true
+  tags:
+    - display-manager
