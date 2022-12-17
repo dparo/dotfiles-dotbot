@@ -149,8 +149,8 @@ fi
 
 # FZF Auto-completion and keybinds
 # ---------------
-[[ $- == *i* ]] && source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/completion.zsh" 2> /dev/null  # Ebabke cinoketuib ibky uf shell is interactive
-source "$USER_DOTFILES_LOCATION/core/vendor/fzf/shell/key-bindings.zsh"
+[[ $- == *i* ]] && source "$HOME/opt/fzf/shell/completion.zsh" 2> /dev/null  # Ebabke cinoketuib ibky uf shell is interactive
+source "$HOME/opt/fzf/shell/key-bindings.zsh"
 
 
 source "/etc/zsh_command_not_found" 1> /dev/null 2> /dev/null || source "$XDG_CONFIG_HOME/zsh/command-not-found.zsh"
