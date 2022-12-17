@@ -9,3 +9,11 @@
   tags:
     - apt
     - python
+
+- name: Clean PIP cache
+  ansible.builtin.shell: |
+    pip3 cache purge 2> /dev/null || true
+  ignore_errors: true
+  tags:
+    - python
+    - pip

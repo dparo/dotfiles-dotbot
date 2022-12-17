@@ -46,6 +46,7 @@
     - i3
     - picom
     - gtk
+    - gnome
     - xsettingsd
     - mpd
     - mpv
