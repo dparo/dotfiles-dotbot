@@ -201,6 +201,7 @@
 #     - jdtls
 #     - java-test
 #     - java-debug-adapter
+#     - hadolint
 #   tags:
 #     - neovim
 #     - lsp

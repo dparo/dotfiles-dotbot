@@ -136,6 +136,8 @@ null_ls.setup {
 
         null_ls.builtins.formatting.stylua,
 
+        null_ls.builtins.diagnostics.hadolint,
+
         null_ls.builtins.formatting.cmake_format,
         null_ls.builtins.diagnostics.cppcheck,
         null_ls.builtins.formatting.zigfmt,

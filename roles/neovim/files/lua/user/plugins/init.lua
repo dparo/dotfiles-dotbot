@@ -556,6 +556,7 @@ local generic = {
                 MasonInstall jdtls
                 MasonInstall java-test
                 MasonInstall java-debug-adapter
+                MasonInstall hadolint
             ]]
         end,
     },
