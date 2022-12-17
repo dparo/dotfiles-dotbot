@@ -85,3 +85,15 @@
   ignore_errors: true
   tags:
     - xdg
+
+
+- name: Symlink desktop applications
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/share/applications/{{ item | basename }}"
+    state: link
+  with_fileglob: "{{ role_path }}/files/applications/*"
+  tags:
+    - mpv
+    - yt-dlp
+    - streamlink
