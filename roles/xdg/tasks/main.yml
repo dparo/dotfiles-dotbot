@@ -103,3 +103,22 @@
   with_fileglob: "{{ role_path }}/files/bin/*"
   tags:
     - xdg
+
+- name: Symlink backgrounds
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/share/backgrounds/{{ item | basename }}"
+    state: link
+  with_fileglob: "{{ role_path }}/files/backgrounds/*"
+  tags:
+    - xdg
+
+
+- name: Symlink sounds
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/share/sounds/{{ item | basename }}"
+    state: link
+  with_fileglob: "{{ role_path }}/files/sounds/*"
+  tags:
+    - xdg
