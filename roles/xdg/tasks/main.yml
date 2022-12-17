@@ -34,7 +34,6 @@
     - "{{ ansible_user_dir }}/.cache"
     - "{{ ansible_user_dir }}/.cache/bash"
     - "{{ ansible_user_dir }}/.cache/zsh"
-    - "{{ ansible_user_dir }}/.cache/mpd"
     - "{{ ansible_user_dir }}/.config"
     - "{{ ansible_user_dir }}/.ssh"
     - "{{ ansible_user_dir }}/.gnupg"
@@ -78,6 +77,7 @@
     - "{{ ansible_user_dir }}"
     - "{{ ansible_user_dir }}/.config"
     - "{{ ansible_user_dir }}/.local/bin"
+    - "{{ ansible_user_dir }}/.local/share/bin"
     - "{{ ansible_user_dir }}/.local/share/applications"
   tags:
     - xdg
