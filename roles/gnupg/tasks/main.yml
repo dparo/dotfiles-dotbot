@@ -1,5 +1,15 @@
 ---
 
+- name: Install
+  ansible.builtin.apt:
+    name:
+      - gpg-agent
+    state: present
+  become: true
+  tags:
+    - apt
+    - gnupg
+
 - name: Create items
   ansible.builtin.file:
     path: "{{ item }}"
