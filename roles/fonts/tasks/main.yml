@@ -7,8 +7,8 @@
   loop:
     - "{{ role_path }}/files/fontconfig"
   tags:
-    - node
-    - npm
+    - fonts
+    - fontconfig
 
 - name: Create target dirs for installation
   ansible.builtin.file:

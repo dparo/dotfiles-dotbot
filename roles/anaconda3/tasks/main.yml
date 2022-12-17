@@ -15,3 +15,11 @@
   with_fileglob: "{{ role_path }}/files/activate.d/*"
   tags:
     - anaconda3
+
+- name: Symlink config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ ansible_user_dir }}/.config/conda"
+    state: link
+  tags:
+    - anaconda3
