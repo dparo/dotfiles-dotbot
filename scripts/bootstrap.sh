@@ -18,13 +18,19 @@ if ! test -x "$(command -v ansible)"; then
     esac
 fi
 
-DOTFILES_LOCATION="${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles"
-if ! test -d "$DOTFILES_LOCATION"; then
-    mkdir -p "$DOTFILES_LOCATION"
-    git clone --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
-fi
 
 main() {
+    if test -n "$1"; then
+        DOTFILES_LOCATION="$1"
+    else
+        DOTFILES_LOCATION="${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles"
+    fi
+
+    if ! test -d "$DOTFILES_LOCATION"; then
+        mkdir -p "$DOTFILES_LOCATION"
+        git clone --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
+    fi
+
     source "$PWD/scripts/lib.sh"
 
     set +x
@@ -33,7 +39,7 @@ main() {
 
     git_exclude
 
-    ./ansible/scripts/install.sh "$@"
+    ./scripts/install.sh "$@"
     if test "$?" -eq 0; then
         while true; do
             echo ""
