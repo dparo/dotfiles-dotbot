@@ -19,7 +19,7 @@
 - name: Enable service
   ansible.builtin.systemd:
     name: NetworkManager
-    enabled: false
+    enabled: true
   become: true
   when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
   tags:
