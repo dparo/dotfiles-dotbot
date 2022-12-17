@@ -12,12 +12,15 @@
     name: docker
     enabled: false
   become: true
+  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
   tags:
     - docker
-  when: ansible_env.RUNNING_INSIDE_DOCKER is undefined
 
 - name: "Add the user {{ ansible_env.USER }} to the docker group"
   ansible.builtin.user:
     name: "{{ ansible_env.USER }}"
     group: docker
+    append: true
   become: true
+  tags:
+    - docker
