@@ -103,7 +103,7 @@ return packer.startup(function(use)
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
-    if packer_bootstrap or vim.fn.empty(vim.fn.glob(packer_compiled_path)) then
+    if packer_bootstrap or vim.fn.empty(vim.fn.glob(packer_compiled_path)) > 0 then
         require("packer").sync()
     end
 end)
