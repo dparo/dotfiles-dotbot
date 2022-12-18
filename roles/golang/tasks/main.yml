@@ -29,3 +29,11 @@
   become: true
   tags:
     - golang
+
+- name: Symlink config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ ansible_user_dir }}/.config/go"
+    state: link
+  tags:
+    - golang
