@@ -1,15 +1,11 @@
 local running_headless = next(vim.api.nvim_list_uis()) == nil -- If dictionaries of UIs is empty => headless mode
 
-if running_headless then
-    return false
-end
-
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 local packer_compiled_path = vim.fn.stdpath "config" .. "/plugin/packer_compiled.lua"
 
 local packer_was_bootstrapped = false
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+if not running_headless and vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e222a" })
     print "Cloning packer .."
 
@@ -99,7 +95,7 @@ packer.init {
 }
 
 local packer_is_compiled = vim.fn.empty(vim.fn.glob(packer_compiled_path)) > 0
-local packer_should_sync = packer_was_bootstrapped or not packer_is_compiled
+local packer_should_sync = not running_headless and (packer_was_bootstrapped or not packer_is_compiled)
 
 packer.startup(function(use)
     -- Packer can manage itself
@@ -117,4 +113,4 @@ packer.startup(function(use)
     end
 end)
 
-return not packer_should_sync
+return not running_headless and not packer_should_sync

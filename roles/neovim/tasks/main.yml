@@ -159,14 +159,14 @@
   tags:
     - neovim
     - neovim-plugins
-#
-# - name: Update remote plugins
-#   ansible.builtin.shell: |
-#     nvim --headless -c 'UpdateRemotePlugins' -c qall
-#   tags:
-#     - neovim
-#     - neovim-plugins
-#
+
+- name: Update remote plugins
+  ansible.builtin.shell: |
+    nvim --headless -c 'UpdateRemotePlugins' -c qall
+  tags:
+    - neovim
+    - neovim-plugins
+
 - name: Install lsp-servers, formatters, diagnostics tools
   ansible.builtin.shell: |
     nvim --headless -c "MasonInstall {{ item }}" -c "qall"
