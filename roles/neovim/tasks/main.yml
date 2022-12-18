@@ -85,6 +85,7 @@
       - jq
       - highlight
       - python3-pygments
+      - python3-venv
     state: present
   become: true
   tags:
