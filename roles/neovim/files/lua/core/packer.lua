@@ -93,6 +93,7 @@ packer.init {
 }
 
 local packer_is_bootstrapped = not (packer_bootstrap or vim.fn.empty(vim.fn.glob(packer_compiled_path)) > 0)
+local running_headless = next(vim.api.nvim_list_uis()) == nil -- If dictionaries of UIs is empty => headless mode
 
 packer.startup(function(use)
     -- Packer can manage itself
@@ -105,9 +106,9 @@ packer.startup(function(use)
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
-    if packer_is_bootstrapped then
+    if not packer_is_bootstrapped and not running_headless then
         require("packer").sync()
     end
 end)
 
-return packer_is_bootstrapped
+return packer_is_bootstrapped and not running_headless
