@@ -132,3 +132,18 @@
   with_fileglob: "{{ role_path }}/files/config/*"
   tags:
     - xdg
+
+- name: Clone xdg-ninja
+  ansible.builtin.git:
+    clone: yes
+    depth: 1
+    dest: "{{ ansible_user_dir }}/opt/github.com/xdg-ninja"
+    force: yes
+    repo: https://github.com/b3nj5m1n/xdg-ninja
+    single_branch: yes
+    update: yes
+    version: main
+  register: clone
+  tags:
+    - xdg
+    - xdg-ninja
