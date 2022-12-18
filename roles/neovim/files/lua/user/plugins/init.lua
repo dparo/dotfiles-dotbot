@@ -472,6 +472,13 @@ local generic = {
         end,
     },
 
+    {
+        "m-demare/hlargs.nvim",
+        requires = { "nvim-treesitter/nvim-treesitter" },
+        config = function()
+            require("hlargs").setup()
+        end,
+    },
     -- Install LuaSnip and load friendly-snippets (a set of already pre-packaged set of snippets)
     {
         "L3MON4D3/LuaSnip",
