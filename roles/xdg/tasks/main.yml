@@ -128,6 +128,7 @@
     src: "{{ item }}"
     dest: "{{ ansible_user_dir }}/.config/{{ item | basename }}"
     state: link
+    force: true
   with_fileglob: "{{ role_path }}/files/config/*"
   tags:
     - xdg
