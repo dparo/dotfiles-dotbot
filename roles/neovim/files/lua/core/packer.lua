@@ -7,6 +7,8 @@ end
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 local packer_compiled_path = vim.fn.stdpath "config" .. "/plugin/packer_compiled.lua"
 
+local packer_was_bootstrapped = false
+
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e222a" })
     print "Cloning packer .."
@@ -27,6 +29,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     }
 
     vim.cmd [[packadd packer.nvim]]
+    packer_was_bootstrapped = true
 end
 
 -- Use a protected call so we don't error out on first use of this plugin (if it is not yet installed)
@@ -96,6 +99,7 @@ packer.init {
 }
 
 local packer_is_compiled = vim.fn.empty(vim.fn.glob(packer_compiled_path)) > 0
+local packer_should_sync = packer_was_bootstrapped or not packer_is_compiled
 
 packer.startup(function(use)
     -- Packer can manage itself
@@ -108,9 +112,9 @@ packer.startup(function(use)
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
-    if not packer_is_compiled and not running_headless then
+    if packer_should_sync then
         require("packer").sync()
     end
 end)
 
-return not packer_is_compiled and not running_headless
+return not packer_should_sync
