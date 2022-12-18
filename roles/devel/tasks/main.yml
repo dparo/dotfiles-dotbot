@@ -61,7 +61,7 @@
 
 - name: Install JavaScript / TypeScript development packages
   community.general.npm:
-    name: '{{ item }}'
+    name: "{{ item }}"
     global: true
     state: latest
   loop:
@@ -74,7 +74,7 @@
 
 - name: Install additional NPM tools
   community.general.npm:
-    name: '{{ item }}'
+    name: "{{ item }}"
     global: true
     state: latest
   loop:
@@ -97,3 +97,13 @@
     # Slides presentation in the terminal from Markdown
     go install github.com/maaslalani/slides@latest
   tags: devel
+
+- name: Symlink additional config files
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.config/{{ item | basename }}"
+    state: link
+    force: true
+  with_fileglob: "{{ role_path }}/files/config/*"
+  tags:
+    - devel
