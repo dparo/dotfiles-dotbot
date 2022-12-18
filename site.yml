@@ -11,7 +11,9 @@
     - core-pkgs
     - filesystem
     - snap
+    - locale
     - xdg
+    - bash
     - zsh
     - user
     - keyring
