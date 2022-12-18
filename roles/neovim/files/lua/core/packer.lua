@@ -1,7 +1,12 @@
+local running_headless = next(vim.api.nvim_list_uis()) == nil -- If dictionaries of UIs is empty => headless mode
+
+if running_headless then
+    return false
+end
+
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 local packer_compiled_path = vim.fn.stdpath "config" .. "/plugin/packer_compiled.lua"
-
-local packer_bootstrap = nil
+local packer_bootstrap = false
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e222a" })
@@ -93,7 +98,6 @@ packer.init {
 }
 
 local packer_is_bootstrapped = not (packer_bootstrap or vim.fn.empty(vim.fn.glob(packer_compiled_path)) > 0)
-local running_headless = next(vim.api.nvim_list_uis()) == nil -- If dictionaries of UIs is empty => headless mode
 
 packer.startup(function(use)
     -- Packer can manage itself
