@@ -3,6 +3,6 @@ vim.defer_fn(function()
     pcall(require, "impatient")
 end, 0)
 
-if require "core".init() == true then
+if require("core").init() == true then
     require "user"
 end
