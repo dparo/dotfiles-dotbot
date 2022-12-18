@@ -94,7 +94,7 @@ packer.init {
     },
 }
 
-local packer_is_compiled = vim.fn.empty(vim.fn.glob(packer_compiled_path)) > 0
+local packer_is_compiled = vim.fn.empty(vim.fn.glob(packer_compiled_path)) == 0
 local packer_should_sync = not running_headless and (packer_was_bootstrapped or not packer_is_compiled)
 
 packer.startup(function(use)
