@@ -92,8 +92,7 @@ packer.init {
     },
 }
 
-
-local packer_is_bootstrapped = not (packer_bootstrap or vim.fn.empty(vim.fn.glob(packer_compiled_path)) > 0);
+local packer_is_bootstrapped = not (packer_bootstrap or vim.fn.empty(vim.fn.glob(packer_compiled_path)) > 0)
 
 packer.startup(function(use)
     -- Packer can manage itself
@@ -106,10 +105,9 @@ packer.startup(function(use)
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
-    if run_packer_sync then
+    if packer_is_bootstrapped then
         require("packer").sync()
     end
 end)
-
 
 return packer_is_bootstrapped
