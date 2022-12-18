@@ -46,6 +46,8 @@
     - ranger
     - dunst
     - wm-basics
+    - feh
+    - redshift
     - i3
     - picom
     - gtk
