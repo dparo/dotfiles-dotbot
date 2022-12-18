@@ -102,7 +102,6 @@
     - neovim
     - neovim-runtime
 
-
 - name: Install runtime deps (PIP)
   ansible.builtin.pip:
     name:
@@ -153,13 +152,13 @@
     update: yes
   tags:
     - neovim
-#
-# - name: packer.nvim install plugins
-#   ansible.builtin.shell: |
-#     nvim --headless -c 'autocmd User PackerComplete quitall!' -c 'PackerSync'
-#   tags:
-#     - neovim
-#     - neovim-plugins
+
+- name: packer.nvim install plugins
+  ansible.builtin.shell: |
+    nvim --headless -c 'autocmd User PackerComplete quitall!' -c 'PackerSync'
+  tags:
+    - neovim
+    - neovim-plugins
 #
 # - name: Update remote plugins
 #   ansible.builtin.shell: |
@@ -168,41 +167,41 @@
 #     - neovim
 #     - neovim-plugins
 #
-# - name: Install lsp-servers, formatters, diagnostics tools
-#   ansible.builtin.shell: |
-#     nvim --headless -c "MasonInstall {{ item }}" -c "qall"
-#   loop:
-#     - vim-language-server
-#     - stylua
-#     - lua-language-server
-#     - bash-language-server
-#     - pyright
-#     - clangd
-#     - clang-format
-#     - cmakelang
-#     - cmake-language-server
-#     - rust-analyzer
-#     - shellcheck
-#     - shellharden
-#     - shfmt
-#     - typescript-language-server
-#     - eslint-lsp
-#     - prettier
-#     - json-lsp
-#     - yamllint
-#     - yaml-language-server
-#     - texlab
-#     - write-good
-#     - proselint
-#     - codespell
-#     - misspell
-#     - ltex-ls
-#     - ansible-language-server
-#     - sqlfluff
-#     - jdtls
-#     - java-test
-#     - java-debug-adapter
-#     - hadolint
-#   tags:
-#     - neovim
-#     - lsp
+- name: Install lsp-servers, formatters, diagnostics tools
+  ansible.builtin.shell: |
+    nvim --headless -c "MasonInstall {{ item }}" -c "qall"
+  loop:
+    - vim-language-server
+    - stylua
+    - lua-language-server
+    - bash-language-server
+    - pyright
+    - clangd
+    - clang-format
+    - cmakelang
+    - cmake-language-server
+    - rust-analyzer
+    - shellcheck
+    - shellharden
+    - shfmt
+    - typescript-language-server
+    - eslint-lsp
+    - prettier
+    - json-lsp
+    - yamllint
+    - yaml-language-server
+    - texlab
+    - write-good
+    - proselint
+    - codespell
+    - misspell
+    - ltex-ls
+    - ansible-language-server
+    - sqlfluff
+    - jdtls
+    - java-test
+    - java-debug-adapter
+    - hadolint
+  tags:
+    - neovim
+    - neovim-lsp

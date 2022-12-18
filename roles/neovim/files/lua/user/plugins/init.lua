@@ -525,41 +525,6 @@ local generic = {
         config = function()
             require "user.plugins.configs.lsp"
         end,
-        run = function()
-            vim.cmd [[
-                MasonInstall vim-language-server
-                MasonInstall stylua
-                MasonInstall lua-language-server
-                MasonInstall bash-language-server
-                MasonInstall pyright
-                MasonInstall clangd
-                MasonInstall clang-format
-                MasonInstall cmakelang
-                MasonInstall cmake-language-server
-                MasonInstall rust-analyzer
-                MasonInstall shellcheck
-                MasonInstall shellharden
-                MasonInstall shfmt
-                MasonInstall typescript-language-server
-                MasonInstall eslint-lsp
-                MasonInstall prettier
-                MasonInstall json-lsp
-                MasonInstall yamllint
-                MasonInstall yaml-language-server
-                MasonInstall texlab
-                MasonInstall write-good
-                MasonInstall proselint
-                MasonInstall codespell
-                MasonInstall misspell
-                MasonInstall ltex-ls
-                MasonInstall ansible-language-server
-                MasonInstall sqlfluff
-                MasonInstall jdtls
-                MasonInstall java-test
-                MasonInstall java-debug-adapter
-                MasonInstall hadolint
-            ]]
-        end,
     },
 
     {
