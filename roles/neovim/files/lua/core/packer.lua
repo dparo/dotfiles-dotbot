@@ -113,4 +113,4 @@ packer.startup(function(use)
     end
 end)
 
-return packer_is_compiled and not running_headless
+return not packer_is_compiled and not running_headless

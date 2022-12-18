@@ -384,7 +384,6 @@ local generic = {
         run = function()
             vim.cmd [[:TSUpdateSync all]]
         end,
-        after = { "p00f/nvim-ts-rainbow" },
         requires = { "nvim-treesitter/playground", "p00f/nvim-ts-rainbow", "nvim-treesitter/nvim-treesitter-context" },
         config = function()
             require("nvim-treesitter.configs").setup {
