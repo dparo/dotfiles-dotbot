@@ -18,20 +18,8 @@ if ! test -x "$(command -v ansible)"; then
     esac
 fi
 
-
-main() {
-    if test -n "$1"; then
-        DOTFILES_LOCATION="$1"
-    else
-        DOTFILES_LOCATION="${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles"
-    fi
-
-    if ! test -d "$DOTFILES_LOCATION"; then
-        mkdir -p "$DOTFILES_LOCATION"
-        git clone --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
-    fi
-
-    source "$PWD/scripts/lib.sh"
+install() {
+    source "$PWD/scripts/lib.sh" || exit 1
 
     set +x
     ask_vault_pass
@@ -40,7 +28,31 @@ main() {
     git_exclude
 
     ./scripts/install.sh "$@"
-    if test "$?" -eq 0; then
+}
+
+main() {
+    if test -n "$1"; then
+        DOTFILES_LOCATION="$1"
+        shift 1
+    else
+        DOTFILES_LOCATION="${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles"
+    fi
+
+    local cloned=0
+    if ! test -d "$DOTFILES_LOCATION"; then
+        mkdir -p "$DOTFILES_LOCATION"
+        git clone --recursive "https://github.com/dparo/dotfiles" "$DOTFILES_LOCATION"
+        cloned=1
+    fi
+
+
+    pushd "$DOTFILES_LOCATION" || exit 1
+    install "$@"
+    local rc=$?
+    popd || exit 1
+
+
+    if test "$rc" -eq 0 && test "$cloned" -eq 1; then
         while true; do
             echo ""
             echo ""
@@ -56,5 +68,4 @@ main() {
     fi
 }
 
-pushd "$DOTFILES_LOCATION" || exit 1
 main "$@"
